@@ -35,6 +35,7 @@ public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
     private final ServletsFactory servletsFactory;
     private final ContainerConfigFactory<C> containerConfigFactory;
     private final RunListenerFactory runListenerFactory;
+    private final PortSetter portSetter;
 
     public ServletJUnitRunner(
             Container<C> container,
@@ -42,7 +43,8 @@ public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
             ServletsFactory servletsFactory,
             ContainerConfigFactory<C> containerConfigFactory,
             RunListenerFactory runListenerFactory,
-            Class test
+            Class test,
+            PortSetter portSetter
     ) throws InitializationError {
         super(test);
         this.container = container;
@@ -50,6 +52,7 @@ public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
         this.servletsFactory = servletsFactory;
         this.containerConfigFactory = containerConfigFactory;
         this.runListenerFactory = runListenerFactory;
+        this.portSetter = portSetter;
     }
 
     @Override
@@ -65,6 +68,8 @@ public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
         container.config(containerConfig);
         container.load(servlets);
         container.start();
+
+        portSetter.set(target);
 
         return super.rules(target);
     }

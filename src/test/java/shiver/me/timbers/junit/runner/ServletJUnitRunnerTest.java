@@ -41,6 +41,8 @@ public class ServletJUnitRunnerTest {
         final RunListenerFactory runListenerFactory = mock(RunListenerFactory.class);
         when(runListenerFactory.create(container)).thenReturn(runListener);
 
+        final PortSetter portSetter = mock(PortSetter.class);
+
         // When
         new ServletJUnitRunner<>(
                 container,
@@ -48,7 +50,8 @@ public class ServletJUnitRunnerTest {
                 servletsFactory,
                 containerConfigFactory,
                 runListenerFactory,
-                test
+                test,
+                portSetter
         ).run(notifier);
 
         // Then
@@ -56,6 +59,7 @@ public class ServletJUnitRunnerTest {
         verify(container).config(containerConfig);
         verify(container).load(servlets);
         verify(container).start();
+        verify(portSetter).set(any(TestClass.class));
         verify(runListenerFactory).create(container);
         verify(notifier).addListener(runListener);
     }
