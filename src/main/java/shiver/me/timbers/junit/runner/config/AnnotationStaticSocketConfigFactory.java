@@ -15,9 +15,9 @@ public class AnnotationStaticSocketConfigFactory implements StaticSocketConfigFa
     @Override
     public SocketConfig create(Object target) {
 
-        final Class type = target.getClass();
+        final Class<?> type = target.getClass();
 
-        final Port port = (Port) type.getAnnotation(Port.class);
+        final Port port = type.getAnnotation(Port.class);
 
         if (null == port) {
             return NULL_PORT_CONFIG;
