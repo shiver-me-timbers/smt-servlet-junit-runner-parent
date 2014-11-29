@@ -1,5 +1,6 @@
 package shiver.me.timbers.junit.runner.config;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -9,42 +10,51 @@ import static shiver.me.timbers.junit.runner.config.NullContainerConfig.NULL_CON
 
 public class AggregatedContainerConfigFactoryTest {
 
+    private static final Object TEST = new Object();
+
+    private ContainerConfigFactory nullConfig;
+
+    @Before
+    public void setUp() {
+        nullConfig = mock(ContainerConfigFactory.class);
+        when(nullConfig.create(TEST)).thenReturn(NULL_CONTAINER_CONFIG);
+    }
+
     @Test
     public void A_null_container_config_is_returned_if_no_container_config_factories_supplied() {
 
-        final ContainerConfig<Object> actual = new AggregatedContainerConfigFactory<>().create(new Object());
+        // When
+        final ContainerConfig<Object> actual = new AggregatedContainerConfigFactory<>().create(TEST);
 
+        // Then
         assertEquals(NULL_CONTAINER_CONFIG, actual);
     }
 
     @Test
     public void A_null_container_config_is_returned_if_the_supplied_container_config_factories() {
 
-        final ContainerConfig<Object> actual = new AggregatedContainerConfigFactory<Object>(
-                mock(ContainerConfigFactory.class),
-                mock(ContainerConfigFactory.class),
-                mock(ContainerConfigFactory.class)
-        ).create(new Object());
+        // When
+        final ContainerConfig<Object> actual = new AggregatedContainerConfigFactory<Object>(nullConfig, nullConfig,
+                nullConfig).create(TEST);
 
+        // Then
         assertEquals(NULL_CONTAINER_CONFIG, actual);
     }
 
     @Test
     public void A_container_config_is_returned_if_a_supplied_container_config_factory_returns_one() {
 
-        final Object test = new Object();
-
+        // Given
         final ContainerConfig expected = mock(ContainerConfig.class);
 
         final ContainerConfigFactory configFactory = mock(ContainerConfigFactory.class);
-        when(configFactory.create(test)).thenReturn(expected);
+        when(configFactory.create(TEST)).thenReturn(expected);
 
-        final ContainerConfig<Object> actual = new AggregatedContainerConfigFactory<Object>(
-                mock(ContainerConfigFactory.class),
-                configFactory,
-                mock(ContainerConfigFactory.class)
-        ).create(test);
+        // When
+        final ContainerConfig<Object> actual = new AggregatedContainerConfigFactory<Object>(nullConfig, configFactory,
+                nullConfig).create(TEST);
 
+        // Then
         assertEquals(expected, actual);
     }
 }

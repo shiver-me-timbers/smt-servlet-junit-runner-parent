@@ -21,7 +21,7 @@ public class AggregatedContainerConfigFactory<C> implements ContainerConfigFacto
         for (ContainerConfigFactory<C> containerConfigFactory : containerConfigFactories) {
             final ContainerConfig<C> config = containerConfigFactory.create(target);
 
-            if (null != config) {
+            if (!NULL_CONTAINER_CONFIG.equals(config)) {
                 return config;
             }
         }
