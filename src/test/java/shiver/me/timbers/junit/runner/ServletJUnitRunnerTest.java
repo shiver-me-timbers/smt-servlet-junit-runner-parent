@@ -1,51 +1,69 @@
 package shiver.me.timbers.junit.runner;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.Description;
-import org.junit.runner.Runner;
 import org.junit.runner.notification.RunListener;
 import org.junit.runner.notification.RunNotifier;
+import org.junit.runners.model.InitializationError;
 
-import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 public class ServletJUnitRunnerTest {
 
-    private Runner runner;
-
-    @Before
-    public void setUp() {
-        runner = mock(Runner.class);
-    }
-
     @Test
-    public void The_runner_can_be_run() {
+    public void The_runner_can_be_run() throws InitializationError {
 
+        // Given
         final RunNotifier notifier = mock(RunNotifier.class);
-        final Class<Class> test = Class.class;
+
+        @SuppressWarnings("unchecked")
+        final Container<Object> container = mock(Container.class);
+
+        final Class<TestClass> test = TestClass.class;
+
+        final PortConfig portConfig = mock(PortConfig.class);
+        final PortFactory portFactory = mock(PortFactory.class);
+        when(portFactory.create(any(TestClass.class))).thenReturn(portConfig);
+
+        final Servlets servlets = mock(Servlets.class);
+        final ServletsFactory servletsFactory = mock(ServletsFactory.class);
+        when(servletsFactory.create(any(TestClass.class))).thenReturn(servlets);
+
+        @SuppressWarnings("unchecked")
+        final ContainerConfig<Object> containerConfig = mock(ContainerConfig.class);
+        @SuppressWarnings("unchecked")
+        final ContainerConfigFactory<Object> containerConfigFactory = mock(ContainerConfigFactory.class);
+        when(containerConfigFactory.create(any(TestClass.class))).thenReturn(containerConfig);
+
         final RunListener runListener = mock(RunListener.class);
         final RunListenerFactory runListenerFactory = mock(RunListenerFactory.class);
-        when(runListenerFactory.create(test)).thenReturn(runListener);
+        when(runListenerFactory.create(container)).thenReturn(runListener);
 
-        new ServletJUnitRunner(runner, runListenerFactory, test).run(notifier);
+        // When
+        new ServletJUnitRunner<>(
+                container,
+                portFactory,
+                servletsFactory,
+                containerConfigFactory,
+                runListenerFactory,
+                test
+        ).run(notifier);
 
+        // Then
+        verify(container).config(portConfig);
+        verify(container).config(containerConfig);
+        verify(container).load(servlets);
+        verify(container).start();
+        verify(runListenerFactory).create(container);
         verify(notifier).addListener(runListener);
-        verify(runner).run(notifier);
-        verifyNoMoreInteractions(runner);
     }
 
-    @Test
-    public void The_description_can_be_accessed() {
+    public static class TestClass {
 
-        final Description expected = mock(Description.class);
-        when(runner.getDescription()).thenReturn(expected);
-
-        final Description actual = new ServletJUnitRunner(runner, null, null).getDescription();
-
-        assertEquals(expected, actual);
+        @Test
+        public void a_test_test() {
+        }
     }
 }

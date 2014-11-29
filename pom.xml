@@ -18,7 +18,8 @@
 
     <name>${project.artifactId}</name>
 
-    <description>A JUnit runner that can be used to start up different JEE servlet containers before a test run.</description>
+    <description>A JUnit runner that can be used to start up different JEE servlet containers before a test run.
+    </description>
 
     <url>http://shiver-me-timbers.github.io/${project.artifactId}/</url>
 
@@ -56,10 +57,18 @@
     </build>
 
     <dependencies>
+        <!-- The test runners are built with the JUnit API. -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>compile</scope>
+        </dependency>
+        <!-- Some annotations are reused from the JEE servlet API. -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>

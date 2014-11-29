@@ -1,8 +1,11 @@
 package shiver.me.timbers.junit.runner;
 
-import org.junit.runner.Description;
-import org.junit.runner.Runner;
+import org.junit.rules.MethodRule;
 import org.junit.runner.notification.RunNotifier;
+import org.junit.runners.BlockJUnit4ClassRunner;
+import org.junit.runners.model.InitializationError;
+
+import java.util.List;
 
 /**
  * Adding this runner to you JUnit class will cause a servlet server to start up before the test.
@@ -16,36 +19,61 @@ import org.junit.runner.notification.RunNotifier;
  *
  * Alternatively the {@link Servlets} annotation can be used to restrict which servlet classes are loaded.
  *
- * The server can be configured for an individual test class by annotating a method that has a single argument of
- * {@link Container} with {@link Config}. This will cause a new server instance to start up for that specific test
+ * The server can be configured for an individual test class with a method that returns a {@link ContainerConfig} that
+ * has been annotated with {@link Config}. This will cause a new server instance to start up for that specific test
  * class.
  *
  * If the same configuration can be used across multiple test classes then the classes can be annotated with
- * {@code Config} with it's value set to the class of the same implementation of the {@link ServerConfig} interface.
+ * {@code Config} that has it's value set to an implementation of {@link ContainerConfig}.
  *
  * @author Karl Bennett
  */
-public class ServletJUnitRunner extends Runner {
+public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
 
-    private final Runner runner;
+    private final Container<C> container;
+    private final PortFactory portFactory;
+    private final ServletsFactory servletsFactory;
+    private final ContainerConfigFactory<C> containerConfigFactory;
     private final RunListenerFactory runListenerFactory;
-    private final Class<Class> test;
 
-    public ServletJUnitRunner(Runner runner, RunListenerFactory runListenerFactory, Class<Class> test) {
-        this.runner = runner;
+    public ServletJUnitRunner(
+            Container<C> container,
+            PortFactory portFactory,
+            ServletsFactory servletsFactory,
+            ContainerConfigFactory<C> containerConfigFactory,
+            RunListenerFactory runListenerFactory,
+            Class test
+    ) throws InitializationError {
+        super(test);
+        this.container = container;
+        this.portFactory = portFactory;
+        this.servletsFactory = servletsFactory;
+        this.containerConfigFactory = containerConfigFactory;
         this.runListenerFactory = runListenerFactory;
-        this.test = test;
     }
 
     @Override
-    public Description getDescription() {
-        return runner.getDescription();
+    protected List<MethodRule> rules(Object target) {
+
+        final PortConfig portConfig = portFactory.create(target);
+
+        final ContainerConfig<C> containerConfig = containerConfigFactory.create(target);
+
+        final Servlets servlets = servletsFactory.create(target);
+
+        container.config(portConfig);
+        container.config(containerConfig);
+        container.load(servlets);
+        container.start();
+
+        return super.rules(target);
     }
 
     @Override
     public void run(RunNotifier notifier) {
-        notifier.addListener(runListenerFactory.create(test));
 
-        runner.run(notifier);
+        notifier.addListener(runListenerFactory.create(container));
+
+        super.run(notifier);
     }
 }
