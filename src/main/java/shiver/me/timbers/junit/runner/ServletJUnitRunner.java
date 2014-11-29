@@ -24,9 +24,9 @@ import java.util.List;
  *
  * Alternatively the {@link Servlets} annotation can be used to restrict which servlet classes are loaded.
  *
- * The server can be configured for an individual test class with a method that returns a {@link shiver.me.timbers.junit.runner.config.ContainerConfig} that
- * has been annotated with {@code Config}. This will cause a new server instance to start up for that specific test
- * class.
+ * The server can be configured for an individual test class with a method that has the servlet containers configuration
+ * object as it's first argument and has been annotated with {@code Config}. This will cause a new server instance to
+ * start up for that specific test class.
  *
  * If the same configuration can be used across multiple test classes then the classes can be annotated with
  * {@code Config} that has it's value set to an implementation of {@link shiver.me.timbers.junit.runner.config.ContainerConfig}.
