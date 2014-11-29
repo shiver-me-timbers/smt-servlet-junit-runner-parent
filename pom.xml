@@ -18,7 +18,8 @@
 
     <name>${project.artifactId}</name>
 
-    <description>A JUnit runner that can be used to start up different JEE servlet containers before a test run.
+    <description>
+        A JUnit runner that can be used to start up different JEE servlet containers before a test run.
     </description>
 
     <url>http://shiver-me-timbers.github.io/${project.artifactId}/</url>
