@@ -23,9 +23,9 @@ public class ServletJUnitRunnerTest {
 
         final Class<TestClass> test = TestClass.class;
 
-        final PortConfig portConfig = mock(PortConfig.class);
-        final PortFactory portFactory = mock(PortFactory.class);
-        when(portFactory.create(any(TestClass.class))).thenReturn(portConfig);
+        final SocketConfig socketConfig = mock(SocketConfig.class);
+        final SocketConfigFactory socketConfigFactory = mock(SocketConfigFactory.class);
+        when(socketConfigFactory.create(any(TestClass.class))).thenReturn(socketConfig);
 
         final Servlets servlets = mock(Servlets.class);
         final ServletsFactory servletsFactory = mock(ServletsFactory.class);
@@ -46,7 +46,7 @@ public class ServletJUnitRunnerTest {
         // When
         new ServletJUnitRunner<>(
                 container,
-                portFactory,
+                socketConfigFactory,
                 servletsFactory,
                 containerConfigFactory,
                 runListenerFactory,
@@ -55,7 +55,7 @@ public class ServletJUnitRunnerTest {
         ).run(notifier);
 
         // Then
-        verify(container).config(portConfig);
+        verify(container).config(socketConfig);
         verify(container).config(containerConfig);
         verify(container).load(servlets);
         verify(container).start();

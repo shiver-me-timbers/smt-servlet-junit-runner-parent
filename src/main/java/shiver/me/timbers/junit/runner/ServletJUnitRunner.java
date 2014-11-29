@@ -31,7 +31,7 @@ import java.util.List;
 public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
 
     private final Container<C> container;
-    private final PortFactory portFactory;
+    private final SocketConfigFactory socketConfigFactory;
     private final ServletsFactory servletsFactory;
     private final ContainerConfigFactory<C> containerConfigFactory;
     private final RunListenerFactory runListenerFactory;
@@ -39,7 +39,7 @@ public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
 
     public ServletJUnitRunner(
             Container<C> container,
-            PortFactory portFactory,
+            SocketConfigFactory socketConfigFactory,
             ServletsFactory servletsFactory,
             ContainerConfigFactory<C> containerConfigFactory,
             RunListenerFactory runListenerFactory,
@@ -48,7 +48,7 @@ public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
     ) throws InitializationError {
         super(test);
         this.container = container;
-        this.portFactory = portFactory;
+        this.socketConfigFactory = socketConfigFactory;
         this.servletsFactory = servletsFactory;
         this.containerConfigFactory = containerConfigFactory;
         this.runListenerFactory = runListenerFactory;
@@ -58,13 +58,13 @@ public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
     @Override
     protected List<MethodRule> rules(Object target) {
 
-        final PortConfig portConfig = portFactory.create(target);
+        final SocketConfig socketConfig = socketConfigFactory.create(target);
 
         final ContainerConfig<C> containerConfig = containerConfigFactory.create(target);
 
         final Servlets servlets = servletsFactory.create(target);
 
-        container.config(portConfig);
+        container.config(socketConfig);
         container.config(containerConfig);
         container.load(servlets);
         container.start();

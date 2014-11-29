@@ -7,7 +7,7 @@ package shiver.me.timbers.junit.runner;
  */
 public interface Container<C> {
 
-    void config(PortConfig portConfig);
+    void config(SocketConfig socketConfig);
 
     void config(ContainerConfig<C> containerConfig);
 
