@@ -1,4 +1,4 @@
-package shiver.me.timbers.junit.runner;
+package shiver.me.timbers.junit.runner.annotation;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;

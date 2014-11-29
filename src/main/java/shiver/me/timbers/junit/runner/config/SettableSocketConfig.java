@@ -1,4 +1,4 @@
-package shiver.me.timbers.junit.runner;
+package shiver.me.timbers.junit.runner.config;
 
 import java.io.IOException;
 import java.net.ServerSocket;

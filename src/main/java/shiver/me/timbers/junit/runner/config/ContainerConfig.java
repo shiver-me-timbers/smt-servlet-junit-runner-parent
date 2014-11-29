@@ -1,4 +1,4 @@
-package shiver.me.timbers.junit.runner;
+package shiver.me.timbers.junit.runner.config;
 
 /**
  * This interface should be implemented to configure the servlet server before it is started.

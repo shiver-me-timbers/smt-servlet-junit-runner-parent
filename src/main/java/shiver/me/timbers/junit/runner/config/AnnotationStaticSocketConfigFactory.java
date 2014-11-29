@@ -1,10 +1,12 @@
-package shiver.me.timbers.junit.runner;
+package shiver.me.timbers.junit.runner.config;
 
-import static shiver.me.timbers.junit.runner.NullSocketConfig.NULL_PORT_CONFIG;
+import shiver.me.timbers.junit.runner.annotation.Port;
+
+import static shiver.me.timbers.junit.runner.config.NullSocketConfig.NULL_PORT_CONFIG;
 
 /**
  * This factory will return a port config that sets the port according to the value in the test classes
- * {@link Port} annotation.
+ * {@link shiver.me.timbers.junit.runner.annotation.Port} annotation.
  *
  * @author Karl Bennett
  */

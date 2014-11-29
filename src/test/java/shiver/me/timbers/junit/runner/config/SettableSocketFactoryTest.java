@@ -1,11 +1,11 @@
-package shiver.me.timbers.junit.runner;
+package shiver.me.timbers.junit.runner.config;
 
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static shiver.me.timbers.junit.runner.NullSocketConfig.NULL_PORT_CONFIG;
+import static shiver.me.timbers.junit.runner.config.NullSocketConfig.NULL_PORT_CONFIG;
 
 public class SettableSocketFactoryTest {
 

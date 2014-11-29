@@ -1,4 +1,4 @@
-package shiver.me.timbers.junit.runner;
+package shiver.me.timbers.junit.runner.config;
 
 /**
  * Returns a {@link SocketConfig} that will set a random free port.

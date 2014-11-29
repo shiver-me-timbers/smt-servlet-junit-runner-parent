@@ -4,6 +4,11 @@ import org.junit.Test;
 import org.junit.runner.notification.RunListener;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.model.InitializationError;
+import shiver.me.timbers.junit.runner.config.ContainerConfig;
+import shiver.me.timbers.junit.runner.config.ContainerConfigFactory;
+import shiver.me.timbers.junit.runner.config.PortSetter;
+import shiver.me.timbers.junit.runner.config.SocketConfig;
+import shiver.me.timbers.junit.runner.config.SocketConfigFactory;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;

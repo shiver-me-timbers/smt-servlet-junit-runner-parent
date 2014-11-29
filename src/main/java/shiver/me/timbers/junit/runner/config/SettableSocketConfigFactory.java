@@ -1,6 +1,6 @@
-package shiver.me.timbers.junit.runner;
+package shiver.me.timbers.junit.runner.config;
 
-import static shiver.me.timbers.junit.runner.NullSocketConfig.NULL_PORT_CONFIG;
+import static shiver.me.timbers.junit.runner.config.NullSocketConfig.NULL_PORT_CONFIG;
 
 /**
  * @author Karl Bennett
