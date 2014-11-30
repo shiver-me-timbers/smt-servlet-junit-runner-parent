@@ -34,29 +34,29 @@ import java.util.List;
  */
 public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
 
-    private final Container<C> container;
     private final PortConfigFactory portConfigFactory;
-    private final ServletsFactory servletsFactory;
     private final ContainerConfigFactory<C> containerConfigFactory;
-    private final RunListenerFactory runListenerFactory;
+    private final ServletsFactory servletsFactory;
     private final PortSetter portSetter;
+    private final RunListenerFactory runListenerFactory;
+    private final Container<C> container;
 
     public ServletJUnitRunner(
-            Container<C> container,
             PortConfigFactory portConfigFactory,
             ServletsFactory servletsFactory,
             ContainerConfigFactory<C> containerConfigFactory,
+            PortSetter portSetter,
             RunListenerFactory runListenerFactory,
-            Class test,
-            PortSetter portSetter
+            Container<C> container,
+            Class test
     ) throws InitializationError {
         super(test);
-        this.container = container;
         this.portConfigFactory = portConfigFactory;
-        this.servletsFactory = servletsFactory;
         this.containerConfigFactory = containerConfigFactory;
-        this.runListenerFactory = runListenerFactory;
+        this.servletsFactory = servletsFactory;
         this.portSetter = portSetter;
+        this.runListenerFactory = runListenerFactory;
+        this.container = container;
     }
 
     @Override

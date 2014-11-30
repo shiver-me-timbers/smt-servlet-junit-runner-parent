@@ -50,13 +50,13 @@ public class ServletJUnitRunnerTest {
 
         // When
         new ServletJUnitRunner<>(
-                container,
                 portConfigFactory,
                 servletsFactory,
                 containerConfigFactory,
+                portSetter,
                 runListenerFactory,
-                test,
-                portSetter
+                container,
+                test
         ).run(notifier);
 
         // Then
