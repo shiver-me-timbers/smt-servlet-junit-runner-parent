@@ -1,4 +1,4 @@
-package shiver.me.timbers.junit.runner.config;
+package shiver.me.timbers.junit.runner;
 
 /**
  * This interface should be implemented to expose the port to the test instance.
