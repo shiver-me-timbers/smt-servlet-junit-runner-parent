@@ -17,4 +17,6 @@ public interface Container<C> {
     void start();
 
     void load(Servlets servlets);
+
+    void shutdown();
 }
