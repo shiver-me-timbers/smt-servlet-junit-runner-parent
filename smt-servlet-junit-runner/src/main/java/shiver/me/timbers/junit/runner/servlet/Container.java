@@ -1,0 +1,22 @@
+package shiver.me.timbers.junit.runner.servlet;
+
+import shiver.me.timbers.junit.runner.servlet.config.ContainerConfig;
+import shiver.me.timbers.junit.runner.servlet.config.PortConfig;
+
+/**
+ * This interface provides a generic interface for starting, stopping, and configuring specific containers.
+ *
+ * @author Karl Bennett
+ */
+public interface Container<C> {
+
+    void config(PortConfig portConfig);
+
+    void config(ContainerConfig<C> containerConfig);
+
+    void load(Servlets servlets);
+
+    void start();
+
+    void shutdown();
+}
