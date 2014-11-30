@@ -6,7 +6,7 @@ package shiver.me.timbers.junit.runner.config;
 public class FreeRandomPortConfigFactory implements RandomPortConfigFactory {
 
     @Override
-    public SocketConfig create() {
-        return new SettableSocketConfig();
+    public PortConfig create() {
+        return new SocketPortConfig();
     }
 }

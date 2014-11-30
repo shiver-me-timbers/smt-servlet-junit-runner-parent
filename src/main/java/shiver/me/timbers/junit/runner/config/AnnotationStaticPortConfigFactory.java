@@ -2,7 +2,7 @@ package shiver.me.timbers.junit.runner.config;
 
 import shiver.me.timbers.junit.runner.annotation.Port;
 
-import static shiver.me.timbers.junit.runner.config.NullSocketConfig.NULL_PORT_CONFIG;
+import static shiver.me.timbers.junit.runner.config.NullPortConfig.NULL_PORT_CONFIG;
 
 /**
  * This factory will return a port config that sets the port according to the value in the test classes
@@ -10,10 +10,10 @@ import static shiver.me.timbers.junit.runner.config.NullSocketConfig.NULL_PORT_C
  *
  * @author Karl Bennett
  */
-public class AnnotationStaticSocketConfigFactory implements StaticSocketConfigFactory {
+public class AnnotationStaticPortConfigFactory implements StaticPortConfigFactory {
 
     @Override
-    public SocketConfig create(Object target) {
+    public PortConfig create(Object target) {
 
         final Class<?> type = target.getClass();
 
@@ -23,6 +23,6 @@ public class AnnotationStaticSocketConfigFactory implements StaticSocketConfigFa
             return NULL_PORT_CONFIG;
         }
 
-        return new SettableSocketConfig(port.value());
+        return new SocketPortConfig(port.value());
     }
 }

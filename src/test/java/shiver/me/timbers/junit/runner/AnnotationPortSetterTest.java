@@ -3,10 +3,9 @@ package shiver.me.timbers.junit.runner;
 import org.junit.Before;
 import org.junit.Test;
 import shiver.me.timbers.junit.runner.annotation.Port;
-import shiver.me.timbers.junit.runner.config.SocketConfig;
+import shiver.me.timbers.junit.runner.config.PortConfig;
 
 import java.lang.reflect.Field;
-import java.net.ServerSocket;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -20,20 +19,15 @@ public class AnnotationPortSetterTest {
 
     private int port;
 
-    private ServerSocket socket;
-
-    private SocketConfig socketConfig;
+    private PortConfig portConfig;
 
     @Before
     public void setUp() {
 
         port = 9999;
 
-        socket = mock(ServerSocket.class);
-        when(socket.getLocalPort()).thenReturn(port);
-
-        socketConfig = mock(SocketConfig.class);
-        when(socketConfig.getSocket()).thenReturn(socket);
+        portConfig = mock(PortConfig.class);
+        when(portConfig.getPort()).thenReturn(port);
     }
 
     @Test
@@ -43,7 +37,7 @@ public class AnnotationPortSetterTest {
         final PortToBeSet test = new PortToBeSet();
 
         // When
-        new AnnotationPortSetter().set(test, socketConfig);
+        new AnnotationPortSetter().set(test, portConfig);
 
         // Then
         assertEquals(port, test.getPort());
@@ -61,7 +55,7 @@ public class AnnotationPortSetterTest {
         final WrongType test = new WrongType();
 
         // When
-        new AnnotationPortSetter().set(test, socketConfig);
+        new AnnotationPortSetter().set(test, portConfig);
     }
 
     @Test
@@ -79,7 +73,7 @@ public class AnnotationPortSetterTest {
         final NotAnnotated test = new NotAnnotated();
 
         // When
-        new AnnotationPortSetter().set(test, socketConfig);
+        new AnnotationPortSetter().set(test, portConfig);
 
         // Then
         assertNull(test.getPort());
@@ -93,7 +87,7 @@ public class AnnotationPortSetterTest {
         final Field field = test.getClass().getDeclaredField("port");
 
         // When
-        AnnotationPortSetter.setPort(test, field, socket);
+        AnnotationPortSetter.setPort(test, field, port);
     }
 
     class PortToBeSet {

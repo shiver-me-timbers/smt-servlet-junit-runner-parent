@@ -6,7 +6,7 @@ import java.net.ServerSocket;
 /**
  * @author Karl Bennett
  */
-public class SettableSocketConfig implements SocketConfig {
+public class SocketPortConfig implements PortConfig {
 
     private static ServerSocket socket(int port) {
         try {
@@ -18,20 +18,20 @@ public class SettableSocketConfig implements SocketConfig {
 
     private final ServerSocket socket;
 
-    public SettableSocketConfig() {
+    public SocketPortConfig() {
         this(0);
     }
 
-    public SettableSocketConfig(int port) {
+    public SocketPortConfig(int port) {
         this(socket(port));
     }
 
-    public SettableSocketConfig(ServerSocket socket) {
+    public SocketPortConfig(ServerSocket socket) {
         this.socket = socket;
     }
 
     @Override
-    public ServerSocket getSocket() {
-        return socket;
+    public int getPort() {
+        return socket.getLocalPort();
     }
 }

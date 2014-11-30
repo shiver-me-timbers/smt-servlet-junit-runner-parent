@@ -6,8 +6,8 @@ import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;
 import shiver.me.timbers.junit.runner.config.ContainerConfig;
 import shiver.me.timbers.junit.runner.config.ContainerConfigFactory;
-import shiver.me.timbers.junit.runner.config.SocketConfig;
-import shiver.me.timbers.junit.runner.config.SocketConfigFactory;
+import shiver.me.timbers.junit.runner.config.PortConfig;
+import shiver.me.timbers.junit.runner.config.PortConfigFactory;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ import java.util.List;
 public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
 
     private final Container<C> container;
-    private final SocketConfigFactory socketConfigFactory;
+    private final PortConfigFactory portConfigFactory;
     private final ServletsFactory servletsFactory;
     private final ContainerConfigFactory<C> containerConfigFactory;
     private final RunListenerFactory runListenerFactory;
@@ -43,7 +43,7 @@ public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
 
     public ServletJUnitRunner(
             Container<C> container,
-            SocketConfigFactory socketConfigFactory,
+            PortConfigFactory portConfigFactory,
             ServletsFactory servletsFactory,
             ContainerConfigFactory<C> containerConfigFactory,
             RunListenerFactory runListenerFactory,
@@ -52,7 +52,7 @@ public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
     ) throws InitializationError {
         super(test);
         this.container = container;
-        this.socketConfigFactory = socketConfigFactory;
+        this.portConfigFactory = portConfigFactory;
         this.servletsFactory = servletsFactory;
         this.containerConfigFactory = containerConfigFactory;
         this.runListenerFactory = runListenerFactory;
@@ -62,18 +62,18 @@ public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
     @Override
     protected List<MethodRule> rules(Object target) {
 
-        final SocketConfig socketConfig = socketConfigFactory.create(target);
+        final PortConfig portConfig = portConfigFactory.create(target);
 
         final ContainerConfig<C> containerConfig = containerConfigFactory.create(target);
 
         final Servlets servlets = servletsFactory.create(target);
 
-        container.config(socketConfig);
+        container.config(portConfig);
         container.config(containerConfig);
         container.load(servlets);
         container.start();
 
-        portSetter.set(target, socketConfig);
+        portSetter.set(target, portConfig);
 
         return super.rules(target);
     }

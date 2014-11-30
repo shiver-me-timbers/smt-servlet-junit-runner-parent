@@ -6,8 +6,8 @@ import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.model.InitializationError;
 import shiver.me.timbers.junit.runner.config.ContainerConfig;
 import shiver.me.timbers.junit.runner.config.ContainerConfigFactory;
-import shiver.me.timbers.junit.runner.config.SocketConfig;
-import shiver.me.timbers.junit.runner.config.SocketConfigFactory;
+import shiver.me.timbers.junit.runner.config.PortConfig;
+import shiver.me.timbers.junit.runner.config.PortConfigFactory;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -28,9 +28,9 @@ public class ServletJUnitRunnerTest {
 
         final Class<TestClass> test = TestClass.class;
 
-        final SocketConfig socketConfig = mock(SocketConfig.class);
-        final SocketConfigFactory socketConfigFactory = mock(SocketConfigFactory.class);
-        when(socketConfigFactory.create(any(TestClass.class))).thenReturn(socketConfig);
+        final PortConfig portConfig = mock(PortConfig.class);
+        final PortConfigFactory portConfigFactory = mock(PortConfigFactory.class);
+        when(portConfigFactory.create(any(TestClass.class))).thenReturn(portConfig);
 
         final Servlets servlets = mock(Servlets.class);
         final ServletsFactory servletsFactory = mock(ServletsFactory.class);
@@ -51,7 +51,7 @@ public class ServletJUnitRunnerTest {
         // When
         new ServletJUnitRunner<>(
                 container,
-                socketConfigFactory,
+                portConfigFactory,
                 servletsFactory,
                 containerConfigFactory,
                 runListenerFactory,
@@ -60,11 +60,11 @@ public class ServletJUnitRunnerTest {
         ).run(notifier);
 
         // Then
-        verify(container).config(socketConfig);
+        verify(container).config(portConfig);
         verify(container).config(containerConfig);
         verify(container).load(servlets);
         verify(container).start();
-        verify(portSetter).set(any(TestClass.class), eq(socketConfig));
+        verify(portSetter).set(any(TestClass.class), eq(portConfig));
         verify(runListenerFactory).create(container);
         verify(notifier).addListener(runListener);
     }

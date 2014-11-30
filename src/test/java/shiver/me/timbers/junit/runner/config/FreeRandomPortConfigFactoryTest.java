@@ -5,13 +5,13 @@ import org.junit.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 
-public class FreeRandomSocketConfigFactoryTest {
+public class FreeRandomPortConfigFactoryTest {
 
     @Test
     public void A_free_port_can_be_found() {
 
-        final SocketConfig socketConfig = new FreeRandomPortConfigFactory().create();
+        final PortConfig portConfig = new FreeRandomPortConfigFactory().create();
 
-        assertThat(socketConfig.getSocket().getLocalPort(), greaterThan(0));
+        assertThat(portConfig.getPort(), greaterThan(0));
     }
 }

@@ -4,9 +4,9 @@ import org.junit.Test;
 import shiver.me.timbers.junit.runner.annotation.Port;
 
 import static org.junit.Assert.assertEquals;
-import static shiver.me.timbers.junit.runner.config.NullSocketConfig.NULL_PORT_CONFIG;
+import static shiver.me.timbers.junit.runner.config.NullPortConfig.NULL_PORT_CONFIG;
 
-public class AnnotationStaticSocketConfigFactoryTest {
+public class AnnotationStaticPortConfigFactoryTest {
 
     private static final int PORT = 9999;
 
@@ -16,7 +16,7 @@ public class AnnotationStaticSocketConfigFactoryTest {
         class TestClass {
         }
 
-        assertEquals(NULL_PORT_CONFIG, new AnnotationStaticSocketConfigFactory().create(new TestClass()));
+        assertEquals(NULL_PORT_CONFIG, new AnnotationStaticPortConfigFactory().create(new TestClass()));
     }
 
     @Test
@@ -26,8 +26,8 @@ public class AnnotationStaticSocketConfigFactoryTest {
         class TestClass {
         }
 
-        final SocketConfig config = new AnnotationStaticSocketConfigFactory().create(new TestClass());
+        final PortConfig config = new AnnotationStaticPortConfigFactory().create(new TestClass());
 
-        assertEquals(PORT, config.getSocket().getLocalPort());
+        assertEquals(PORT, config.getPort());
     }
 }

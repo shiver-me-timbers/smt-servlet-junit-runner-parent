@@ -1,10 +1,9 @@
 package shiver.me.timbers.junit.runner;
 
 import shiver.me.timbers.junit.runner.annotation.Port;
-import shiver.me.timbers.junit.runner.config.SocketConfig;
+import shiver.me.timbers.junit.runner.config.PortConfig;
 
 import java.lang.reflect.Field;
-import java.net.ServerSocket;
 
 import static java.lang.String.format;
 
@@ -14,7 +13,7 @@ import static java.lang.String.format;
 public class AnnotationPortSetter implements PortSetter {
 
     @Override
-    public void set(Object target, SocketConfig socketConfig) {
+    public void set(Object target, PortConfig portConfig) {
 
         final Class<?> type = target.getClass();
 
@@ -28,9 +27,9 @@ public class AnnotationPortSetter implements PortSetter {
 
         field.setAccessible(true);
 
-        final ServerSocket socket = socketConfig.getSocket();
+        final int port = portConfig.getPort();
 
-        setPort(target, field, socket);
+        setPort(target, field, port);
     }
 
     private static Field findPortField(Field[] fields) {
@@ -45,9 +44,9 @@ public class AnnotationPortSetter implements PortSetter {
         return null;
     }
 
-    static void setPort(Object target, Field field, ServerSocket socket) {
+    static void setPort(Object target, Field field, int port) {
         try {
-            field.set(target, socket.getLocalPort());
+            field.set(target, port);
         } catch (IllegalAccessException e) {
             throw new IllegalStateException(e);
         } catch (IllegalArgumentException e) {
