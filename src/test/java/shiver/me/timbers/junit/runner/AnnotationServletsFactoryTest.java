@@ -1,25 +1,16 @@
 package shiver.me.timbers.junit.runner;
 
 import org.junit.Test;
+import shiver.me.timbers.junit.runner.test.ServletOne;
+import shiver.me.timbers.junit.runner.test.ServletThree;
+import shiver.me.timbers.junit.runner.test.ServletTwo;
 
-import javax.servlet.Servlet;
-import java.util.ArrayList;
-import java.util.List;
-
-import static java.util.Collections.unmodifiableList;
 import static org.hamcrest.Matchers.empty;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static shiver.me.timbers.junit.runner.test.Constants.SERVLETS;
 
 public class AnnotationServletsFactoryTest {
-
-    private static final List<Class<? extends Servlet>> SERVLETS = unmodifiableList(
-            new ArrayList<Class<? extends Servlet>>() {{
-                add(ServletOne.class);
-                add(ServletTwo.class);
-                add(ServletThree.class);
-            }}
-    );
 
     @Test
     public void No_servlets_are_returned_if_none_are_configured() {
@@ -44,12 +35,4 @@ public class AnnotationServletsFactoryTest {
         assertEquals(SERVLETS, servlets.getServlets());
     }
 
-    private static abstract class ServletOne implements Servlet {
-    }
-
-    private static abstract class ServletThree implements Servlet {
-    }
-
-    private static abstract class ServletTwo implements Servlet {
-    }
 }
