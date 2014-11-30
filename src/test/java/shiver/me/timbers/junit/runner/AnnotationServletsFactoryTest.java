@@ -24,7 +24,10 @@ public class AnnotationServletsFactoryTest {
     @Test
     public void No_servlets_are_returned_if_none_are_configured() {
 
-        final Servlets servlets = new AnnotationServletsFactory().create(new NoServletsSet());
+        class TestClass {
+        }
+
+        final Servlets servlets = new AnnotationServletsFactory().create(new TestClass());
 
         assertThat(servlets.getServlets(), empty());
     }
@@ -32,16 +35,13 @@ public class AnnotationServletsFactoryTest {
     @Test
     public void Servlets_are_returned_if_some_are_configured() {
 
-        final Servlets servlets = new AnnotationServletsFactory().create(new ServletsSet());
+        @shiver.me.timbers.junit.runner.annotation.Servlets({ServletOne.class, ServletTwo.class, ServletThree.class})
+        class TestClass {
+        }
+
+        final Servlets servlets = new AnnotationServletsFactory().create(new TestClass());
 
         assertEquals(SERVLETS, servlets.getServlets());
-    }
-
-    private static class NoServletsSet {
-    }
-
-    @shiver.me.timbers.junit.runner.annotation.Servlets({ServletOne.class, ServletTwo.class, ServletThree.class})
-    private static class ServletsSet {
     }
 
     private static abstract class ServletOne implements Servlet {

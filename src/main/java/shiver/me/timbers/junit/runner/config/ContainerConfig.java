@@ -6,4 +6,6 @@ package shiver.me.timbers.junit.runner.config;
  * @author Karl Bennett
  */
 public interface ContainerConfig<C> {
+
+    void configure(C container);
 }

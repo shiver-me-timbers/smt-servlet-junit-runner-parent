@@ -9,4 +9,8 @@ public class NullContainerConfig<C> implements ContainerConfig<C> {
 
     private NullContainerConfig() {
     }
+
+    @Override
+    public void configure(C container) {
+    }
 }

@@ -13,21 +13,21 @@ public class AnnotationStaticSocketConfigFactoryTest {
     @Test
     public void A_port_config_is_not_returned_if_no_port_is_set() {
 
-        assertEquals(NULL_PORT_CONFIG, new AnnotationStaticSocketConfigFactory().create(new NoPortSet()));
+        class TestClass {
+        }
+
+        assertEquals(NULL_PORT_CONFIG, new AnnotationStaticSocketConfigFactory().create(new TestClass()));
     }
 
     @Test
     public void A_port_config_is_returned_if_a_port_is_set() {
 
-        final SocketConfig config = new AnnotationStaticSocketConfigFactory().create(new PortSet());
+        @Port(PORT)
+        class TestClass {
+        }
+
+        final SocketConfig config = new AnnotationStaticSocketConfigFactory().create(new TestClass());
 
         assertEquals(PORT, config.getSocket().getLocalPort());
-    }
-
-    private static class NoPortSet {
-    }
-
-    @Port(PORT)
-    private static class PortSet {
     }
 }
