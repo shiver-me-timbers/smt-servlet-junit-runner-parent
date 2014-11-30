@@ -1,5 +1,7 @@
 package shiver.me.timbers.junit.runner;
 
+import shiver.me.timbers.junit.runner.config.SocketConfig;
+
 /**
  * This interface should be implemented to expose the port to the test instance.
  *
@@ -7,5 +9,5 @@ package shiver.me.timbers.junit.runner;
  */
 public interface PortSetter {
 
-    void set(Object target);
+    void set(Object target, SocketConfig socketConfig);
 }

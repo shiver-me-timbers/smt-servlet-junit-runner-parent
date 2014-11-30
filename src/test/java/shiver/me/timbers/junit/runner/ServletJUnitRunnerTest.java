@@ -10,6 +10,7 @@ import shiver.me.timbers.junit.runner.config.SocketConfig;
 import shiver.me.timbers.junit.runner.config.SocketConfigFactory;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -63,7 +64,7 @@ public class ServletJUnitRunnerTest {
         verify(container).config(containerConfig);
         verify(container).load(servlets);
         verify(container).start();
-        verify(portSetter).set(any(TestClass.class));
+        verify(portSetter).set(any(TestClass.class), eq(socketConfig));
         verify(runListenerFactory).create(container);
         verify(notifier).addListener(runListener);
     }

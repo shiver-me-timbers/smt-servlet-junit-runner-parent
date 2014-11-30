@@ -73,7 +73,7 @@ public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
         container.load(servlets);
         container.start();
 
-        portSetter.set(target);
+        portSetter.set(target, socketConfig);
 
         return super.rules(target);
     }
