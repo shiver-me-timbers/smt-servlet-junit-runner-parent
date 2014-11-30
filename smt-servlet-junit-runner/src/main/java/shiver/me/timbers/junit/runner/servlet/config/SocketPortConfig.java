@@ -8,30 +8,32 @@ import java.net.ServerSocket;
  */
 public class SocketPortConfig implements PortConfig {
 
-    private static ServerSocket socket(int port) {
+    static int socketPort(int port) {
         try {
-            return new ServerSocket(port);
+            final ServerSocket socket = new ServerSocket(port);
+
+            final int actualPort = socket.getLocalPort();
+
+            socket.close();
+
+            return actualPort;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private final ServerSocket socket;
+    private final int port;
 
     public SocketPortConfig() {
         this(0);
     }
 
     public SocketPortConfig(int port) {
-        this(socket(port));
-    }
-
-    public SocketPortConfig(ServerSocket socket) {
-        this.socket = socket;
+        this.port = socketPort(port);
     }
 
     @Override
     public int getPort() {
-        return socket.getLocalPort();
+        return port;
     }
 }
