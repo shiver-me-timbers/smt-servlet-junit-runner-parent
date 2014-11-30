@@ -10,16 +10,16 @@
         <relativePath/>
     </parent>
 
-    <artifactId>smt-servlet-junit-runner</artifactId>
+    <artifactId>smt-servlet-junit-runner-parent</artifactId>
 
     <version>1.0-SNAPSHOT</version>
 
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <name>${project.artifactId}</name>
 
     <description>
-        A JUnit runner that can be used to start up different JEE servlet containers before a test run.
+        This is the parent project for all of the different JUnit servlet runners.
     </description>
 
     <url>http://shiver-me-timbers.github.io/${project.artifactId}/</url>
@@ -58,19 +58,6 @@
     </build>
 
     <dependencies>
-        <!-- The test runners are built with the JUnit API. -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>compile</scope>
-        </dependency>
-        <!-- Some annotations are reused from the JEE servlet API. -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-all</artifactId>
@@ -80,6 +67,10 @@
             <artifactId>mockito-all</artifactId>
         </dependency>
     </dependencies>
+
+    <modules>
+        <module>smt-servlet-junit-runner</module>
+    </modules>
 
     <scm>
         <developerConnection>scm:git:git@github.com:shiver-me-timbers/${project.artifactId}.git</developerConnection>
