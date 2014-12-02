@@ -12,12 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 import static javax.ws.rs.core.MediaType.TEXT_PLAIN_TYPE;
 import static javax.ws.rs.core.Response.Status.OK;
-import static org.apache.commons.io.IOUtils.closeQuietly;
-import static org.apache.commons.io.IOUtils.write;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -52,8 +51,10 @@ public class Tomcat7JUnitRunnerTest {
                 throws ServletException, IOException {
             response.setStatus(OK.getStatusCode());
             response.setContentType(TEXT_PLAIN);
-            write(SUCCESS, response.getOutputStream());
-            closeQuietly(response.getOutputStream());
+
+            final PrintWriter writer = response.getWriter();
+            writer.write(SUCCESS);
+            writer.flush();
         }
     }
 }
