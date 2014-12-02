@@ -70,6 +70,7 @@
 
     <modules>
         <module>smt-servlet-junit-runner</module>
+        <module>smt-tomcat7-junit-runner</module>
     </modules>
 
     <scm>
