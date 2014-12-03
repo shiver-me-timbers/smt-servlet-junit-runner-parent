@@ -16,7 +16,8 @@ import static org.hamcrest.Matchers.isA;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.SERVLETS;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockServlets;
+import static shiver.me.timbers.junit.runner.servlet.test.ServletsMatcher.equalTo;
 import static shiver.me.timbers.junit.runner.servlet.test.TestContainerConfig.TEST_SERVLET_CONTAINER_REFERENCE;
 
 @RunWith(TestAnnotationServletJUnitRunner.class)
@@ -35,12 +36,13 @@ public class ClassLevelAnnotationServletJUnitRunnerTest {
 
         // Given
         final TestServletContainer container = TEST_SERVLET_CONTAINER_REFERENCE.get();
+        final shiver.me.timbers.junit.runner.servlet.Servlets servlets = mockServlets();
 
         // Then
         assertEquals(PORT, port);
         assertEquals(PORT, container.getPort());
         assertThat((TestContainerConfig) container.getContainerConfig(), isA(TestContainerConfig.class));
-        assertEquals(SERVLETS, container.getServlets());
+        assertThat(container.getServlets(), equalTo(servlets));
         assertTrue(container.isStarted());
     }
 }

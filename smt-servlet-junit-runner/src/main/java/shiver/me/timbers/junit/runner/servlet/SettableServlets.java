@@ -1,6 +1,7 @@
 package shiver.me.timbers.junit.runner.servlet;
 
 import javax.servlet.Servlet;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,14 +9,31 @@ import java.util.List;
  */
 public class SettableServlets implements Servlets {
 
-    private final List<Class<? extends Servlet>> servlets;
+    @SafeVarargs
+    private static List<ServletDetails> transform(Class<? extends Servlet>... servlets) {
 
-    public SettableServlets(List<Class<? extends Servlet>> servlets) {
+        final List<ServletDetails> details = new ArrayList<>(servlets.length);
+
+        for (Class<? extends Servlet> servlet : servlets) {
+            details.add(new ServletDetails(servlet));
+        }
+
+        return details;
+    }
+
+    private final List<ServletDetails> servlets;
+
+    @SafeVarargs
+    public SettableServlets(Class<? extends Servlet>... servlets) {
+        this(transform(servlets));
+    }
+
+    public SettableServlets(List<ServletDetails> servlets) {
         this.servlets = servlets;
     }
 
     @Override
-    public List<Class<? extends Servlet>> getServlets() {
+    public List<ServletDetails> getServlets() {
         return servlets;
     }
 }

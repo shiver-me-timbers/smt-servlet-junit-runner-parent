@@ -5,9 +5,6 @@ import shiver.me.timbers.junit.runner.servlet.Servlets;
 import shiver.me.timbers.junit.runner.servlet.config.ContainerConfig;
 import shiver.me.timbers.junit.runner.servlet.config.PortConfig;
 
-import javax.servlet.Servlet;
-import java.util.List;
-
 public class TestServletContainer implements Container {
 
     private PortConfig portConfig;
@@ -38,8 +35,8 @@ public class TestServletContainer implements Container {
         this.servlets = servlets;
     }
 
-    public List<Class<? extends Servlet>> getServlets() {
-        return servlets.getServlets();
+    public Servlets getServlets() {
+        return servlets;
     }
 
     @Override

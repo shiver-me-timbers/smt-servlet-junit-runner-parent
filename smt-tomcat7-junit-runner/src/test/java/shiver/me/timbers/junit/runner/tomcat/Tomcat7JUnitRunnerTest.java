@@ -37,7 +37,8 @@ public class Tomcat7JUnitRunnerTest {
         // Then
         assertThat(port, greaterThan(0));
 
-        final Response response = ClientBuilder.newClient().target(String.format("http://localhost:%d/", port))
+        final Response response = ClientBuilder.newClient()
+                .target(String.format("http://localhost:%d/TestServlet", port))
                 .request(TEXT_PLAIN_TYPE).get();
 
         assertEquals(OK.getStatusCode(), response.getStatus());

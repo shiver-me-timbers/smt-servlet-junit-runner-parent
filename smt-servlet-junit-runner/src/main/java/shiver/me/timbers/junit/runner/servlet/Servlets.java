@@ -1,6 +1,5 @@
 package shiver.me.timbers.junit.runner.servlet;
 
-import javax.servlet.Servlet;
 import java.util.List;
 
 /**
@@ -8,5 +7,5 @@ import java.util.List;
  */
 public interface Servlets {
 
-    List<Class<? extends Servlet>> getServlets();
+    List<ServletDetails> getServlets();
 }

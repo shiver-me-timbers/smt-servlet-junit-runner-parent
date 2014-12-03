@@ -4,15 +4,13 @@ import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 import shiver.me.timbers.junit.runner.servlet.Container;
+import shiver.me.timbers.junit.runner.servlet.ServletDetails;
 import shiver.me.timbers.junit.runner.servlet.Servlets;
 import shiver.me.timbers.junit.runner.servlet.config.ContainerConfig;
 import shiver.me.timbers.junit.runner.servlet.config.PortConfig;
 
-import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-
-import static java.lang.String.format;
 
 /**
  * @author Karl Bennett
@@ -39,38 +37,17 @@ public class Tomcat7Container implements Container<Tomcat> {
 
     @Override
     public void load(Servlets servlets) {
-        for (Class<? extends Servlet> servlet : servlets.getServlets()) {
-            final String name = findName(servlet);
-            Tomcat.addServlet(context, name, instantiate(servlet));
-            context.addServletMapping(findMapping(servlet), name);
+        for (ServletDetails servletDetails : servlets.getServlets()) {
+
+            final WebServlet webServlet = servletDetails.getWebServlet();
+
+            Tomcat.addServlet(context, webServlet.name(), servletDetails.getServlet());
+
+            context.addServletMapping(findMapping(webServlet), webServlet.name());
         }
     }
 
-    private static String findName(Class<? extends Servlet> servlet) {
-
-        final WebServlet webServlet = servlet.getAnnotation(WebServlet.class);
-
-        if (null == webServlet) {
-            return servlet.getSimpleName();
-        }
-
-        return webServlet.name();
-    }
-
-    private static Servlet instantiate(Class<? extends Servlet> servlet) {
-        try {
-            return servlet.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-            throw new IllegalStateException(
-                    format("The servlet (%s) must have a public default constructor.", servlet.getName()),
-                    e
-            );
-        }
-    }
-
-    private static String findMapping(Class<? extends Servlet> servlet) {
-
-        final WebServlet webServlet = servlet.getAnnotation(WebServlet.class);
+    private static String findMapping(WebServlet webServlet) {
 
         if (null != webServlet) {
 

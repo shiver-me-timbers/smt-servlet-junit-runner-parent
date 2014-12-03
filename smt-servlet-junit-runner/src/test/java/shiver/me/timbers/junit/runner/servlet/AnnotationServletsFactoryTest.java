@@ -6,9 +6,9 @@ import shiver.me.timbers.junit.runner.servlet.test.ServletThree;
 import shiver.me.timbers.junit.runner.servlet.test.ServletTwo;
 
 import static org.hamcrest.Matchers.empty;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.SERVLETS;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockServlets;
+import static shiver.me.timbers.junit.runner.servlet.test.ServletsMatcher.equalTo;
 
 public class AnnotationServletsFactoryTest {
 
@@ -26,13 +26,17 @@ public class AnnotationServletsFactoryTest {
     @Test
     public void Servlets_are_returned_if_some_are_configured() {
 
+        // Given
+        final Servlets expected = mockServlets();
         @shiver.me.timbers.junit.runner.servlet.annotation.Servlets({ServletOne.class, ServletTwo.class, ServletThree.class})
         class TestClass {
         }
 
+        // When
         final Servlets servlets = new AnnotationServletsFactory().create(new TestClass());
 
-        assertEquals(SERVLETS, servlets.getServlets());
+        // Then
+        assertThat(servlets, equalTo(expected));
     }
 
 }
