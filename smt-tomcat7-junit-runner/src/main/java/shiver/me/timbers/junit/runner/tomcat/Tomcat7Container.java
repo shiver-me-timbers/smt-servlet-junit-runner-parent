@@ -10,7 +10,6 @@ import shiver.me.timbers.junit.runner.servlet.config.ContainerConfig;
 import shiver.me.timbers.junit.runner.servlet.config.PortConfig;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 
 /**
  * @author Karl Bennett
@@ -37,34 +36,17 @@ public class Tomcat7Container implements Container<Tomcat> {
 
     @Override
     public void load(Servlets servlets) {
+
         for (ServletDetails servletDetails : servlets.getServlets()) {
 
-            final WebServlet webServlet = servletDetails.getWebServlet();
+            final String name = servletDetails.getName();
 
-            Tomcat.addServlet(context, webServlet.name(), servletDetails.getServlet());
+            Tomcat.addServlet(context, name, servletDetails.getServlet());
 
-            context.addServletMapping(findMapping(webServlet), webServlet.name());
-        }
-    }
-
-    private static String findMapping(WebServlet webServlet) {
-
-        if (null != webServlet) {
-
-            final String[] value = webServlet.value();
-
-            if (0 < value.length) {
-                return value[0];
-            }
-
-            final String[] urlPatterns = webServlet.urlPatterns();
-
-            if (0 < urlPatterns.length) {
-                return urlPatterns[0];
+            for (String urlPattern : servletDetails.getUrlPatterns()) {
+                context.addServletMapping(urlPattern, name);
             }
         }
-
-        return "/*";
     }
 
     @Override

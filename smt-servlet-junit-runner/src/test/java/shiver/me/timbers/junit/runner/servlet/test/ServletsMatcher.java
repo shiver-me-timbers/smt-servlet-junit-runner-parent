@@ -8,6 +8,9 @@ import shiver.me.timbers.junit.runner.servlet.Servlets;
 
 import java.util.List;
 
+import static shiver.me.timbers.junit.runner.servlet.test.ContainsAllMatcher.containsAll;
+import static shiver.me.timbers.junit.runner.servlet.test.ServletDetailsMatcher.servletDetailsMatcher;
+
 /**
  * @author Karl Bennett
  */
@@ -33,19 +36,8 @@ public class ServletsMatcher extends TypeSafeMatcher<Servlets> {
             return false;
         }
 
-        for (int i = 0; i < expectedServlets.size(); i++) {
-
-            final ServletDetails expectedServletDetails = expectedServlets.get(i);
-            final ServletDetails actualServletDetails = actualServlets.get(i);
-
-            if (!WebServletMatcher
-                    .equalTo(expectedServletDetails.getWebServlet()).matches(actualServletDetails.getWebServlet())) {
-                return false;
-            }
-
-            if (!expectedServletDetails.getServlet().getClass().equals(actualServletDetails.getServlet().getClass())) {
-                return false;
-            }
+        if (!containsAll(expectedServlets).with(servletDetailsMatcher()).matches(actualServlets)) {
+            return false;
         }
 
         return true;
