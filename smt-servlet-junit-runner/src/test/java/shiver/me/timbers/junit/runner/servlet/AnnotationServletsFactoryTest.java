@@ -1,6 +1,7 @@
 package shiver.me.timbers.junit.runner.servlet;
 
 import org.junit.Test;
+import shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.test.ServletOne;
 import shiver.me.timbers.junit.runner.servlet.test.ServletThree;
 import shiver.me.timbers.junit.runner.servlet.test.ServletTwo;
@@ -28,7 +29,7 @@ public class AnnotationServletsFactoryTest {
 
         // Given
         final Servlets expected = mockServlets();
-        @shiver.me.timbers.junit.runner.servlet.annotation.Servlets({ServletOne.class, ServletTwo.class, ServletThree.class})
+        @ContainerConfiguration(servlets = {ServletOne.class, ServletTwo.class, ServletThree.class})
         class TestClass {
         }
 

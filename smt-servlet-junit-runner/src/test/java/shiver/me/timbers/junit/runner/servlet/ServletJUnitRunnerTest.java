@@ -4,8 +4,8 @@ import org.junit.Test;
 import org.junit.runner.notification.RunListener;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.model.InitializationError;
-import shiver.me.timbers.junit.runner.servlet.config.ContainerConfig;
 import shiver.me.timbers.junit.runner.servlet.config.ContainerConfigFactory;
+import shiver.me.timbers.junit.runner.servlet.config.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.config.PortConfig;
 import shiver.me.timbers.junit.runner.servlet.config.PortConfigFactory;
 
@@ -37,10 +37,10 @@ public class ServletJUnitRunnerTest {
         when(servletsFactory.create(any(TestClass.class))).thenReturn(servlets);
 
         @SuppressWarnings("unchecked")
-        final ContainerConfig<Object> containerConfig = mock(ContainerConfig.class);
+        final ContainerConfiguration<Object> containerConfiguration = mock(ContainerConfiguration.class);
         @SuppressWarnings("unchecked")
         final ContainerConfigFactory<Object> containerConfigFactory = mock(ContainerConfigFactory.class);
-        when(containerConfigFactory.create(any(TestClass.class))).thenReturn(containerConfig);
+        when(containerConfigFactory.create(any(TestClass.class))).thenReturn(containerConfiguration);
 
         final RunListener runListener = mock(RunListener.class);
         final RunListenerFactory runListenerFactory = mock(RunListenerFactory.class);
@@ -61,7 +61,7 @@ public class ServletJUnitRunnerTest {
 
         // Then
         verify(container).config(portConfig);
-        verify(container).config(containerConfig);
+        verify(container).config(containerConfiguration);
         verify(container).load(servlets);
         verify(container).start();
         verify(portSetter).set(any(TestClass.class), eq(portConfig));

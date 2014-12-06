@@ -8,7 +8,7 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * This annotation can be used to manually set the port servlet containers port to a static number by applying it at the
+ * This annotation can be used to manually set the servlet containers port to a static number by applying it at the
  * class level.
  *
  * <pre>
@@ -38,8 +38,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public @interface Port {
 
     /**
-     * @return the desired port number for the servlet container instance. It is -1 by default which will cause a random
-     *         port to be allocated dynamically.
+     * The desired port number for the servlet container instance. It is -1 by default which will cause a random port to
+     * be allocated dynamically.
      */
     int value() default -1;
 }

@@ -2,8 +2,8 @@ package shiver.me.timbers.junit.runner.tomcat;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.annotation.Port;
-import shiver.me.timbers.junit.runner.servlet.annotation.Servlets;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,7 +23,7 @@ import static org.junit.Assert.assertThat;
 import static shiver.me.timbers.junit.runner.tomcat.Tomcat7JUnitRunnerTest.TestServlet;
 
 @RunWith(Tomcat7JUnitRunner.class)
-@Servlets(TestServlet.class)
+@ContainerConfiguration(servlets = TestServlet.class)
 public class Tomcat7JUnitRunnerTest {
 
     private static final String SUCCESS = "success";

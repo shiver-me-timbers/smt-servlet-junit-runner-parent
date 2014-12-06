@@ -2,13 +2,13 @@ package shiver.me.timbers.junit.runner.servlet.test;
 
 import shiver.me.timbers.junit.runner.servlet.Container;
 import shiver.me.timbers.junit.runner.servlet.Servlets;
-import shiver.me.timbers.junit.runner.servlet.config.ContainerConfig;
+import shiver.me.timbers.junit.runner.servlet.config.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.config.PortConfig;
 
 public class TestServletContainer implements Container {
 
     private PortConfig portConfig;
-    private ContainerConfig containerConfig;
+    private ContainerConfiguration containerConfiguration;
     private Servlets servlets;
     private boolean started = false;
 
@@ -22,12 +22,12 @@ public class TestServletContainer implements Container {
     }
 
     @Override
-    public void config(ContainerConfig containerConfig) {
-        this.containerConfig = containerConfig;
+    public void config(ContainerConfiguration containerConfiguration) {
+        this.containerConfiguration = containerConfiguration;
     }
 
-    public ContainerConfig getContainerConfig() {
-        return containerConfig;
+    public ContainerConfiguration getContainerConfiguration() {
+        return containerConfiguration;
     }
 
     @Override

@@ -4,8 +4,8 @@ import org.junit.rules.MethodRule;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;
-import shiver.me.timbers.junit.runner.servlet.config.ContainerConfig;
 import shiver.me.timbers.junit.runner.servlet.config.ContainerConfigFactory;
+import shiver.me.timbers.junit.runner.servlet.config.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.config.PortConfig;
 import shiver.me.timbers.junit.runner.servlet.config.PortConfigFactory;
 
@@ -48,12 +48,12 @@ public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
 
         final PortConfig portConfig = portConfigFactory.create(target);
 
-        final ContainerConfig<C> containerConfig = containerConfigFactory.create(target);
+        final ContainerConfiguration<C> containerConfiguration = containerConfigFactory.create(target);
 
         final Servlets servlets = servletsFactory.create(target);
 
         container.config(portConfig);
-        container.config(containerConfig);
+        container.config(containerConfiguration);
         container.load(servlets);
         container.start();
 

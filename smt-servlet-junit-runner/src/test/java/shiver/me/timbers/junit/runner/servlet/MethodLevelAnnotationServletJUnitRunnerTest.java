@@ -2,7 +2,7 @@ package shiver.me.timbers.junit.runner.servlet;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfig;
+import shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.annotation.Port;
 import shiver.me.timbers.junit.runner.servlet.test.TestAnnotationServletJUnitRunner;
 import shiver.me.timbers.junit.runner.servlet.test.TestServletContainer;
@@ -22,7 +22,7 @@ public class MethodLevelAnnotationServletJUnitRunnerTest {
 
     private TestServletContainer container;
 
-    @ContainerConfig
+    @ContainerConfiguration
     public void config(TestServletContainer container) {
         this.container = container;
     }

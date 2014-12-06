@@ -4,7 +4,7 @@ import org.junit.runners.model.InitializationError;
 import shiver.me.timbers.junit.runner.servlet.AnnotationServletJUnitRunner;
 import shiver.me.timbers.junit.runner.servlet.Container;
 import shiver.me.timbers.junit.runner.servlet.Servlets;
-import shiver.me.timbers.junit.runner.servlet.config.ContainerConfig;
+import shiver.me.timbers.junit.runner.servlet.config.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.config.PortConfig;
 
 public class TestAnnotationServletJUnitRunner extends AnnotationServletJUnitRunner<TestServletContainer> {
@@ -21,9 +21,9 @@ public class TestAnnotationServletJUnitRunner extends AnnotationServletJUnitRunn
                     }
 
                     @Override
-                    public void config(ContainerConfig<TestServletContainer> containerConfig) {
-                        container.config(containerConfig);
-                        containerConfig.configure(container);
+                    public void config(ContainerConfiguration<TestServletContainer> containerConfiguration) {
+                        container.config(containerConfiguration);
+                        containerConfiguration.configure(container);
                     }
 
                     @Override

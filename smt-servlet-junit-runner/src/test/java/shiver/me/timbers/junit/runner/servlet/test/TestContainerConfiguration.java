@@ -1,10 +1,10 @@
 package shiver.me.timbers.junit.runner.servlet.test;
 
-import shiver.me.timbers.junit.runner.servlet.config.ContainerConfig;
+import shiver.me.timbers.junit.runner.servlet.config.ContainerConfiguration;
 
 import java.util.concurrent.atomic.AtomicReference;
 
-public class TestContainerConfig implements ContainerConfig<TestServletContainer> {
+public class TestContainerConfiguration implements ContainerConfiguration<TestServletContainer> {
 
     public static final AtomicReference<TestServletContainer> TEST_SERVLET_CONTAINER_REFERENCE =
             new AtomicReference<>();

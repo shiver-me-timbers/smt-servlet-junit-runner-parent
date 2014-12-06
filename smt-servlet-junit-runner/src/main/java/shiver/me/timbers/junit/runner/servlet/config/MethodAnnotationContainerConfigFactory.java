@@ -2,7 +2,7 @@ package shiver.me.timbers.junit.runner.servlet.config;
 
 import java.lang.reflect.Method;
 
-import static shiver.me.timbers.junit.runner.servlet.config.NullContainerConfig.NULL_CONTAINER_CONFIG;
+import static shiver.me.timbers.junit.runner.servlet.config.NullContainerConfiguration.NULL_CONTAINER_CONFIG;
 
 /**
  * @author Karl Bennett
@@ -11,7 +11,7 @@ public class MethodAnnotationContainerConfigFactory<C> implements ContainerConfi
 
     @SuppressWarnings("unchecked")
     @Override
-    public ContainerConfig<C> create(Object target) {
+    public ContainerConfiguration<C> create(Object target) {
 
         final Class<?> type = target.getClass();
 
@@ -19,7 +19,7 @@ public class MethodAnnotationContainerConfigFactory<C> implements ContainerConfi
 
         for (Method method : methods) {
 
-            final ContainerConfig<C> config = getConfig(method, target);
+            final ContainerConfiguration<C> config = getConfig(method, target);
 
             if (null != config) {
                 return config;
@@ -29,15 +29,15 @@ public class MethodAnnotationContainerConfigFactory<C> implements ContainerConfi
         return NULL_CONTAINER_CONFIG;
     }
 
-    private ContainerConfig<C> getConfig(Method method, Object target) {
+    private ContainerConfiguration<C> getConfig(Method method, Object target) {
 
-        final shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfig containerConfig =
-                method.getAnnotation(shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfig.class);
+        final shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration containerConfiguration =
+                method.getAnnotation(shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration.class);
 
-        if (null == containerConfig) {
+        if (null == containerConfiguration) {
             return null;
         }
 
-        return new MethodContainerConfig<>(method, target);
+        return new MethodContainerConfiguration<>(method, target);
     }
 }

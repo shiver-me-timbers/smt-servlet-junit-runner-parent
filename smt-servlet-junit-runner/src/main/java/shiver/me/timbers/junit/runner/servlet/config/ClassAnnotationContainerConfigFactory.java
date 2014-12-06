@@ -1,7 +1,7 @@
 package shiver.me.timbers.junit.runner.servlet.config;
 
 import static java.lang.String.format;
-import static shiver.me.timbers.junit.runner.servlet.config.NullContainerConfig.NULL_CONTAINER_CONFIG;
+import static shiver.me.timbers.junit.runner.servlet.config.NullContainerConfiguration.NULL_CONTAINER_CONFIG;
 
 /**
  * @author Karl Bennett
@@ -10,27 +10,32 @@ public class ClassAnnotationContainerConfigFactory<C> implements ContainerConfig
 
     @SuppressWarnings("unchecked")
     @Override
-    public ContainerConfig<C> create(Object target) {
+    public ContainerConfiguration<C> create(Object target) {
 
         final Class<?> type = target.getClass();
 
-        final shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfig containerConfig =
-                type.getAnnotation(shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfig.class);
+        final shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration containerConfiguration =
+                type.getAnnotation(shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration.class);
 
-        if (null == containerConfig) {
+        if (notConfigured(containerConfiguration)) {
             return NULL_CONTAINER_CONFIG;
         }
 
         try {
-            return containerConfig.value().newInstance();
+            return containerConfiguration.value().newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
             throw new IllegalStateException(
                     format(
                             "The %s implementation must have a public default constructor.",
-                            ContainerConfig.class.getName()
+                            ContainerConfiguration.class.getName()
                     ),
                     e
             );
         }
+    }
+
+    private static boolean notConfigured(
+            shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration containerConfiguration) {
+        return null == containerConfiguration || containerConfiguration.value().equals(NullContainerConfiguration.class);
     }
 }

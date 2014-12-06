@@ -5,9 +5,8 @@ import org.junit.Test;
 import org.junit.runner.Result;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.model.InitializationError;
-import shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfig;
 import shiver.me.timbers.junit.runner.servlet.annotation.Port;
-import shiver.me.timbers.junit.runner.servlet.annotation.Servlets;
+import shiver.me.timbers.junit.runner.servlet.config.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.config.PortConfig;
 import shiver.me.timbers.junit.runner.servlet.test.ServletOne;
 import shiver.me.timbers.junit.runner.servlet.test.ServletThree;
@@ -85,8 +84,10 @@ public class AnnotationServletJUnitRunnerTest {
     }
 
     @Port(PORT)
-    @ContainerConfig(TestContainerConfig.class)
-    @Servlets({ServletOne.class, ServletTwo.class, ServletThree.class})
+    @shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration(
+            value = TestContainerConfiguration.class,
+            servlets = {ServletOne.class, ServletTwo.class, ServletThree.class}
+    )
     public static class ClassLevelConfig {
 
         @Port
@@ -100,7 +101,7 @@ public class AnnotationServletJUnitRunnerTest {
 
     public static class MethodLevelConfig {
 
-        @ContainerConfig
+        @shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration
         public void config(TestServletContainer server) {
             server.configured();
         }
@@ -114,8 +115,8 @@ public class AnnotationServletJUnitRunnerTest {
         }
     }
 
-    public static class TestContainerConfig implements
-            shiver.me.timbers.junit.runner.servlet.config.ContainerConfig<TestServletContainer> {
+    public static class TestContainerConfiguration implements
+            ContainerConfiguration<TestServletContainer> {
 
         @Override
         public void configure(TestServletContainer server) {
@@ -133,8 +134,8 @@ public class AnnotationServletJUnitRunnerTest {
         @SuppressWarnings("unchecked")
         @Override
         public void config(
-                shiver.me.timbers.junit.runner.servlet.config.ContainerConfig<TestServletContainer> containerConfig) {
-            containerConfig.configure(server);
+                ContainerConfiguration<TestServletContainer> containerConfiguration) {
+            containerConfiguration.configure(server);
         }
 
         @Override

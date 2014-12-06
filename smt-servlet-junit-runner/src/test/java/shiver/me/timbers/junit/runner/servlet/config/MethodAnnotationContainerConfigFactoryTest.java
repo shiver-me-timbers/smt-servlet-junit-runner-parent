@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static shiver.me.timbers.junit.runner.servlet.config.NullContainerConfig.NULL_CONTAINER_CONFIG;
+import static shiver.me.timbers.junit.runner.servlet.config.NullContainerConfiguration.NULL_CONTAINER_CONFIG;
 
 /**
  * @author Karl Bennett
@@ -20,7 +20,7 @@ public class MethodAnnotationContainerConfigFactoryTest {
         }
 
         // When
-        final ContainerConfig<Object> actual = new MethodAnnotationContainerConfigFactory<>().create(new TestClass());
+        final ContainerConfiguration<Object> actual = new MethodAnnotationContainerConfigFactory<>().create(new TestClass());
 
         // Then
         assertEquals(NULL_CONTAINER_CONFIG, actual);
@@ -32,7 +32,7 @@ public class MethodAnnotationContainerConfigFactoryTest {
         // Given
         class TestClass {
 
-            @shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfig
+            @shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration
             public void config(TestContainer container) {
                 container.test();
             }
@@ -41,7 +41,7 @@ public class MethodAnnotationContainerConfigFactoryTest {
         final TestContainer container = mock(TestContainer.class);
 
         // When
-        final ContainerConfig<TestContainer> actual = new MethodAnnotationContainerConfigFactory<TestContainer>()
+        final ContainerConfiguration<TestContainer> actual = new MethodAnnotationContainerConfigFactory<TestContainer>()
                 .create(new TestClass());
 
         actual.configure(container);
@@ -56,14 +56,14 @@ public class MethodAnnotationContainerConfigFactoryTest {
         // Given
         class TestClass {
 
-            @shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfig
+            @shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration
             private void config(TestContainer container) {
                 container.test();
             }
         }
 
         // When
-        final ContainerConfig<Object> actual = new MethodAnnotationContainerConfigFactory<>().create(new TestClass());
+        final ContainerConfiguration<Object> actual = new MethodAnnotationContainerConfigFactory<>().create(new TestClass());
 
         // Then
         assertEquals(NULL_CONTAINER_CONFIG, actual);
@@ -75,7 +75,7 @@ public class MethodAnnotationContainerConfigFactoryTest {
         // Given
         class TestClass {
 
-            @shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfig
+            @shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration
             public void config(Integer integer) {
             }
         }
@@ -83,7 +83,7 @@ public class MethodAnnotationContainerConfigFactoryTest {
         final TestContainer container = mock(TestContainer.class);
 
         // When
-        final ContainerConfig<TestContainer> actual = new MethodAnnotationContainerConfigFactory<TestContainer>()
+        final ContainerConfiguration<TestContainer> actual = new MethodAnnotationContainerConfigFactory<TestContainer>()
                 .create(new TestClass());
 
         actual.configure(container);

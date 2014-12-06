@@ -1,6 +1,6 @@
 package shiver.me.timbers.junit.runner.servlet;
 
-import shiver.me.timbers.junit.runner.servlet.annotation.Servlets;
+import shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration;
 
 import java.util.ArrayList;
 
@@ -14,12 +14,12 @@ public class AnnotationServletsFactory implements ServletsFactory {
 
         final Class<?> type = target.getClass();
 
-        final Servlets servlets = type.getAnnotation(Servlets.class);
+        final ContainerConfiguration configuration = type.getAnnotation(ContainerConfiguration.class);
 
-        if (null == servlets) {
+        if (null == configuration) {
             return new SettableServlets(new ArrayList<ServletDetails>());
         }
 
-        return new SettableServlets(servlets.value());
+        return new SettableServlets(configuration.servlets());
     }
 }

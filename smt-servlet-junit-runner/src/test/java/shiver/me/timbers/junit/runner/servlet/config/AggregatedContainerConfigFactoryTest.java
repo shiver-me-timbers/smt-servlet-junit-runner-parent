@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static shiver.me.timbers.junit.runner.servlet.config.NullContainerConfig.NULL_CONTAINER_CONFIG;
+import static shiver.me.timbers.junit.runner.servlet.config.NullContainerConfiguration.NULL_CONTAINER_CONFIG;
 
 public class AggregatedContainerConfigFactoryTest {
 
@@ -24,7 +24,7 @@ public class AggregatedContainerConfigFactoryTest {
     public void A_null_container_config_is_returned_if_no_container_config_factories_supplied() {
 
         // When
-        final ContainerConfig<Object> actual = new AggregatedContainerConfigFactory<>().create(TEST);
+        final ContainerConfiguration<Object> actual = new AggregatedContainerConfigFactory<>().create(TEST);
 
         // Then
         assertEquals(NULL_CONTAINER_CONFIG, actual);
@@ -34,7 +34,7 @@ public class AggregatedContainerConfigFactoryTest {
     public void A_null_container_config_is_returned_if_the_supplied_container_config_factories() {
 
         // When
-        final ContainerConfig<Object> actual = new AggregatedContainerConfigFactory<Object>(nullConfig, nullConfig,
+        final ContainerConfiguration<Object> actual = new AggregatedContainerConfigFactory<Object>(nullConfig, nullConfig,
                 nullConfig).create(TEST);
 
         // Then
@@ -45,13 +45,13 @@ public class AggregatedContainerConfigFactoryTest {
     public void A_container_config_is_returned_if_a_supplied_container_config_factory_returns_one() {
 
         // Given
-        final ContainerConfig expected = mock(ContainerConfig.class);
+        final ContainerConfiguration expected = mock(ContainerConfiguration.class);
 
         final ContainerConfigFactory configFactory = mock(ContainerConfigFactory.class);
         when(configFactory.create(TEST)).thenReturn(expected);
 
         // When
-        final ContainerConfig<Object> actual = new AggregatedContainerConfigFactory<Object>(nullConfig, configFactory,
+        final ContainerConfiguration<Object> actual = new AggregatedContainerConfigFactory<Object>(nullConfig, configFactory,
                 nullConfig).create(TEST);
 
         // Then

@@ -29,7 +29,7 @@ public class MethodContainerConfigTest {
         // Given
         final int integer = 99;
         invocation = mock(Invocation.class);
-        final MethodContainerConfig<Integer> config = new MethodContainerConfig<>(PUBLIC_METHOD, this);
+        final MethodContainerConfiguration<Integer> config = new MethodContainerConfiguration<>(PUBLIC_METHOD, this);
 
         // When
         config.configure(integer);
@@ -42,7 +42,7 @@ public class MethodContainerConfigTest {
     public void A_private_method_with_the_right_signature_fails() {
 
         // Given
-        final MethodContainerConfig<Integer> config = new MethodContainerConfig<>(PRIVATE_METHOD, this);
+        final MethodContainerConfiguration<Integer> config = new MethodContainerConfiguration<>(PRIVATE_METHOD, this);
 
         // When
         config.configure(99);
@@ -52,7 +52,7 @@ public class MethodContainerConfigTest {
     public void A_public_method_with_the_wrong_signature_fails() {
 
         // Given
-        final MethodContainerConfig<Integer> config = new MethodContainerConfig<>(WRONG_SIGNATURE__METHOD, this);
+        final MethodContainerConfiguration<Integer> config = new MethodContainerConfiguration<>(WRONG_SIGNATURE__METHOD, this);
 
         // When
         config.configure(99);

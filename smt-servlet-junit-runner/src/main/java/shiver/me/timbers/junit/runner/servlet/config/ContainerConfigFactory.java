@@ -8,5 +8,5 @@ package shiver.me.timbers.junit.runner.servlet.config;
  */
 public interface ContainerConfigFactory<C> {
 
-    ContainerConfig<C> create(Object target);
+    ContainerConfiguration<C> create(Object target);
 }

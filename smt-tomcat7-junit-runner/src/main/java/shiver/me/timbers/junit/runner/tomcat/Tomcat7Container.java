@@ -6,7 +6,7 @@ import org.apache.catalina.startup.Tomcat;
 import shiver.me.timbers.junit.runner.servlet.Container;
 import shiver.me.timbers.junit.runner.servlet.ServletDetails;
 import shiver.me.timbers.junit.runner.servlet.Servlets;
-import shiver.me.timbers.junit.runner.servlet.config.ContainerConfig;
+import shiver.me.timbers.junit.runner.servlet.config.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.config.PortConfig;
 
 import javax.servlet.ServletException;
@@ -30,8 +30,8 @@ public class Tomcat7Container implements Container<Tomcat> {
     }
 
     @Override
-    public void config(ContainerConfig<Tomcat> containerConfig) {
-        containerConfig.configure(tomcat);
+    public void config(ContainerConfiguration<Tomcat> containerConfiguration) {
+        containerConfiguration.configure(tomcat);
     }
 
     @Override

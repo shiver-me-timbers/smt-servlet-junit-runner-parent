@@ -19,17 +19,17 @@ import shiver.me.timbers.junit.runner.servlet.config.SettablePortConfigFactory;
  * By default the started server will scan the package of the test file for any classes annotated with
  * {@link javax.servlet.annotation.WebServlet} which it will then load.
  *
- * Alternatively the {@link shiver.me.timbers.junit.runner.servlet.annotation.Servlets} annotation can be used to
- * restrict which servlet classes are loaded.
+ * Alternatively the {@link shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration} annotation can be
+ * used to restrict which servlet classes are loaded.
  *
  * The server can be configured for an individual test class with a method that has the servlet containers configuration
  * object as it's first argument and has been annotated with
- * {@link shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfig}. This will cause a new server instance to
- * start up for that specific test class.
+ * {@link shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration}. This will cause a new server
+ * instance to start up for that specific test class.
  *
  * If the same configuration can be used across multiple test classes then the classes can be annotated with
- * {@code ContainerConfig} that has it's value set to an implementation of
- * {@link shiver.me.timbers.junit.runner.servlet.config.ContainerConfig}.
+ * {@code ContainerConfiguration} that has it's value set to an implementation of
+ * {@link shiver.me.timbers.junit.runner.servlet.config.ContainerConfiguration}.
  *
  * @author Karl Bennett
  */

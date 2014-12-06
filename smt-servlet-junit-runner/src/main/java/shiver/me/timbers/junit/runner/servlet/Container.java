@@ -1,6 +1,6 @@
 package shiver.me.timbers.junit.runner.servlet;
 
-import shiver.me.timbers.junit.runner.servlet.config.ContainerConfig;
+import shiver.me.timbers.junit.runner.servlet.config.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.config.PortConfig;
 
 /**
@@ -12,7 +12,7 @@ public interface Container<C> {
 
     void config(PortConfig portConfig);
 
-    void config(ContainerConfig<C> containerConfig);
+    void config(ContainerConfiguration<C> containerConfiguration);
 
     void load(Servlets servlets);
 

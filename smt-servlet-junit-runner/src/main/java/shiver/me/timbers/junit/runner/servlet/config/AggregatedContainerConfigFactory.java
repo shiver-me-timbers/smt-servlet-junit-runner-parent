@@ -1,6 +1,6 @@
 package shiver.me.timbers.junit.runner.servlet.config;
 
-import static shiver.me.timbers.junit.runner.servlet.config.NullContainerConfig.NULL_CONTAINER_CONFIG;
+import static shiver.me.timbers.junit.runner.servlet.config.NullContainerConfiguration.NULL_CONTAINER_CONFIG;
 
 /**
  * @author Karl Bennett
@@ -16,10 +16,10 @@ public class AggregatedContainerConfigFactory<C> implements ContainerConfigFacto
 
     @SuppressWarnings("unchecked")
     @Override
-    public ContainerConfig<C> create(Object target) {
+    public ContainerConfiguration<C> create(Object target) {
 
         for (ContainerConfigFactory<C> containerConfigFactory : containerConfigFactories) {
-            final ContainerConfig<C> config = containerConfigFactory.create(target);
+            final ContainerConfiguration<C> config = containerConfigFactory.create(target);
 
             if (!NULL_CONTAINER_CONFIG.equals(config)) {
                 return config;
