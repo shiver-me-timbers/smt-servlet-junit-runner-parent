@@ -1,4 +1,4 @@
-package shiver.me.timbers.junit.runner.servlet;
+package shiver.me.timbers.junit.runner.servlet.inject;
 
 import org.junit.Before;
 import org.junit.Test;

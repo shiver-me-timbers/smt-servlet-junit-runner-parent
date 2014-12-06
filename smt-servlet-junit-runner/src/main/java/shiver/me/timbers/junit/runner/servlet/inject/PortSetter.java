@@ -1,4 +1,4 @@
-package shiver.me.timbers.junit.runner.servlet;
+package shiver.me.timbers.junit.runner.servlet.inject;
 
 import shiver.me.timbers.junit.runner.servlet.config.PortConfig;
 

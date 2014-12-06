@@ -8,6 +8,7 @@ import shiver.me.timbers.junit.runner.servlet.config.ContainerConfigFactory;
 import shiver.me.timbers.junit.runner.servlet.config.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.config.PortConfig;
 import shiver.me.timbers.junit.runner.servlet.config.PortConfigFactory;
+import shiver.me.timbers.junit.runner.servlet.inject.PortSetter;
 
 import java.util.List;
 

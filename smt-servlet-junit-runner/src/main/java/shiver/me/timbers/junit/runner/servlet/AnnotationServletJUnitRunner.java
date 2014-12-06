@@ -7,6 +7,7 @@ import shiver.me.timbers.junit.runner.servlet.config.ClassAnnotationContainerCon
 import shiver.me.timbers.junit.runner.servlet.config.FreeRandomPortConfigFactory;
 import shiver.me.timbers.junit.runner.servlet.config.MethodAnnotationContainerConfigFactory;
 import shiver.me.timbers.junit.runner.servlet.config.SettablePortConfigFactory;
+import shiver.me.timbers.junit.runner.servlet.inject.AnnotationPortSetter;
 
 /**
  * Adding this runner to a JUnit class will cause a servlet server to start up before the test.
