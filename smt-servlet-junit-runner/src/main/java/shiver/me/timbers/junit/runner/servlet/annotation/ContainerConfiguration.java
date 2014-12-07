@@ -1,6 +1,6 @@
 package shiver.me.timbers.junit.runner.servlet.annotation;
 
-import shiver.me.timbers.junit.runner.servlet.config.NullContainerConfiguration;
+import shiver.me.timbers.junit.runner.servlet.configuration.NullContainerConfiguration;
 
 import javax.servlet.Filter;
 import javax.servlet.Servlet;
@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * This annotation can be used to configure the servlet container. This can be done through code or XML.
  *
  * To manually configure the container with code the annotation can be applied at the class level with an implementation
- * of the {@link shiver.me.timbers.junit.runner.servlet.config.ContainerConfiguration} interface. This implementation
+ * of the {@link shiver.me.timbers.junit.runner.servlet.configuration.ContainerConfiguration} interface. This implementation
  * should be generically typed to the containers configuration class.
  *
  * <pre>
@@ -92,7 +92,7 @@ public @interface ContainerConfiguration {
     /**
      * The class of the container configuration that should be used with this test.
      */
-    Class<? extends shiver.me.timbers.junit.runner.servlet.config.ContainerConfiguration> value() default NullContainerConfiguration.class;
+    Class<? extends shiver.me.timbers.junit.runner.servlet.configuration.ContainerConfiguration> value() default NullContainerConfiguration.class;
 
     /**
      * The {@link Servlet}s that should be loaded for this test.

@@ -1,9 +1,9 @@
-package shiver.me.timbers.junit.runner.servlet.config;
+package shiver.me.timbers.junit.runner.servlet.configuration;
 
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static shiver.me.timbers.junit.runner.servlet.config.NullPortConfiguration.NULL_PORT_CONFIG;
+import static shiver.me.timbers.junit.runner.servlet.configuration.NullPortConfiguration.NULL_PORT_CONFIG;
 
 public class NullPortConfigurationTest {
 

@@ -1,4 +1,4 @@
-package shiver.me.timbers.junit.runner.servlet.config;
+package shiver.me.timbers.junit.runner.servlet.configuration;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

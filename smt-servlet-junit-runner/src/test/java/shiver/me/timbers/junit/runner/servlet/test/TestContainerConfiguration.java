@@ -1,6 +1,6 @@
 package shiver.me.timbers.junit.runner.servlet.test;
 
-import shiver.me.timbers.junit.runner.servlet.config.ContainerConfiguration;
+import shiver.me.timbers.junit.runner.servlet.configuration.ContainerConfiguration;
 
 import java.util.concurrent.atomic.AtomicReference;
 

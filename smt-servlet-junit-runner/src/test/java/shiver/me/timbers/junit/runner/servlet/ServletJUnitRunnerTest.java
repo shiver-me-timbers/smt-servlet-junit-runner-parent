@@ -4,10 +4,10 @@ import org.junit.Test;
 import org.junit.runner.notification.RunListener;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.model.InitializationError;
-import shiver.me.timbers.junit.runner.servlet.config.ContainerConfiguration;
-import shiver.me.timbers.junit.runner.servlet.config.ContainerConfigurationFactory;
-import shiver.me.timbers.junit.runner.servlet.config.PortConfiguration;
-import shiver.me.timbers.junit.runner.servlet.config.PortConfigurationFactory;
+import shiver.me.timbers.junit.runner.servlet.configuration.ContainerConfiguration;
+import shiver.me.timbers.junit.runner.servlet.configuration.ContainerConfigurationFactory;
+import shiver.me.timbers.junit.runner.servlet.configuration.PortConfiguration;
+import shiver.me.timbers.junit.runner.servlet.configuration.PortConfigurationFactory;
 import shiver.me.timbers.junit.runner.servlet.inject.PortSetter;
 
 import static org.mockito.Matchers.any;

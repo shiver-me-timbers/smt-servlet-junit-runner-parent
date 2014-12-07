@@ -1,8 +1,8 @@
-package shiver.me.timbers.junit.runner.servlet.config;
+package shiver.me.timbers.junit.runner.servlet.configuration;
 
 import java.lang.reflect.Method;
 
-import static shiver.me.timbers.junit.runner.servlet.config.NullContainerConfiguration.NULL_CONTAINER_CONFIG;
+import static shiver.me.timbers.junit.runner.servlet.configuration.NullContainerConfiguration.NULL_CONTAINER_CONFIG;
 
 /**
  * @author Karl Bennett

@@ -1,12 +1,12 @@
 package shiver.me.timbers.junit.runner.servlet;
 
 import org.junit.runners.model.InitializationError;
-import shiver.me.timbers.junit.runner.servlet.config.AggregatedContainerConfigurationFactory;
-import shiver.me.timbers.junit.runner.servlet.config.AnnotationStaticPortConfigurationFactory;
-import shiver.me.timbers.junit.runner.servlet.config.ClassAnnotationContainerConfigurationFactory;
-import shiver.me.timbers.junit.runner.servlet.config.FreeRandomPortConfigFactory;
-import shiver.me.timbers.junit.runner.servlet.config.MethodAnnotationContainerConfigurationFactory;
-import shiver.me.timbers.junit.runner.servlet.config.SettablePortConfigurationFactory;
+import shiver.me.timbers.junit.runner.servlet.configuration.AggregatedContainerConfigurationFactory;
+import shiver.me.timbers.junit.runner.servlet.configuration.AnnotationStaticPortConfigurationFactory;
+import shiver.me.timbers.junit.runner.servlet.configuration.ClassAnnotationContainerConfigurationFactory;
+import shiver.me.timbers.junit.runner.servlet.configuration.FreeRandomPortConfigFactory;
+import shiver.me.timbers.junit.runner.servlet.configuration.MethodAnnotationContainerConfigurationFactory;
+import shiver.me.timbers.junit.runner.servlet.configuration.SettablePortConfigurationFactory;
 import shiver.me.timbers.junit.runner.servlet.inject.AnnotationPortSetter;
 
 /**
@@ -30,7 +30,7 @@ import shiver.me.timbers.junit.runner.servlet.inject.AnnotationPortSetter;
  *
  * If the same configuration can be used across multiple test classes then the classes can be annotated with
  * {@code ContainerConfiguration} that has it's value set to an implementation of
- * {@link shiver.me.timbers.junit.runner.servlet.config.ContainerConfiguration}.
+ * {@link shiver.me.timbers.junit.runner.servlet.configuration.ContainerConfiguration}.
  *
  * @author Karl Bennett
  */

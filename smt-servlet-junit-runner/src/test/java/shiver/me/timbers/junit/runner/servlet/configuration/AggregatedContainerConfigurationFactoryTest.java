@@ -1,4 +1,4 @@
-package shiver.me.timbers.junit.runner.servlet.config;
+package shiver.me.timbers.junit.runner.servlet.configuration;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static shiver.me.timbers.junit.runner.servlet.config.NullContainerConfiguration.NULL_CONTAINER_CONFIG;
+import static shiver.me.timbers.junit.runner.servlet.configuration.NullContainerConfiguration.NULL_CONTAINER_CONFIG;
 
 public class AggregatedContainerConfigurationFactoryTest {
 

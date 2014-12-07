@@ -1,4 +1,4 @@
-package shiver.me.timbers.junit.runner.servlet.config;
+package shiver.me.timbers.junit.runner.servlet.configuration;
 
 /**
  * This factory will find any custom container configuration that has been set on the test and return it ready to be

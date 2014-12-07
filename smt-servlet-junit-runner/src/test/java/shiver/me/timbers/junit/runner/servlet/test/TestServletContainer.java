@@ -3,8 +3,8 @@ package shiver.me.timbers.junit.runner.servlet.test;
 import shiver.me.timbers.junit.runner.servlet.Container;
 import shiver.me.timbers.junit.runner.servlet.Filters;
 import shiver.me.timbers.junit.runner.servlet.Servlets;
-import shiver.me.timbers.junit.runner.servlet.config.ContainerConfiguration;
-import shiver.me.timbers.junit.runner.servlet.config.PortConfiguration;
+import shiver.me.timbers.junit.runner.servlet.configuration.ContainerConfiguration;
+import shiver.me.timbers.junit.runner.servlet.configuration.PortConfiguration;
 
 public class TestServletContainer implements Container {
 
