@@ -5,12 +5,12 @@ import static shiver.me.timbers.junit.runner.servlet.config.NullContainerConfigu
 /**
  * @author Karl Bennett
  */
-public class AggregatedContainerConfigFactory<C> implements ContainerConfigFactory<C> {
+public class AggregatedContainerConfigurationFactory<C> implements ContainerConfigurationFactory<C> {
 
-    private final ContainerConfigFactory<C>[] containerConfigFactories;
+    private final ContainerConfigurationFactory<C>[] containerConfigFactories;
 
     @SafeVarargs
-    public AggregatedContainerConfigFactory(ContainerConfigFactory<C>... containerConfigFactories) {
+    public AggregatedContainerConfigurationFactory(ContainerConfigurationFactory<C>... containerConfigFactories) {
         this.containerConfigFactories = containerConfigFactories;
     }
 
@@ -18,8 +18,8 @@ public class AggregatedContainerConfigFactory<C> implements ContainerConfigFacto
     @Override
     public ContainerConfiguration<C> create(Object target) {
 
-        for (ContainerConfigFactory<C> containerConfigFactory : containerConfigFactories) {
-            final ContainerConfiguration<C> config = containerConfigFactory.create(target);
+        for (ContainerConfigurationFactory<C> containerConfigurationFactory : containerConfigFactories) {
+            final ContainerConfiguration<C> config = containerConfigurationFactory.create(target);
 
             if (!NULL_CONTAINER_CONFIG.equals(config)) {
                 return config;

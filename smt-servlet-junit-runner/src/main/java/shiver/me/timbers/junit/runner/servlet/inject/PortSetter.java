@@ -1,6 +1,6 @@
 package shiver.me.timbers.junit.runner.servlet.inject;
 
-import shiver.me.timbers.junit.runner.servlet.config.PortConfig;
+import shiver.me.timbers.junit.runner.servlet.config.PortConfiguration;
 
 /**
  * This interface should be implemented to expose the port to the test instance.
@@ -9,5 +9,5 @@ import shiver.me.timbers.junit.runner.servlet.config.PortConfig;
  */
 public interface PortSetter {
 
-    void set(Object target, PortConfig portConfig);
+    void set(Object target, PortConfiguration portConfiguration);
 }

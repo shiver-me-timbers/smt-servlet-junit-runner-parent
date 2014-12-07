@@ -6,12 +6,12 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-public class SocketPortConfigTest {
+public class SocketPortConfigurationTest {
 
     @Test
     public void A_random_port_can_be_set() {
 
-        assertThat(new SocketPortConfig().getPort(), greaterThan(0));
+        assertThat(new SocketPortConfiguration().getPort(), greaterThan(0));
     }
 
     @Test
@@ -19,12 +19,12 @@ public class SocketPortConfigTest {
 
         final int port = 9998;
 
-        assertEquals(port, new SocketPortConfig(port).getPort());
+        assertEquals(port, new SocketPortConfiguration(port).getPort());
     }
 
     @Test(expected = RuntimeException.class)
     public void An_invalid_port_cannot_be_set() {
 
-        new SocketPortConfig(80);  // Root privileges are required to use port 80.
+        new SocketPortConfiguration(80);  // Root privileges are required to use port 80.
     }
 }

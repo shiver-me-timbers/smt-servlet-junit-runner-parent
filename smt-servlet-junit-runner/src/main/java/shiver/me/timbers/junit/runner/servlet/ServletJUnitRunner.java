@@ -4,10 +4,10 @@ import org.junit.rules.MethodRule;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;
-import shiver.me.timbers.junit.runner.servlet.config.ContainerConfigFactory;
 import shiver.me.timbers.junit.runner.servlet.config.ContainerConfiguration;
-import shiver.me.timbers.junit.runner.servlet.config.PortConfig;
-import shiver.me.timbers.junit.runner.servlet.config.PortConfigFactory;
+import shiver.me.timbers.junit.runner.servlet.config.ContainerConfigurationFactory;
+import shiver.me.timbers.junit.runner.servlet.config.PortConfiguration;
+import shiver.me.timbers.junit.runner.servlet.config.PortConfigurationFactory;
 import shiver.me.timbers.junit.runner.servlet.inject.PortSetter;
 
 import java.util.List;
@@ -19,28 +19,28 @@ import java.util.List;
  */
 public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
 
-    private final PortConfigFactory portConfigFactory;
+    private final PortConfigurationFactory portConfigurationFactory;
     private final FiltersFactory filtersFactory;
-    private final ContainerConfigFactory<C> containerConfigFactory;
+    private final ContainerConfigurationFactory<C> containerConfigurationFactory;
     private final ServletsFactory servletsFactory;
     private final PortSetter portSetter;
     private final RunListenerFactory runListenerFactory;
     private final Container<C> container;
 
     public ServletJUnitRunner(
-            PortConfigFactory portConfigFactory,
+            PortConfigurationFactory portConfigurationFactory,
             ServletsFactory servletsFactory,
             FiltersFactory filtersFactory,
-            ContainerConfigFactory<C> containerConfigFactory,
+            ContainerConfigurationFactory<C> containerConfigurationFactory,
             PortSetter portSetter,
             RunListenerFactory runListenerFactory,
             Container<C> container,
             Class test
     ) throws InitializationError {
         super(test);
-        this.portConfigFactory = portConfigFactory;
+        this.portConfigurationFactory = portConfigurationFactory;
         this.filtersFactory = filtersFactory;
-        this.containerConfigFactory = containerConfigFactory;
+        this.containerConfigurationFactory = containerConfigurationFactory;
         this.servletsFactory = servletsFactory;
         this.portSetter = portSetter;
         this.runListenerFactory = runListenerFactory;
@@ -50,21 +50,21 @@ public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
     @Override
     protected List<MethodRule> rules(Object target) {
 
-        final PortConfig portConfig = portConfigFactory.create(target);
+        final PortConfiguration portConfiguration = portConfigurationFactory.create(target);
 
-        final ContainerConfiguration<C> containerConfiguration = containerConfigFactory.create(target);
+        final ContainerConfiguration<C> containerConfiguration = containerConfigurationFactory.create(target);
 
         final Servlets servlets = servletsFactory.create(target);
 
         final Filters filters = filtersFactory.create(target);
 
-        container.config(portConfig);
+        container.config(portConfiguration);
         container.config(containerConfiguration);
         container.load(servlets);
         container.load(filters);
         container.start();
 
-        portSetter.set(target, portConfig);
+        portSetter.set(target, portConfiguration);
 
         return super.rules(target);
     }

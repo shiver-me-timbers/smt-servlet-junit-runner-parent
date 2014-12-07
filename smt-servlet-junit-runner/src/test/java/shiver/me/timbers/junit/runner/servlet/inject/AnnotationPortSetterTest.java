@@ -3,7 +3,7 @@ package shiver.me.timbers.junit.runner.servlet.inject;
 import org.junit.Before;
 import org.junit.Test;
 import shiver.me.timbers.junit.runner.servlet.annotation.Port;
-import shiver.me.timbers.junit.runner.servlet.config.PortConfig;
+import shiver.me.timbers.junit.runner.servlet.config.PortConfiguration;
 
 import java.lang.reflect.Field;
 
@@ -19,15 +19,15 @@ public class AnnotationPortSetterTest {
 
     private int port;
 
-    private PortConfig portConfig;
+    private PortConfiguration portConfiguration;
 
     @Before
     public void setUp() {
 
         port = 9999;
 
-        portConfig = mock(PortConfig.class);
-        when(portConfig.getPort()).thenReturn(port);
+        portConfiguration = mock(PortConfiguration.class);
+        when(portConfiguration.getPort()).thenReturn(port);
     }
 
     @Test
@@ -37,7 +37,7 @@ public class AnnotationPortSetterTest {
         final PortToBeSet test = new PortToBeSet();
 
         // When
-        new AnnotationPortSetter().set(test, portConfig);
+        new AnnotationPortSetter().set(test, portConfiguration);
 
         // Then
         assertEquals(port, test.getPort());
@@ -55,7 +55,7 @@ public class AnnotationPortSetterTest {
         final WrongType test = new WrongType();
 
         // When
-        new AnnotationPortSetter().set(test, portConfig);
+        new AnnotationPortSetter().set(test, portConfiguration);
     }
 
     @Test
@@ -73,7 +73,7 @@ public class AnnotationPortSetterTest {
         final NotAnnotated test = new NotAnnotated();
 
         // When
-        new AnnotationPortSetter().set(test, portConfig);
+        new AnnotationPortSetter().set(test, portConfiguration);
 
         // Then
         assertNull(test.getPort());

@@ -4,10 +4,10 @@ import org.junit.Test;
 import org.junit.runner.notification.RunListener;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.model.InitializationError;
-import shiver.me.timbers.junit.runner.servlet.config.ContainerConfigFactory;
 import shiver.me.timbers.junit.runner.servlet.config.ContainerConfiguration;
-import shiver.me.timbers.junit.runner.servlet.config.PortConfig;
-import shiver.me.timbers.junit.runner.servlet.config.PortConfigFactory;
+import shiver.me.timbers.junit.runner.servlet.config.ContainerConfigurationFactory;
+import shiver.me.timbers.junit.runner.servlet.config.PortConfiguration;
+import shiver.me.timbers.junit.runner.servlet.config.PortConfigurationFactory;
 import shiver.me.timbers.junit.runner.servlet.inject.PortSetter;
 
 import static org.mockito.Matchers.any;
@@ -29,9 +29,9 @@ public class ServletJUnitRunnerTest {
 
         final Class<TestClass> test = TestClass.class;
 
-        final PortConfig portConfig = mock(PortConfig.class);
-        final PortConfigFactory portConfigFactory = mock(PortConfigFactory.class);
-        when(portConfigFactory.create(any(TestClass.class))).thenReturn(portConfig);
+        final PortConfiguration portConfiguration = mock(PortConfiguration.class);
+        final PortConfigurationFactory portConfigurationFactory = mock(PortConfigurationFactory.class);
+        when(portConfigurationFactory.create(any(TestClass.class))).thenReturn(portConfiguration);
 
         final Servlets servlets = mock(Servlets.class);
         final ServletsFactory servletsFactory = mock(ServletsFactory.class);
@@ -44,8 +44,8 @@ public class ServletJUnitRunnerTest {
         @SuppressWarnings("unchecked")
         final ContainerConfiguration<Object> containerConfiguration = mock(ContainerConfiguration.class);
         @SuppressWarnings("unchecked")
-        final ContainerConfigFactory<Object> containerConfigFactory = mock(ContainerConfigFactory.class);
-        when(containerConfigFactory.create(any(TestClass.class))).thenReturn(containerConfiguration);
+        final ContainerConfigurationFactory<Object> containerConfigurationFactory = mock(ContainerConfigurationFactory.class);
+        when(containerConfigurationFactory.create(any(TestClass.class))).thenReturn(containerConfiguration);
 
         final RunListener runListener = mock(RunListener.class);
         final RunListenerFactory runListenerFactory = mock(RunListenerFactory.class);
@@ -55,10 +55,10 @@ public class ServletJUnitRunnerTest {
 
         // When
         new ServletJUnitRunner<>(
-                portConfigFactory,
+                portConfigurationFactory,
                 servletsFactory,
                 filtersFactory,
-                containerConfigFactory,
+                containerConfigurationFactory,
                 portSetter,
                 runListenerFactory,
                 container,
@@ -66,12 +66,12 @@ public class ServletJUnitRunnerTest {
         ).run(notifier);
 
         // Then
-        verify(container).config(portConfig);
+        verify(container).config(portConfiguration);
         verify(container).config(containerConfiguration);
         verify(container).load(servlets);
         verify(container).load(filters);
         verify(container).start();
-        verify(portSetter).set(any(TestClass.class), eq(portConfig));
+        verify(portSetter).set(any(TestClass.class), eq(portConfiguration));
         verify(runListenerFactory).create(container);
         verify(notifier).addListener(runListener);
     }

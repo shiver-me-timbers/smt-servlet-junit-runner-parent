@@ -87,6 +87,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 public @interface ContainerConfiguration {
 
+    int port() default -1;
+
     /**
      * The class of the container configuration that should be used with this test.
      */

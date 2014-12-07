@@ -8,7 +8,7 @@ import shiver.me.timbers.junit.runner.servlet.Filters;
 import shiver.me.timbers.junit.runner.servlet.ServletDetails;
 import shiver.me.timbers.junit.runner.servlet.Servlets;
 import shiver.me.timbers.junit.runner.servlet.config.ContainerConfiguration;
-import shiver.me.timbers.junit.runner.servlet.config.PortConfig;
+import shiver.me.timbers.junit.runner.servlet.config.PortConfiguration;
 
 import javax.servlet.ServletException;
 
@@ -26,8 +26,8 @@ public class Tomcat7Container implements Container<Tomcat> {
     }
 
     @Override
-    public void config(PortConfig portConfig) {
-        tomcat.setPort(portConfig.getPort());
+    public void config(PortConfiguration portConfiguration) {
+        tomcat.setPort(portConfiguration.getPort());
     }
 
     @Override

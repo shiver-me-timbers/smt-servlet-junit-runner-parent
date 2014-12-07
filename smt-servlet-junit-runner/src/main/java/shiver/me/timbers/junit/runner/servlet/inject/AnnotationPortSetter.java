@@ -1,7 +1,7 @@
 package shiver.me.timbers.junit.runner.servlet.inject;
 
 import shiver.me.timbers.junit.runner.servlet.annotation.Port;
-import shiver.me.timbers.junit.runner.servlet.config.PortConfig;
+import shiver.me.timbers.junit.runner.servlet.config.PortConfiguration;
 
 import java.lang.reflect.Field;
 
@@ -13,7 +13,7 @@ import static java.lang.String.format;
 public class AnnotationPortSetter implements PortSetter {
 
     @Override
-    public void set(Object target, PortConfig portConfig) {
+    public void set(Object target, PortConfiguration portConfiguration) {
 
         final Class<?> type = target.getClass();
 
@@ -27,7 +27,7 @@ public class AnnotationPortSetter implements PortSetter {
 
         field.setAccessible(true);
 
-        final int port = portConfig.getPort();
+        final int port = portConfiguration.getPort();
 
         setPort(target, field, port);
     }

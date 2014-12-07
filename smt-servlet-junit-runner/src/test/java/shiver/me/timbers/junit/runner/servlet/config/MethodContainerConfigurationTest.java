@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-public class MethodContainerConfigTest {
+public class MethodContainerConfigurationTest {
 
     private static final Method PUBLIC_METHOD = getMethod("publicMethod", Integer.class);
     private static final Method PRIVATE_METHOD = getMethod("privateMethod", Integer.class);
@@ -15,7 +15,7 @@ public class MethodContainerConfigTest {
 
     private static Method getMethod(String name, Class... args) {
         try {
-            return MethodContainerConfigTest.class.getDeclaredMethod(name, args);
+            return MethodContainerConfigurationTest.class.getDeclaredMethod(name, args);
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }

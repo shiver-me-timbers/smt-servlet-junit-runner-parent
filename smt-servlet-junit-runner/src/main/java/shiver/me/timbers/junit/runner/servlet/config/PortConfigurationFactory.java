@@ -6,7 +6,7 @@ package shiver.me.timbers.junit.runner.servlet.config;
  *
  * @author Karl Bennett
  */
-public interface PortConfigFactory {
+public interface PortConfigurationFactory {
 
-    PortConfig create(Object target);
+    PortConfiguration create(Object target);
 }

@@ -4,23 +4,23 @@ import shiver.me.timbers.junit.runner.servlet.Container;
 import shiver.me.timbers.junit.runner.servlet.Filters;
 import shiver.me.timbers.junit.runner.servlet.Servlets;
 import shiver.me.timbers.junit.runner.servlet.config.ContainerConfiguration;
-import shiver.me.timbers.junit.runner.servlet.config.PortConfig;
+import shiver.me.timbers.junit.runner.servlet.config.PortConfiguration;
 
 public class TestServletContainer implements Container {
 
-    private PortConfig portConfig;
+    private PortConfiguration portConfiguration;
     private ContainerConfiguration containerConfiguration;
     private Servlets servlets;
     private Filters filters;
     private boolean started = false;
 
     @Override
-    public void config(PortConfig portConfig) {
-        this.portConfig = portConfig;
+    public void config(PortConfiguration portConfiguration) {
+        this.portConfiguration = portConfiguration;
     }
 
     public int getPort() {
-        return portConfig.getPort();
+        return portConfiguration.getPort();
     }
 
     @Override

@@ -7,7 +7,7 @@ import static shiver.me.timbers.junit.runner.servlet.config.NullContainerConfigu
 /**
  * @author Karl Bennett
  */
-public class MethodAnnotationContainerConfigFactory<C> implements ContainerConfigFactory<C> {
+public class MethodAnnotationContainerConfigurationFactory<C> implements ContainerConfigurationFactory<C> {
 
     @SuppressWarnings("unchecked")
     @Override

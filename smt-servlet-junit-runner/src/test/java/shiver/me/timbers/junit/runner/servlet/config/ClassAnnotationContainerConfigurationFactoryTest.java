@@ -8,7 +8,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static shiver.me.timbers.junit.runner.servlet.config.NullContainerConfiguration.NULL_CONTAINER_CONFIG;
 
-public class ClassAnnotationContainerConfigFactoryTest {
+public class ClassAnnotationContainerConfigurationFactoryTest {
 
     @Test
     public void A_class_with_no_configuration_should_produce_a_null_container_config() {
@@ -18,7 +18,7 @@ public class ClassAnnotationContainerConfigFactoryTest {
         }
 
         // When
-        final ContainerConfiguration<Object> actual = new ClassAnnotationContainerConfigFactory<>().create(new TestClass());
+        final ContainerConfiguration<Object> actual = new ClassAnnotationContainerConfigurationFactory<>().create(new TestClass());
 
         // Then
         assertEquals(NULL_CONTAINER_CONFIG, actual);
@@ -33,7 +33,7 @@ public class ClassAnnotationContainerConfigFactoryTest {
         }
 
         // When
-        final ContainerConfiguration<TestContainer> actual = new ClassAnnotationContainerConfigFactory<TestContainer>()
+        final ContainerConfiguration<TestContainer> actual = new ClassAnnotationContainerConfigurationFactory<TestContainer>()
                 .create(new TestClass());
 
         final TestContainer container = mock(TestContainer.class);
@@ -53,7 +53,7 @@ public class ClassAnnotationContainerConfigFactoryTest {
         }
 
         // When
-        final ContainerConfiguration<TestContainer> actual = new ClassAnnotationContainerConfigFactory<TestContainer>()
+        final ContainerConfiguration<TestContainer> actual = new ClassAnnotationContainerConfigurationFactory<TestContainer>()
                 .create(new TestClass());
 
         final TestContainer container = mock(TestContainer.class);
@@ -74,7 +74,7 @@ public class ClassAnnotationContainerConfigFactoryTest {
         }
 
         // When
-        new ClassAnnotationContainerConfigFactory<TestContainer>().create(new TestClass());
+        new ClassAnnotationContainerConfigurationFactory<TestContainer>().create(new TestClass());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -86,7 +86,7 @@ public class ClassAnnotationContainerConfigFactoryTest {
         }
 
         // When
-        new ClassAnnotationContainerConfigFactory<TestContainer>().create(new TestClass());
+        new ClassAnnotationContainerConfigurationFactory<TestContainer>().create(new TestClass());
     }
 
     public static class TestContainerConfiguration implements ContainerConfiguration<TestContainer> {

@@ -1,12 +1,12 @@
 package shiver.me.timbers.junit.runner.servlet;
 
 import org.junit.runners.model.InitializationError;
-import shiver.me.timbers.junit.runner.servlet.config.AggregatedContainerConfigFactory;
-import shiver.me.timbers.junit.runner.servlet.config.AnnotationStaticPortConfigFactory;
-import shiver.me.timbers.junit.runner.servlet.config.ClassAnnotationContainerConfigFactory;
+import shiver.me.timbers.junit.runner.servlet.config.AggregatedContainerConfigurationFactory;
+import shiver.me.timbers.junit.runner.servlet.config.AnnotationStaticPortConfigurationFactory;
+import shiver.me.timbers.junit.runner.servlet.config.ClassAnnotationContainerConfigurationFactory;
 import shiver.me.timbers.junit.runner.servlet.config.FreeRandomPortConfigFactory;
-import shiver.me.timbers.junit.runner.servlet.config.MethodAnnotationContainerConfigFactory;
-import shiver.me.timbers.junit.runner.servlet.config.SettablePortConfigFactory;
+import shiver.me.timbers.junit.runner.servlet.config.MethodAnnotationContainerConfigurationFactory;
+import shiver.me.timbers.junit.runner.servlet.config.SettablePortConfigurationFactory;
 import shiver.me.timbers.junit.runner.servlet.inject.AnnotationPortSetter;
 
 /**
@@ -38,15 +38,15 @@ public class AnnotationServletJUnitRunner<C> extends ServletJUnitRunner<C> {
 
     public AnnotationServletJUnitRunner(Container<C> container, Class test) throws InitializationError {
         super(
-                new SettablePortConfigFactory(
-                        new AnnotationStaticPortConfigFactory(),
+                new SettablePortConfigurationFactory(
+                        new AnnotationStaticPortConfigurationFactory(),
                         new FreeRandomPortConfigFactory()
                 ),
                 new AnnotationServletsFactory(),
                 new AnnotationFiltersFactory(),
-                new AggregatedContainerConfigFactory<>(
-                        new ClassAnnotationContainerConfigFactory<C>(),
-                        new MethodAnnotationContainerConfigFactory<C>()
+                new AggregatedContainerConfigurationFactory<>(
+                        new ClassAnnotationContainerConfigurationFactory<C>(),
+                        new MethodAnnotationContainerConfigurationFactory<C>()
                 ),
                 new AnnotationPortSetter(),
                 new ShutdownRunListenerFactory(),

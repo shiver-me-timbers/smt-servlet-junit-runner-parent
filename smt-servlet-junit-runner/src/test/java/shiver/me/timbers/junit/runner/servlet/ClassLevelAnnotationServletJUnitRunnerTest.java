@@ -25,8 +25,8 @@ import static shiver.me.timbers.junit.runner.servlet.test.ServletsMatcher.equalT
 import static shiver.me.timbers.junit.runner.servlet.test.TestContainerConfiguration.TEST_SERVLET_CONTAINER_REFERENCE;
 
 @RunWith(TestAnnotationServletJUnitRunner.class)
-@Port(9996)
 @ContainerConfiguration(
+        port = 9996,
         value = TestContainerConfiguration.class,
         servlets = {ServletOne.class, ServletTwo.class, ServletThree.class},
         filters = {FilterOne.class, FilterTwo.class, FilterThree.class}

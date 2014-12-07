@@ -7,10 +7,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static shiver.me.timbers.junit.runner.servlet.config.NullContainerConfiguration.NULL_CONTAINER_CONFIG;
 
-/**
- * @author Karl Bennett
- */
-public class MethodAnnotationContainerConfigFactoryTest {
+public class MethodAnnotationContainerConfigurationFactoryTest {
 
     @Test
     public void A_class_with_no_configured_method_returns_a_null_config() {
@@ -20,7 +17,7 @@ public class MethodAnnotationContainerConfigFactoryTest {
         }
 
         // When
-        final ContainerConfiguration<Object> actual = new MethodAnnotationContainerConfigFactory<>().create(new TestClass());
+        final ContainerConfiguration<Object> actual = new MethodAnnotationContainerConfigurationFactory<>().create(new TestClass());
 
         // Then
         assertEquals(NULL_CONTAINER_CONFIG, actual);
@@ -41,7 +38,7 @@ public class MethodAnnotationContainerConfigFactoryTest {
         final TestContainer container = mock(TestContainer.class);
 
         // When
-        final ContainerConfiguration<TestContainer> actual = new MethodAnnotationContainerConfigFactory<TestContainer>()
+        final ContainerConfiguration<TestContainer> actual = new MethodAnnotationContainerConfigurationFactory<TestContainer>()
                 .create(new TestClass());
 
         actual.configure(container);
@@ -51,7 +48,7 @@ public class MethodAnnotationContainerConfigFactoryTest {
     }
 
     @Test
-    public void A_class_with_a_configured_method_returns_a_null_config() {
+    public void A_class_with_a_configured_private_method_returns_a_null_config() {
 
         // Given
         class TestClass {
@@ -63,7 +60,7 @@ public class MethodAnnotationContainerConfigFactoryTest {
         }
 
         // When
-        final ContainerConfiguration<Object> actual = new MethodAnnotationContainerConfigFactory<>().create(new TestClass());
+        final ContainerConfiguration<Object> actual = new MethodAnnotationContainerConfigurationFactory<>().create(new TestClass());
 
         // Then
         assertEquals(NULL_CONTAINER_CONFIG, actual);
@@ -83,7 +80,7 @@ public class MethodAnnotationContainerConfigFactoryTest {
         final TestContainer container = mock(TestContainer.class);
 
         // When
-        final ContainerConfiguration<TestContainer> actual = new MethodAnnotationContainerConfigFactory<TestContainer>()
+        final ContainerConfiguration<TestContainer> actual = new MethodAnnotationContainerConfigurationFactory<TestContainer>()
                 .create(new TestClass());
 
         actual.configure(container);

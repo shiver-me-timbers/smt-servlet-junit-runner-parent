@@ -6,7 +6,7 @@ import java.net.ServerSocket;
 /**
  * @author Karl Bennett
  */
-public class SocketPortConfig implements PortConfig {
+public class SocketPortConfiguration implements PortConfiguration {
 
     static int socketPort(int port) {
         try {
@@ -24,11 +24,11 @@ public class SocketPortConfig implements PortConfig {
 
     private final int port;
 
-    public SocketPortConfig() {
+    public SocketPortConfiguration() {
         this(0);
     }
 
-    public SocketPortConfig(int port) {
+    public SocketPortConfiguration(int port) {
         this.port = socketPort(port);
     }
 

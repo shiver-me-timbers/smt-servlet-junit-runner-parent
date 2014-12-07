@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static shiver.me.timbers.junit.runner.servlet.config.NullContainerConfiguration.NULL_CONTAINER_CONFIG;
 
-public class NullContainerConfigTest {
+public class NullContainerConfigurationTest {
 
     @SuppressWarnings("unchecked")
     @Test

@@ -7,7 +7,7 @@ import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.model.InitializationError;
 import shiver.me.timbers.junit.runner.servlet.annotation.Port;
 import shiver.me.timbers.junit.runner.servlet.config.ContainerConfiguration;
-import shiver.me.timbers.junit.runner.servlet.config.PortConfig;
+import shiver.me.timbers.junit.runner.servlet.config.PortConfiguration;
 import shiver.me.timbers.junit.runner.servlet.test.FilterOne;
 import shiver.me.timbers.junit.runner.servlet.test.FilterThree;
 import shiver.me.timbers.junit.runner.servlet.test.FilterTwo;
@@ -92,8 +92,8 @@ public class AnnotationServletJUnitRunnerTest {
         verify(server).shutdown();
     }
 
-    @Port(PORT)
     @shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration(
+            port = PORT,
             value = TestContainerConfiguration.class,
             servlets = {ServletOne.class, ServletTwo.class, ServletThree.class},
             filters = {FilterOne.class, FilterTwo.class, FilterThree.class}
@@ -137,8 +137,8 @@ public class AnnotationServletJUnitRunnerTest {
     public class TestContainer implements Container<TestServletContainer> {
 
         @Override
-        public void config(PortConfig portConfig) {
-            server.configuredPort(portConfig.getPort());
+        public void config(PortConfiguration portConfiguration) {
+            server.configuredPort(portConfiguration.getPort());
         }
 
         @SuppressWarnings("unchecked")

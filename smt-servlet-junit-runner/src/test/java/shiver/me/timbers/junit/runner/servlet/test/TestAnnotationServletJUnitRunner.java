@@ -6,7 +6,7 @@ import shiver.me.timbers.junit.runner.servlet.Container;
 import shiver.me.timbers.junit.runner.servlet.Filters;
 import shiver.me.timbers.junit.runner.servlet.Servlets;
 import shiver.me.timbers.junit.runner.servlet.config.ContainerConfiguration;
-import shiver.me.timbers.junit.runner.servlet.config.PortConfig;
+import shiver.me.timbers.junit.runner.servlet.config.PortConfiguration;
 
 public class TestAnnotationServletJUnitRunner extends AnnotationServletJUnitRunner<TestServletContainer> {
 
@@ -17,8 +17,8 @@ public class TestAnnotationServletJUnitRunner extends AnnotationServletJUnitRunn
                     private final TestServletContainer container = new TestServletContainer();
 
                     @Override
-                    public void config(PortConfig portConfig) {
-                        container.config(portConfig);
+                    public void config(PortConfiguration portConfiguration) {
+                        container.config(portConfiguration);
                     }
 
                     @Override

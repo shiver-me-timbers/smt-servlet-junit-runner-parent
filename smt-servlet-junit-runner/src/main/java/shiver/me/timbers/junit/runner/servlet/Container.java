@@ -1,7 +1,7 @@
 package shiver.me.timbers.junit.runner.servlet;
 
 import shiver.me.timbers.junit.runner.servlet.config.ContainerConfiguration;
-import shiver.me.timbers.junit.runner.servlet.config.PortConfig;
+import shiver.me.timbers.junit.runner.servlet.config.PortConfiguration;
 
 /**
  * This interface provides a generic interface for starting, stopping, and configuring specific containers.
@@ -10,7 +10,7 @@ import shiver.me.timbers.junit.runner.servlet.config.PortConfig;
  */
 public interface Container<C> {
 
-    void config(PortConfig portConfig);
+    void config(PortConfiguration portConfiguration);
 
     void config(ContainerConfiguration<C> containerConfiguration);
 
