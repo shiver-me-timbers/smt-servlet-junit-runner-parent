@@ -25,7 +25,7 @@ import static shiver.me.timbers.junit.runner.servlet.test.Constants.SMALL_ICON;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.URL_PATTERN;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.VALUE;
 
-public class ServletDetailsTest {
+public class ServletDetailTest {
 
     private static final String NAME = "valid-servlet";
     private static final boolean LOAD_ON_STARTUP = true;
@@ -34,7 +34,7 @@ public class ServletDetailsTest {
     public void An_annotated_servlet_class_can_be_used_for_creation() {
 
         // When
-        final ServletDetails actual = new ServletDetails(AllAnnotatedServlet.class);
+        final ServletDetail actual = new ServletDetail(AllAnnotatedServlet.class);
 
         // Then
         assertEquals(NAME, actual.getName());
@@ -53,7 +53,7 @@ public class ServletDetailsTest {
     public void An_servlet_class_annotated_with_a_value_produces_the_correct_url_pattern() {
 
         // When
-        final ServletDetails actual = new ServletDetails(AnnotatedWithValueServlet.class);
+        final ServletDetail actual = new ServletDetail(AnnotatedWithValueServlet.class);
 
         // Then
         assertThat(actual.getName(), isEmptyString());
@@ -66,7 +66,7 @@ public class ServletDetailsTest {
     public void An_servlet_class_annotated_with_a_url_pattern_produces_the_correct_url_pattern() {
 
         // When
-        final ServletDetails actual = new ServletDetails(AnnotatedWithUrlPatternsServlet.class);
+        final ServletDetail actual = new ServletDetail(AnnotatedWithUrlPatternsServlet.class);
 
         // Then
         assertThat(actual.getName(), isEmptyString());
@@ -83,7 +83,7 @@ public class ServletDetailsTest {
         final String urlPattern = "/" + name;
 
         // When
-        final ServletDetails actual = new ServletDetails(UnannotatedServlet.class);
+        final ServletDetail actual = new ServletDetail(UnannotatedServlet.class);
 
         // Then
         assertEquals(name, actual.getName());
@@ -96,24 +96,24 @@ public class ServletDetailsTest {
     public void A_servlet_class_with_a_private_default_constructor_cannot_be_used_for_creation() {
 
         // When
-        new ServletDetails(PrivateDefaultConstructorServlet.class);
+        new ServletDetail(PrivateDefaultConstructorServlet.class);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void A_servlet_class_with_no_default_constructor_cannot_be_used_for_creation() {
 
         // When
-        new ServletDetails(NoDefaultConstructorServlet.class);
+        new ServletDetail(NoDefaultConstructorServlet.class);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void A_servlet_interface_cannot_be_used_for_creation() {
 
         // When
-        new ServletDetails(Servlet.class);
+        new ServletDetail(Servlet.class);
     }
 
-    private static void assertDefaults(ServletDetails actual) {
+    private static void assertDefaults(ServletDetail actual) {
         assertFalse(actual.loadOnStartup());
         assertEquals(new HashMap<String, String>(), actual.getInitParams());
         assertFalse(actual.asyncSupported());

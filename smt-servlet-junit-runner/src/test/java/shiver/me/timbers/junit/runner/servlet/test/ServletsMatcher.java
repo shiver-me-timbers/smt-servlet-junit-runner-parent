@@ -3,7 +3,7 @@ package shiver.me.timbers.junit.runner.servlet.test;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import shiver.me.timbers.junit.runner.servlet.ServletDetails;
+import shiver.me.timbers.junit.runner.servlet.ServletDetail;
 import shiver.me.timbers.junit.runner.servlet.Servlets;
 
 import java.util.List;
@@ -29,8 +29,8 @@ public class ServletsMatcher extends TypeSafeMatcher<Servlets> {
     @Override
     protected boolean matchesSafely(Servlets actual) {
 
-        final List<ServletDetails> expectedServlets = expected.getServlets();
-        final List<ServletDetails> actualServlets = actual.getServlets();
+        final List<ServletDetail> expectedServlets = expected.getServlets();
+        final List<ServletDetail> actualServlets = actual.getServlets();
 
         if (expectedServlets.size() != actualServlets.size()) {
             return false;

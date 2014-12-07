@@ -10,30 +10,30 @@ import java.util.List;
 public class SettableFilters implements Filters {
 
     @SafeVarargs
-    private static List<FilterDetails> transform(Class<? extends Filter>... servlets) {
+    private static List<FilterDetail> transform(Class<? extends Filter>... servlets) {
 
-        final List<FilterDetails> details = new ArrayList<>(servlets.length);
+        final List<FilterDetail> details = new ArrayList<>(servlets.length);
 
         for (Class<? extends Filter> servlet : servlets) {
-            details.add(new FilterDetails(servlet));
+            details.add(new FilterDetail(servlet));
         }
 
         return details;
     }
 
-    private final List<FilterDetails> servlets;
+    private final List<FilterDetail> servlets;
 
     @SafeVarargs
     public SettableFilters(Class<? extends Filter>... servlets) {
         this(transform(servlets));
     }
 
-    public SettableFilters(List<FilterDetails> servlets) {
+    public SettableFilters(List<FilterDetail> servlets) {
         this.servlets = servlets;
     }
 
     @Override
-    public List<FilterDetails> getFilters() {
+    public List<FilterDetail> getFilters() {
         return servlets;
     }
 }

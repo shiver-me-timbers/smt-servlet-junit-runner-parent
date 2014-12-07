@@ -6,5 +6,5 @@ import java.util.List;
  * @author Karl Bennett
  */
 public interface Filters {
-    List<FilterDetails> getFilters();
+    List<FilterDetail> getFilters();
 }

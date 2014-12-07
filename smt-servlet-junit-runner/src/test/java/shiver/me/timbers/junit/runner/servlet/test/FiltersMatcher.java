@@ -3,7 +3,7 @@ package shiver.me.timbers.junit.runner.servlet.test;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import shiver.me.timbers.junit.runner.servlet.FilterDetails;
+import shiver.me.timbers.junit.runner.servlet.FilterDetail;
 import shiver.me.timbers.junit.runner.servlet.Filters;
 
 import java.util.List;
@@ -29,8 +29,8 @@ public class FiltersMatcher extends TypeSafeMatcher<Filters> {
     @Override
     protected boolean matchesSafely(Filters actual) {
 
-        final List<FilterDetails> expectedFilters = expected.getFilters();
-        final List<FilterDetails> actualFilters = actual.getFilters();
+        final List<FilterDetail> expectedFilters = expected.getFilters();
+        final List<FilterDetail> actualFilters = actual.getFilters();
 
         if (expectedFilters.size() != actualFilters.size()) {
             return false;

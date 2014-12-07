@@ -74,9 +74,9 @@ public class AnnotationServletJUnitRunnerTest {
         // Given
         final RunNotifier notifier = new RunNotifier();
         final Servlets servlets = mock(Servlets.class);
-        when(servlets.getServlets()).thenReturn(new ArrayList<ServletDetails>());
+        when(servlets.getServlets()).thenReturn(new ArrayList<ServletDetail>());
         final Filters filters = mock(Filters.class);
-        when(filters.getFilters()).thenReturn(new ArrayList<FilterDetails>());
+        when(filters.getFilters()).thenReturn(new ArrayList<FilterDetail>());
 
         // When
         new AnnotationServletJUnitRunner<>(new TestContainer(), MethodLevelConfig.class).run(notifier);

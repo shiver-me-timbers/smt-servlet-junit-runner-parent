@@ -7,5 +7,5 @@ import java.util.List;
  */
 public interface Servlets {
 
-    List<ServletDetails> getServlets();
+    List<ServletDetail> getServlets();
 }

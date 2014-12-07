@@ -20,7 +20,7 @@ public class SettableFiltersTest {
 
         // Given
         final Filters expected = mock(Filters.class);
-        when(expected.getFilters()).thenReturn(new ArrayList<FilterDetails>());
+        when(expected.getFilters()).thenReturn(new ArrayList<FilterDetail>());
 
         // When
         final Filters actual = new SettableFilters();

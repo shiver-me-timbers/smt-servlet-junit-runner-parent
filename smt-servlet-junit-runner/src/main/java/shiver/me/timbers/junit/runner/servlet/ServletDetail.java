@@ -16,7 +16,7 @@ import static shiver.me.timbers.junit.runner.servlet.annotation.Annotations.tran
  *
  * @author Karl Bennett
  */
-public class ServletDetails {
+public class ServletDetail {
 
     private final String name;
     private final List<String> urlPatterns;
@@ -30,19 +30,19 @@ public class ServletDetails {
 
     private final Servlet servlet;
 
-    public ServletDetails(Class<? extends Servlet> servlet) {
+    public ServletDetail(Class<? extends Servlet> servlet) {
         this(instantiate(servlet), buildAnnotation(servlet, WebServlet.class, ClassWebServlet.class));
     }
 
-    private ServletDetails(Servlet servlet, WebServlet webServlet) {
+    private ServletDetail(Servlet servlet, WebServlet webServlet) {
         this(webServlet.name(), findUrlPatterns(webServlet), 0 <= webServlet.loadOnStartup(),
                 transform(webServlet.initParams()), webServlet.asyncSupported(), webServlet.smallIcon(),
                 webServlet.largeIcon(), webServlet.description(), webServlet.displayName(), servlet);
     }
 
-    public ServletDetails(String name, List<String> urlPatterns, boolean loadOnStartup, Map<String, String> initParams,
-                          boolean asyncSupported, String smallIcon, String largeIcon, String description,
-                          String displayName, Servlet servlet) {
+    public ServletDetail(String name, List<String> urlPatterns, boolean loadOnStartup, Map<String, String> initParams,
+                         boolean asyncSupported, String smallIcon, String largeIcon, String description,
+                         String displayName, Servlet servlet) {
         this.name = name;
         this.urlPatterns = unmodifiableList(urlPatterns);
         this.loadOnStartup = loadOnStartup;

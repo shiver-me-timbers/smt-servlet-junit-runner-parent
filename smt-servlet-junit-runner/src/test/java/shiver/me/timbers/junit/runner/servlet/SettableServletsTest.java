@@ -20,7 +20,7 @@ public class SettableServletsTest {
 
         // Given
         final Servlets expected = mock(Servlets.class);
-        when(expected.getServlets()).thenReturn(new ArrayList<ServletDetails>());
+        when(expected.getServlets()).thenReturn(new ArrayList<ServletDetail>());
 
         // When
         final Servlets actual = new SettableServlets();

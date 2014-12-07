@@ -17,7 +17,7 @@ public class AnnotationFiltersFactory implements FiltersFactory {
         final ContainerConfiguration configuration = type.getAnnotation(ContainerConfiguration.class);
 
         if (null == configuration) {
-            return new SettableFilters(new ArrayList<FilterDetails>());
+            return new SettableFilters(new ArrayList<FilterDetail>());
         }
 
         return new SettableFilters(configuration.filters());

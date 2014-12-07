@@ -26,7 +26,7 @@ import static shiver.me.timbers.junit.runner.servlet.test.Constants.SMALL_ICON;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.URL_PATTERN;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.VALUE;
 
-public class FilterDetailsTest {
+public class FilterDetailTest {
 
     private static final String INIT = "init";
     private static final String PARAM = "param";
@@ -38,7 +38,7 @@ public class FilterDetailsTest {
     public void An_annotated_filter_class_can_be_used_for_creation() {
 
         // When
-        final FilterDetails actual = new FilterDetails(AllAnnotatedFilter.class);
+        final FilterDetail actual = new FilterDetail(AllAnnotatedFilter.class);
 
         // Then
         assertEquals(DESCRIPTION, actual.getDescription());
@@ -58,7 +58,7 @@ public class FilterDetailsTest {
     public void An_filter_class_annotated_with_a_value_produces_the_correct_url_pattern() {
 
         // When
-        final FilterDetails actual = new FilterDetails(AnnotatedWithValueFilter.class);
+        final FilterDetail actual = new FilterDetail(AnnotatedWithValueFilter.class);
 
         // Then
         assertThat(actual.getFilterName(), isEmptyString());
@@ -71,7 +71,7 @@ public class FilterDetailsTest {
     public void An_filter_class_annotated_with_a_url_pattern_produces_the_correct_url_pattern() {
 
         // When
-        final FilterDetails actual = new FilterDetails(AnnotatedWithUrlPatternsFilter.class);
+        final FilterDetail actual = new FilterDetail(AnnotatedWithUrlPatternsFilter.class);
 
         // Then
         assertThat(actual.getFilterName(), isEmptyString());
@@ -88,7 +88,7 @@ public class FilterDetailsTest {
         final String urlPattern = "/" + name;
 
         // When
-        final FilterDetails actual = new FilterDetails(UnannotatedFilter.class);
+        final FilterDetail actual = new FilterDetail(UnannotatedFilter.class);
 
         // Then
         assertEquals(name, actual.getFilterName());
@@ -101,21 +101,21 @@ public class FilterDetailsTest {
     public void A_filter_class_with_a_private_default_constructor_cannot_be_used_for_creation() {
 
         // When
-        new FilterDetails(PrivateDefaultConstructorFilter.class);
+        new FilterDetail(PrivateDefaultConstructorFilter.class);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void A_filter_class_with_no_default_constructor_cannot_be_used_for_creation() {
 
         // When
-        new FilterDetails(NoDefaultConstructorFilter.class);
+        new FilterDetail(NoDefaultConstructorFilter.class);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void A_filter_interface_cannot_be_used_for_creation() {
 
         // When
-        new FilterDetails(Filter.class);
+        new FilterDetail(Filter.class);
     }
 
     @WebFilter(
@@ -135,7 +135,7 @@ public class FilterDetailsTest {
     public static class AllAnnotatedFilter extends BaseFilter {
     }
 
-    private static void assertDefaults(FilterDetails actual) {
+    private static void assertDefaults(FilterDetail actual) {
         assertThat(actual.getDescription(), isEmptyString());
         assertThat(actual.getDisplayName(), isEmptyString());
         assertEquals(new HashMap<String, String>(), actual.getInitParams());

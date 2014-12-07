@@ -5,7 +5,7 @@ import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 import shiver.me.timbers.junit.runner.servlet.Container;
 import shiver.me.timbers.junit.runner.servlet.Filters;
-import shiver.me.timbers.junit.runner.servlet.ServletDetails;
+import shiver.me.timbers.junit.runner.servlet.ServletDetail;
 import shiver.me.timbers.junit.runner.servlet.Servlets;
 import shiver.me.timbers.junit.runner.servlet.configuration.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.configuration.PortConfiguration;
@@ -38,13 +38,13 @@ public class Tomcat7Container implements Container<Tomcat> {
     @Override
     public void load(Servlets servlets) {
 
-        for (ServletDetails servletDetails : servlets.getServlets()) {
+        for (ServletDetail servletDetail : servlets.getServlets()) {
 
-            final String name = servletDetails.getName();
+            final String name = servletDetail.getName();
 
-            Tomcat.addServlet(context, name, servletDetails.getServlet());
+            Tomcat.addServlet(context, name, servletDetail.getServlet());
 
-            for (String urlPattern : servletDetails.getUrlPatterns()) {
+            for (String urlPattern : servletDetail.getUrlPatterns()) {
                 context.addServletMapping(urlPattern, name);
             }
         }

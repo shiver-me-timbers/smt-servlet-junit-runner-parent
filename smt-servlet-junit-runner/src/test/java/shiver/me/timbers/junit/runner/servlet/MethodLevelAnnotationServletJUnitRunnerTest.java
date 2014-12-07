@@ -35,7 +35,7 @@ public class MethodLevelAnnotationServletJUnitRunnerTest {
 
         // Given
         final Servlets servlets = mock(Servlets.class);
-        when(servlets.getServlets()).thenReturn(new ArrayList<ServletDetails>());
+        when(servlets.getServlets()).thenReturn(new ArrayList<ServletDetail>());
 
         // Then
         assertThat(port, greaterThan(0));

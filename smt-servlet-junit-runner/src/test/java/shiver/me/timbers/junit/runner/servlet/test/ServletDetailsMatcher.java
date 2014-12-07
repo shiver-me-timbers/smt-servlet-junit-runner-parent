@@ -3,34 +3,34 @@ package shiver.me.timbers.junit.runner.servlet.test;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import shiver.me.timbers.junit.runner.servlet.ServletDetails;
+import shiver.me.timbers.junit.runner.servlet.ServletDetail;
 
 /**
  * @author Karl Bennett
  */
-public class ServletDetailsMatcher extends TypeSafeMatcher<ServletDetails> {
+public class ServletDetailsMatcher extends TypeSafeMatcher<ServletDetail> {
 
-    public static Matcher<ServletDetails> equalTo(ServletDetails expected) {
+    public static Matcher<ServletDetail> equalTo(ServletDetail expected) {
         return new ServletDetailsMatcher(expected);
     }
 
-    public static WithMatcher<ServletDetails> servletDetailsMatcher() {
-        return new WithMatcher<ServletDetails>() {
+    public static WithMatcher<ServletDetail> servletDetailsMatcher() {
+        return new WithMatcher<ServletDetail>() {
             @Override
-            public Matcher matcher(ServletDetails expected) {
+            public Matcher matcher(ServletDetail expected) {
                 return equalTo(expected);
             }
         };
     }
 
-    private final ServletDetails expected;
+    private final ServletDetail expected;
 
-    public ServletDetailsMatcher(ServletDetails expected) {
+    public ServletDetailsMatcher(ServletDetail expected) {
         this.expected = expected;
     }
 
     @Override
-    protected boolean matchesSafely(ServletDetails actual) {
+    protected boolean matchesSafely(ServletDetail actual) {
 
         if (!expected.getName().equals(actual.getName())) {
             return false;

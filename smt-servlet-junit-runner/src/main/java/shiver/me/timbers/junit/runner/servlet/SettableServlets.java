@@ -10,30 +10,30 @@ import java.util.List;
 public class SettableServlets implements Servlets {
 
     @SafeVarargs
-    private static List<ServletDetails> transform(Class<? extends Servlet>... servlets) {
+    private static List<ServletDetail> transform(Class<? extends Servlet>... servlets) {
 
-        final List<ServletDetails> details = new ArrayList<>(servlets.length);
+        final List<ServletDetail> details = new ArrayList<>(servlets.length);
 
         for (Class<? extends Servlet> servlet : servlets) {
-            details.add(new ServletDetails(servlet));
+            details.add(new ServletDetail(servlet));
         }
 
         return details;
     }
 
-    private final List<ServletDetails> servlets;
+    private final List<ServletDetail> servlets;
 
     @SafeVarargs
     public SettableServlets(Class<? extends Servlet>... servlets) {
         this(transform(servlets));
     }
 
-    public SettableServlets(List<ServletDetails> servlets) {
+    public SettableServlets(List<ServletDetail> servlets) {
         this.servlets = servlets;
     }
 
     @Override
-    public List<ServletDetails> getServlets() {
+    public List<ServletDetail> getServlets() {
         return servlets;
     }
 }

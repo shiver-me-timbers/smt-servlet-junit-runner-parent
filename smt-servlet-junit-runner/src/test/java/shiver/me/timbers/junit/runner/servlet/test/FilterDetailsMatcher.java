@@ -3,34 +3,34 @@ package shiver.me.timbers.junit.runner.servlet.test;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import shiver.me.timbers.junit.runner.servlet.FilterDetails;
+import shiver.me.timbers.junit.runner.servlet.FilterDetail;
 
 /**
  * @author Karl Bennett
  */
-public class FilterDetailsMatcher extends TypeSafeMatcher<FilterDetails> {
+public class FilterDetailsMatcher extends TypeSafeMatcher<FilterDetail> {
 
-    public static Matcher<FilterDetails> equalTo(FilterDetails expected) {
+    public static Matcher<FilterDetail> equalTo(FilterDetail expected) {
         return new FilterDetailsMatcher(expected);
     }
 
-    public static WithMatcher<FilterDetails> filterDetailsMatcher() {
-        return new WithMatcher<FilterDetails>() {
+    public static WithMatcher<FilterDetail> filterDetailsMatcher() {
+        return new WithMatcher<FilterDetail>() {
             @Override
-            public Matcher matcher(FilterDetails expected) {
+            public Matcher matcher(FilterDetail expected) {
                 return equalTo(expected);
             }
         };
     }
 
-    private final FilterDetails expected;
+    private final FilterDetail expected;
 
-    public FilterDetailsMatcher(FilterDetails expected) {
+    public FilterDetailsMatcher(FilterDetail expected) {
         this.expected = expected;
     }
 
     @Override
-    protected boolean matchesSafely(FilterDetails actual) {
+    protected boolean matchesSafely(FilterDetail actual) {
 
         if (!expected.getDescription().equals(actual.getDescription())) {
             return false;

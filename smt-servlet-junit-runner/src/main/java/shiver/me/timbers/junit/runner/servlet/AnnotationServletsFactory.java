@@ -17,7 +17,7 @@ public class AnnotationServletsFactory implements ServletsFactory {
         final ContainerConfiguration configuration = type.getAnnotation(ContainerConfiguration.class);
 
         if (null == configuration) {
-            return new SettableServlets(new ArrayList<ServletDetails>());
+            return new SettableServlets(new ArrayList<ServletDetail>());
         }
 
         return new SettableServlets(configuration.servlets());
