@@ -58,8 +58,8 @@ public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
 
         final Filters filters = filtersFactory.create(target);
 
-        container.config(portConfiguration);
-        container.config(containerConfiguration);
+        container.configure(portConfiguration);
+        container.configure(containerConfiguration);
         container.load(servlets);
         container.load(filters);
         container.start();

@@ -26,12 +26,12 @@ public class Tomcat7Container implements Container<Tomcat> {
     }
 
     @Override
-    public void config(PortConfiguration portConfiguration) {
+    public void configure(PortConfiguration portConfiguration) {
         tomcat.setPort(portConfiguration.getPort());
     }
 
     @Override
-    public void config(ContainerConfiguration<Tomcat> containerConfiguration) {
+    public void configure(ContainerConfiguration<Tomcat> containerConfiguration) {
         containerConfiguration.configure(tomcat);
     }
 

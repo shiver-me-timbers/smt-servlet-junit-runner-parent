@@ -10,9 +10,9 @@ import shiver.me.timbers.junit.runner.servlet.configuration.PortConfiguration;
  */
 public interface Container<C> {
 
-    void config(PortConfiguration portConfiguration);
+    void configure(PortConfiguration portConfiguration);
 
-    void config(ContainerConfiguration<C> containerConfiguration);
+    void configure(ContainerConfiguration<C> containerConfiguration);
 
     void load(Servlets servlets);
 

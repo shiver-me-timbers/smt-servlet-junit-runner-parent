@@ -66,8 +66,8 @@ public class ServletJUnitRunnerTest {
         ).run(notifier);
 
         // Then
-        verify(container).config(portConfiguration);
-        verify(container).config(containerConfiguration);
+        verify(container).configure(portConfiguration);
+        verify(container).configure(containerConfiguration);
         verify(container).load(servlets);
         verify(container).load(filters);
         verify(container).start();

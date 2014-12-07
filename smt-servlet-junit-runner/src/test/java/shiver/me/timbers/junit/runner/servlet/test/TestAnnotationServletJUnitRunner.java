@@ -17,13 +17,13 @@ public class TestAnnotationServletJUnitRunner extends AnnotationServletJUnitRunn
                     private final TestServletContainer container = new TestServletContainer();
 
                     @Override
-                    public void config(PortConfiguration portConfiguration) {
-                        container.config(portConfiguration);
+                    public void configure(PortConfiguration portConfiguration) {
+                        container.configure(portConfiguration);
                     }
 
                     @Override
-                    public void config(ContainerConfiguration<TestServletContainer> containerConfiguration) {
-                        container.config(containerConfiguration);
+                    public void configure(ContainerConfiguration<TestServletContainer> containerConfiguration) {
+                        container.configure(containerConfiguration);
                         containerConfiguration.configure(container);
                     }
 

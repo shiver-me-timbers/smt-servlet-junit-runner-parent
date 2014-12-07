@@ -137,13 +137,13 @@ public class AnnotationServletJUnitRunnerTest {
     public class TestContainer implements Container<TestServletContainer> {
 
         @Override
-        public void config(PortConfiguration portConfiguration) {
+        public void configure(PortConfiguration portConfiguration) {
             server.configuredPort(portConfiguration.getPort());
         }
 
         @SuppressWarnings("unchecked")
         @Override
-        public void config(
+        public void configure(
                 ContainerConfiguration<TestServletContainer> containerConfiguration) {
             containerConfiguration.configure(server);
         }

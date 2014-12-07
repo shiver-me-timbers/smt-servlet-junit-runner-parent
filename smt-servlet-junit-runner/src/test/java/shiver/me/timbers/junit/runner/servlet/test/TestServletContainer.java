@@ -15,7 +15,7 @@ public class TestServletContainer implements Container {
     private boolean started = false;
 
     @Override
-    public void config(PortConfiguration portConfiguration) {
+    public void configure(PortConfiguration portConfiguration) {
         this.portConfiguration = portConfiguration;
     }
 
@@ -24,7 +24,7 @@ public class TestServletContainer implements Container {
     }
 
     @Override
-    public void config(ContainerConfiguration containerConfiguration) {
+    public void configure(ContainerConfiguration containerConfiguration) {
         this.containerConfiguration = containerConfiguration;
     }
 
