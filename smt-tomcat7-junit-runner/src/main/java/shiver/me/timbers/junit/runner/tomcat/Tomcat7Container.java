@@ -4,11 +4,14 @@ import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 import shiver.me.timbers.junit.runner.servlet.Container;
+import shiver.me.timbers.junit.runner.servlet.FilterDetail;
 import shiver.me.timbers.junit.runner.servlet.Filters;
 import shiver.me.timbers.junit.runner.servlet.ServletDetail;
 import shiver.me.timbers.junit.runner.servlet.Servlets;
 import shiver.me.timbers.junit.runner.servlet.configuration.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.configuration.PortConfiguration;
+import shiver.me.timbers.junit.runner.tomcat.filter.FilterDetailFilterDef;
+import shiver.me.timbers.junit.runner.tomcat.filter.FilterDetailFilterMap;
 
 import javax.servlet.ServletException;
 
@@ -53,6 +56,10 @@ public class Tomcat7Container implements Container<Tomcat> {
     @Override
     public void load(Filters filters) {
 
+        for (FilterDetail filterDetail : filters.getFilters()) {
+            context.addFilterDef(new FilterDetailFilterDef(filterDetail));
+            context.addFilterMap(new FilterDetailFilterMap(filterDetail));
+        }
     }
 
     @Override

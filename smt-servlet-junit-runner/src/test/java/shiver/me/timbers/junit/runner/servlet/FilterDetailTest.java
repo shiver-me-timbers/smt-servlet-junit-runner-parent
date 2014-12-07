@@ -55,13 +55,26 @@ public class FilterDetailTest {
     }
 
     @Test
+    public void An_filter_class_annotated_with_no_name_has_one_generated() {
+
+        // When
+        final FilterDetail actual = new FilterDetail(AnnotatedWithNoNameFilter.class);
+
+        // Then
+        assertEquals(AnnotatedWithNoNameFilter.class.getSimpleName(), actual.getFilterName());
+        assertThat(actual.getUrlPatterns(), empty());
+        assertDefaults(actual);
+        assertThat(actual.getFilter(), instanceOf(AnnotatedWithNoNameFilter.class));
+    }
+
+    @Test
     public void An_filter_class_annotated_with_a_value_produces_the_correct_url_pattern() {
 
         // When
         final FilterDetail actual = new FilterDetail(AnnotatedWithValueFilter.class);
 
         // Then
-        assertThat(actual.getFilterName(), isEmptyString());
+        assertEquals(AnnotatedWithValueFilter.class.getSimpleName(), actual.getFilterName());
         assertEquals(asList(VALUE), actual.getUrlPatterns());
         assertDefaults(actual);
         assertThat(actual.getFilter(), instanceOf(AnnotatedWithValueFilter.class));
@@ -74,7 +87,7 @@ public class FilterDetailTest {
         final FilterDetail actual = new FilterDetail(AnnotatedWithUrlPatternsFilter.class);
 
         // Then
-        assertThat(actual.getFilterName(), isEmptyString());
+        assertEquals(AnnotatedWithUrlPatternsFilter.class.getSimpleName(), actual.getFilterName());
         assertEquals(asList(URL_PATTERN), actual.getUrlPatterns());
         assertDefaults(actual);
         assertThat(actual.getFilter(), instanceOf(AnnotatedWithUrlPatternsFilter.class));
@@ -144,6 +157,10 @@ public class FilterDetailTest {
         assertThat(actual.getServletNames(), empty());
         assertEquals(asList(REQUEST), actual.getDispatcherTypes());
         assertFalse(actual.asyncSupported());
+    }
+
+    @WebFilter
+    public static class AnnotatedWithNoNameFilter extends BaseFilter {
     }
 
     @WebFilter(VALUE)

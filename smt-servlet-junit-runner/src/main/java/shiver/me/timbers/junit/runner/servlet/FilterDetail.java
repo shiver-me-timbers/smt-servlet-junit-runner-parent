@@ -17,6 +17,17 @@ import static shiver.me.timbers.junit.runner.servlet.annotation.Annotations.tran
  */
 public class FilterDetail {
 
+    private static String findFilterName(Filter filter, WebFilter webFilter) {
+
+        final String name = webFilter.filterName();
+
+        if (name.isEmpty()) {
+            return filter.getClass().getSimpleName();
+        }
+
+        return name;
+    }
+
     private final String description;
     private final String displayName;
     private final Map<String, String> initParams;
@@ -36,8 +47,9 @@ public class FilterDetail {
 
     private FilterDetail(Filter filter, WebFilter webFilter) {
         this(webFilter.description(), webFilter.displayName(), transform(webFilter.initParams()),
-                webFilter.filterName(), webFilter.smallIcon(), webFilter.largeIcon(), asList(webFilter.servletNames()),
-                findUrlPatterns(webFilter), asList(webFilter.dispatcherTypes()), webFilter.asyncSupported(), filter);
+                findFilterName(filter, webFilter), webFilter.smallIcon(), webFilter.largeIcon(),
+                asList(webFilter.servletNames()), findUrlPatterns(webFilter), asList(webFilter.dispatcherTypes()),
+                webFilter.asyncSupported(), filter);
     }
 
     public FilterDetail(
