@@ -3,6 +3,7 @@ package shiver.me.timbers.junit.runner.servlet.test;
 import org.junit.runners.model.InitializationError;
 import shiver.me.timbers.junit.runner.servlet.AnnotationServletJUnitRunner;
 import shiver.me.timbers.junit.runner.servlet.Container;
+import shiver.me.timbers.junit.runner.servlet.Filters;
 import shiver.me.timbers.junit.runner.servlet.Servlets;
 import shiver.me.timbers.junit.runner.servlet.config.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.config.PortConfig;
@@ -34,6 +35,11 @@ public class TestAnnotationServletJUnitRunner extends AnnotationServletJUnitRunn
                     @Override
                     public void load(Servlets servlets) {
                         container.load(servlets);
+                    }
+
+                    @Override
+                    public void load(Filters filters) {
+                        container.load(filters);
                     }
 
                     @Override

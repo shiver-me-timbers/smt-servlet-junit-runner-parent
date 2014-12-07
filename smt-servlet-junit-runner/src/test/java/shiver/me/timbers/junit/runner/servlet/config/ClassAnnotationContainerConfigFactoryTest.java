@@ -65,7 +65,7 @@ public class ClassAnnotationContainerConfigFactoryTest {
         verifyZeroInteractions(container);
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void A_class_with_configuration_that_does_not_have_a_public_default_constructor_fails() {
 
         // Given
@@ -77,7 +77,7 @@ public class ClassAnnotationContainerConfigFactoryTest {
         new ClassAnnotationContainerConfigFactory<TestContainer>().create(new TestClass());
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void A_class_with_configuration_that_cannot_be_instantiate_fails() {
 
         // Given

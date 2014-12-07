@@ -5,8 +5,11 @@ import org.junit.Test;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 
+import static org.hamcrest.Matchers.isEmptyString;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 
 public class WebServletBuilderTest {
@@ -50,6 +53,26 @@ public class WebServletBuilderTest {
         assertEquals(largeIcon, actual.largeIcon());
         assertEquals(description, actual.description());
         assertEquals(displayName, actual.displayName());
+        assertEquals(WebServlet.class, actual.annotationType());
+    }
+
+    @Test
+    public void A_default_web_servlet_can_be_built() {
+
+        // When
+        final WebServlet actual = WebServletBuilder.create().build();
+
+        // Then
+        assertThat(actual.name(), isEmptyString());
+        assertArrayEquals(new String[0], actual.value());
+        assertArrayEquals(new String[0], actual.urlPatterns());
+        assertEquals(-1, actual.loadOnStartup());
+        assertArrayEquals(new WebInitParam[0], actual.initParams());
+        assertFalse(actual.asyncSupported());
+        assertThat(actual.smallIcon(), isEmptyString());
+        assertThat(actual.largeIcon(), isEmptyString());
+        assertThat(actual.description(), isEmptyString());
+        assertThat(actual.displayName(), isEmptyString());
         assertEquals(WebServlet.class, actual.annotationType());
     }
 }

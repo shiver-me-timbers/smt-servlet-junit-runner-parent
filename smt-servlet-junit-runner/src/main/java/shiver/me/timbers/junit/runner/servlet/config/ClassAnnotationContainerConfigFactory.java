@@ -1,6 +1,6 @@
 package shiver.me.timbers.junit.runner.servlet.config;
 
-import static java.lang.String.format;
+import static shiver.me.timbers.junit.runner.servlet.Reflections.instantiate;
 import static shiver.me.timbers.junit.runner.servlet.config.NullContainerConfiguration.NULL_CONTAINER_CONFIG;
 
 /**
@@ -21,17 +21,7 @@ public class ClassAnnotationContainerConfigFactory<C> implements ContainerConfig
             return NULL_CONTAINER_CONFIG;
         }
 
-        try {
-            return containerConfiguration.value().newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-            throw new IllegalStateException(
-                    format(
-                            "The %s implementation must have a public default constructor.",
-                            ContainerConfiguration.class.getName()
-                    ),
-                    e
-            );
-        }
+        return instantiate(containerConfiguration.value());
     }
 
     private static boolean notConfigured(

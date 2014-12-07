@@ -14,13 +14,31 @@ import static shiver.me.timbers.junit.runner.servlet.test.ServletsMatcher.equalT
 public class AnnotationServletsFactoryTest {
 
     @Test
-    public void No_servlets_are_returned_if_none_are_configured() {
+    public void No_servlets_are_returned_if_no_configuration_supplied() {
 
+        // Given
         class TestClass {
         }
 
+        // When
         final Servlets servlets = new AnnotationServletsFactory().create(new TestClass());
 
+        // Then
+        assertThat(servlets.getServlets(), empty());
+    }
+
+    @Test
+    public void No_servlets_are_returned_if_none_are_configured() {
+
+        // Given
+        @ContainerConfiguration
+        class TestClass {
+        }
+
+        // When
+        final Servlets servlets = new AnnotationServletsFactory().create(new TestClass());
+
+        // Then
         assertThat(servlets.getServlets(), empty());
     }
 
@@ -39,5 +57,4 @@ public class AnnotationServletsFactoryTest {
         // Then
         assertThat(servlets, equalTo(expected));
     }
-
 }

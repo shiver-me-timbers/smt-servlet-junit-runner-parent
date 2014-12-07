@@ -1,14 +1,15 @@
 package shiver.me.timbers.junit.runner.servlet;
 
 import javax.servlet.Servlet;
-import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableList;
+import static shiver.me.timbers.junit.runner.servlet.Reflections.instantiate;
+import static shiver.me.timbers.junit.runner.servlet.annotation.Annotations.buildAnnotation;
+import static shiver.me.timbers.junit.runner.servlet.annotation.Annotations.findUrlPatterns;
+import static shiver.me.timbers.junit.runner.servlet.annotation.Annotations.transform;
 
 /**
  * This class contains the instantiated servlet and all the details that can be retrieved about it.
@@ -16,47 +17,6 @@ import static java.util.Collections.unmodifiableList;
  * @author Karl Bennett
  */
 public class ServletDetails {
-
-    private static Servlet instantiate(Class<? extends Servlet> servlet) {
-        try {
-            return servlet.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-            throw new IllegalArgumentException(e);
-        }
-    }
-
-    private static WebServlet webServlet(Class<? extends Servlet> servlet) {
-
-        final WebServlet webServlet = servlet.getAnnotation(WebServlet.class);
-
-        if (null == webServlet) {
-            return new ClassWebServlet(servlet);
-        }
-
-        return webServlet;
-    }
-
-    private static List<String> findUrlPatterns(WebServlet webServlet) {
-
-        final String[] value = webServlet.value();
-
-        if (0 < value.length) {
-            return asList(value);
-        }
-
-        return asList(webServlet.urlPatterns());
-    }
-
-    private static Map<String, String> transform(WebInitParam[] webInitParams) {
-
-        final Map<String, String> initParams = new HashMap<>();
-
-        for (WebInitParam webInitParam : webInitParams) {
-            initParams.put(webInitParam.name(), webInitParam.value());
-        }
-
-        return initParams;
-    }
 
     private final String name;
     private final List<String> urlPatterns;
@@ -71,7 +31,7 @@ public class ServletDetails {
     private final Servlet servlet;
 
     public ServletDetails(Class<? extends Servlet> servlet) {
-        this(instantiate(servlet), webServlet(servlet));
+        this(instantiate(servlet), buildAnnotation(servlet, WebServlet.class, ClassWebServlet.class));
     }
 
     private ServletDetails(Servlet servlet, WebServlet webServlet) {

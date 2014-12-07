@@ -1,6 +1,7 @@
 package shiver.me.timbers.junit.runner.servlet.test;
 
 import shiver.me.timbers.junit.runner.servlet.Container;
+import shiver.me.timbers.junit.runner.servlet.Filters;
 import shiver.me.timbers.junit.runner.servlet.Servlets;
 import shiver.me.timbers.junit.runner.servlet.config.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.config.PortConfig;
@@ -10,6 +11,7 @@ public class TestServletContainer implements Container {
     private PortConfig portConfig;
     private ContainerConfiguration containerConfiguration;
     private Servlets servlets;
+    private Filters filters;
     private boolean started = false;
 
     @Override
@@ -37,6 +39,15 @@ public class TestServletContainer implements Container {
 
     public Servlets getServlets() {
         return servlets;
+    }
+
+    @Override
+    public void load(Filters filters) {
+        this.filters = filters;
+    }
+
+    public Filters getFilters() {
+        return filters;
     }
 
     @Override

@@ -20,6 +20,7 @@ import java.util.List;
 public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
 
     private final PortConfigFactory portConfigFactory;
+    private final FiltersFactory filtersFactory;
     private final ContainerConfigFactory<C> containerConfigFactory;
     private final ServletsFactory servletsFactory;
     private final PortSetter portSetter;
@@ -29,6 +30,7 @@ public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
     public ServletJUnitRunner(
             PortConfigFactory portConfigFactory,
             ServletsFactory servletsFactory,
+            FiltersFactory filtersFactory,
             ContainerConfigFactory<C> containerConfigFactory,
             PortSetter portSetter,
             RunListenerFactory runListenerFactory,
@@ -37,6 +39,7 @@ public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
     ) throws InitializationError {
         super(test);
         this.portConfigFactory = portConfigFactory;
+        this.filtersFactory = filtersFactory;
         this.containerConfigFactory = containerConfigFactory;
         this.servletsFactory = servletsFactory;
         this.portSetter = portSetter;
@@ -53,9 +56,12 @@ public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
 
         final Servlets servlets = servletsFactory.create(target);
 
+        final Filters filters = filtersFactory.create(target);
+
         container.config(portConfig);
         container.config(containerConfiguration);
         container.load(servlets);
+        container.load(filters);
         container.start();
 
         portSetter.set(target, portConfig);

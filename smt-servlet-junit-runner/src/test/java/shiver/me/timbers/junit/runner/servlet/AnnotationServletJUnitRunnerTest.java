@@ -8,6 +8,9 @@ import org.junit.runners.model.InitializationError;
 import shiver.me.timbers.junit.runner.servlet.annotation.Port;
 import shiver.me.timbers.junit.runner.servlet.config.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.config.PortConfig;
+import shiver.me.timbers.junit.runner.servlet.test.FilterOne;
+import shiver.me.timbers.junit.runner.servlet.test.FilterThree;
+import shiver.me.timbers.junit.runner.servlet.test.FilterTwo;
 import shiver.me.timbers.junit.runner.servlet.test.ServletOne;
 import shiver.me.timbers.junit.runner.servlet.test.ServletThree;
 import shiver.me.timbers.junit.runner.servlet.test.ServletTwo;
@@ -21,7 +24,9 @@ import static org.mockito.Matchers.intThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockFilters;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockServlets;
+import static shiver.me.timbers.junit.runner.servlet.test.FiltersMatcher.equalTo;
 import static shiver.me.timbers.junit.runner.servlet.test.ServletsMatcher.equalTo;
 
 public class AnnotationServletJUnitRunnerTest {
@@ -45,7 +50,8 @@ public class AnnotationServletJUnitRunnerTest {
 
         // Given
         final RunNotifier notifier = new RunNotifier();
-        final shiver.me.timbers.junit.runner.servlet.Servlets servlets = mockServlets();
+        final Servlets servlets = mockServlets();
+        final Filters filters = mockFilters();
 
         // When
         new AnnotationServletJUnitRunner<>(new TestContainer(), ClassLevelConfig.class).run(notifier);
@@ -55,6 +61,7 @@ public class AnnotationServletJUnitRunnerTest {
         verify(server).configured();
         verify(server).configuredPort(PORT);
         verify(server).load(argThat(equalTo(servlets)));
+        verify(server).load(argThat(equalTo(filters)));
         verify(server).start();
         verify(server).injectedPort(PORT);
         verify(server).shutdown();
@@ -66,9 +73,10 @@ public class AnnotationServletJUnitRunnerTest {
 
         // Given
         final RunNotifier notifier = new RunNotifier();
-        final shiver.me.timbers.junit.runner.servlet.Servlets servlets =
-                mock(shiver.me.timbers.junit.runner.servlet.Servlets.class);
+        final Servlets servlets = mock(Servlets.class);
         when(servlets.getServlets()).thenReturn(new ArrayList<ServletDetails>());
+        final Filters filters = mock(Filters.class);
+        when(filters.getFilters()).thenReturn(new ArrayList<FilterDetails>());
 
         // When
         new AnnotationServletJUnitRunner<>(new TestContainer(), MethodLevelConfig.class).run(notifier);
@@ -78,6 +86,7 @@ public class AnnotationServletJUnitRunnerTest {
         verify(server).configured();
         verify(server).configuredPort(intThat(greaterThan(0)));
         verify(server).load(argThat(equalTo(servlets)));
+        verify(server).load(argThat(equalTo(filters)));
         verify(server).start();
         verify(server).injectedPort(intThat(greaterThan(0)));
         verify(server).shutdown();
@@ -86,7 +95,8 @@ public class AnnotationServletJUnitRunnerTest {
     @Port(PORT)
     @shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration(
             value = TestContainerConfiguration.class,
-            servlets = {ServletOne.class, ServletTwo.class, ServletThree.class}
+            servlets = {ServletOne.class, ServletTwo.class, ServletThree.class},
+            filters = {FilterOne.class, FilterTwo.class, FilterThree.class}
     )
     public static class ClassLevelConfig {
 
@@ -139,8 +149,13 @@ public class AnnotationServletJUnitRunnerTest {
         }
 
         @Override
-        public void load(shiver.me.timbers.junit.runner.servlet.Servlets servlets) {
+        public void load(Servlets servlets) {
             server.load(servlets);
+        }
+
+        @Override
+        public void load(Filters filters) {
+            server.load(filters);
         }
 
         @Override
@@ -164,8 +179,10 @@ public class AnnotationServletJUnitRunnerTest {
 
         void start();
 
-        void load(shiver.me.timbers.junit.runner.servlet.Servlets servlets);
+        void load(Servlets servlets);
 
         void shutdown();
+
+        void load(Filters filters);
     }
 }

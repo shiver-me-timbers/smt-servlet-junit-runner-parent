@@ -12,9 +12,6 @@ public class WebServletBuilder {
         return new WebServletBuilder();
     }
 
-    private WebServletBuilder() {
-    }
-
     private String name = "";
     private String[] value = new String[0];
     private String[] urlPatterns = new String[0];
@@ -27,8 +24,46 @@ public class WebServletBuilder {
     private String displayName = "";
     private Class<WebServlet> annotationType = WebServlet.class;
 
+    private WebServletBuilder() {
+    }
+
+    public WebServletBuilder withName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public WebServletBuilder withValue(String... value) {
+        this.value = value;
+        return this;
+    }
+
+    public WebServletBuilder withUrlPatterns(String... urlPatterns) {
+        this.urlPatterns = urlPatterns;
+        return this;
+    }
+
+    public WebServletBuilder withLoadOnStartup(int loadOnStartup) {
+        this.loadOnStartup = loadOnStartup;
+        return this;
+    }
+
+    public WebServletBuilder withInitParams(WebInitParam... initParams) {
+        this.initParams = initParams;
+        return this;
+    }
+
     public WebServletBuilder withAsyncSupported(boolean asyncSupported) {
         this.asyncSupported = asyncSupported;
+        return this;
+    }
+
+    public WebServletBuilder withLargeIcon(String largeIcon) {
+        this.largeIcon = largeIcon;
+        return this;
+    }
+
+    public WebServletBuilder withSmallIcon(String smallIcon) {
+        this.smallIcon = smallIcon;
         return this;
     }
 
@@ -39,56 +74,6 @@ public class WebServletBuilder {
 
     public WebServletBuilder withDisplayName(String displayName) {
         this.displayName = displayName;
-        return this;
-    }
-
-    public WebServletBuilder withInitParams(WebInitParam initParam) {
-        withInitParams(new WebInitParam[]{initParam});
-        return this;
-    }
-
-    public WebServletBuilder withInitParams(WebInitParam[] initParams) {
-        this.initParams = initParams;
-        return this;
-    }
-
-    public WebServletBuilder withLargeIcon(String largeIcon) {
-        this.largeIcon = largeIcon;
-        return this;
-    }
-
-    public WebServletBuilder withLoadOnStartup(int loadOnStartup) {
-        this.loadOnStartup = loadOnStartup;
-        return this;
-    }
-
-    public WebServletBuilder withName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public WebServletBuilder withSmallIcon(String smallIcon) {
-        this.smallIcon = smallIcon;
-        return this;
-    }
-
-    public WebServletBuilder withUrlPatterns(String urlPattern) {
-        withUrlPatterns(new String[]{urlPattern});
-        return this;
-    }
-
-    public WebServletBuilder withUrlPatterns(String[] urlPatterns) {
-        this.urlPatterns = urlPatterns;
-        return this;
-    }
-
-    public WebServletBuilder withValue(String value) {
-        withValue(new String[]{value});
-        return this;
-    }
-
-    public WebServletBuilder withValue(String[] value) {
-        this.value = value;
         return this;
     }
 

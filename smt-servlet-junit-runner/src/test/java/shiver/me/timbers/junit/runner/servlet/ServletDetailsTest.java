@@ -7,31 +7,28 @@ import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import java.util.HashMap;
-import java.util.Map;
 
 import static java.util.Arrays.asList;
-import static java.util.Collections.singletonMap;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.isEmptyString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.ASYNC_SUPPORT;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.DESCRIPTION;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.DISPLAY_NAME;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.INIT;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.INIT_PARAMS;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.LARGE_ICON;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.PARAM;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.SMALL_ICON;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.URL_PATTERN;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.VALUE;
 
 public class ServletDetailsTest {
 
-    private static final String INIT = "init";
-    private static final String PARAM = "param";
-
-    private static final String VALID_NAME = "valid-servlet";
-    private static final String VALID_VALUE = "/valid";
-    private static final String VALID_URL_PATTERN = "/url-pattern";
-    private static final boolean VALID_LOAD_ON_STARTUP = true;
-    private static final Map<String, String> VALID_INIT_PARAMS = singletonMap(INIT, PARAM);
-    private static final boolean VALID_ASYNC_SUPPORT = true;
-    private static final String VALID_SMALL_ICON = "smallIcon";
-    private static final String VALID_LARGE_ICON = "largeIcon";
-    private static final String VALID_DESCRIPTION = "description";
-    private static final String VALID_DISPLAY_NAME = "displayName";
+    private static final String NAME = "valid-servlet";
+    private static final boolean LOAD_ON_STARTUP = true;
 
     @Test
     public void An_annotated_servlet_class_can_be_used_for_creation() {
@@ -40,15 +37,15 @@ public class ServletDetailsTest {
         final ServletDetails actual = new ServletDetails(AllAnnotatedServlet.class);
 
         // Then
-        assertEquals(VALID_NAME, actual.getName());
-        assertEquals(asList(VALID_VALUE), actual.getUrlPatterns());
-        assertEquals(VALID_LOAD_ON_STARTUP, actual.loadOnStartup());
-        assertEquals(VALID_INIT_PARAMS, actual.getInitParams());
-        assertEquals(VALID_ASYNC_SUPPORT, actual.asyncSupported());
-        assertEquals(VALID_SMALL_ICON, actual.getSmallIcon());
-        assertEquals(VALID_LARGE_ICON, actual.getLargeIcon());
-        assertEquals(VALID_DESCRIPTION, actual.getDescription());
-        assertEquals(VALID_DISPLAY_NAME, actual.getDisplayName());
+        assertEquals(NAME, actual.getName());
+        assertEquals(asList(VALUE), actual.getUrlPatterns());
+        assertEquals(LOAD_ON_STARTUP, actual.loadOnStartup());
+        assertEquals(INIT_PARAMS, actual.getInitParams());
+        assertEquals(ASYNC_SUPPORT, actual.asyncSupported());
+        assertEquals(SMALL_ICON, actual.getSmallIcon());
+        assertEquals(LARGE_ICON, actual.getLargeIcon());
+        assertEquals(DESCRIPTION, actual.getDescription());
+        assertEquals(DISPLAY_NAME, actual.getDisplayName());
         assertThat(actual.getServlet(), instanceOf(AllAnnotatedServlet.class));
     }
 
@@ -60,7 +57,7 @@ public class ServletDetailsTest {
 
         // Then
         assertThat(actual.getName(), isEmptyString());
-        assertEquals(asList(VALID_VALUE), actual.getUrlPatterns());
+        assertEquals(asList(VALUE), actual.getUrlPatterns());
         assertDefaults(actual);
         assertThat(actual.getServlet(), instanceOf(AnnotatedWithValueServlet.class));
     }
@@ -73,7 +70,7 @@ public class ServletDetailsTest {
 
         // Then
         assertThat(actual.getName(), isEmptyString());
-        assertEquals(asList(VALID_URL_PATTERN), actual.getUrlPatterns());
+        assertEquals(asList(URL_PATTERN), actual.getUrlPatterns());
         assertDefaults(actual);
         assertThat(actual.getServlet(), instanceOf(AnnotatedWithUrlPatternsServlet.class));
     }
@@ -127,25 +124,25 @@ public class ServletDetailsTest {
     }
 
     @WebServlet(
-            name = VALID_NAME,
-            value = VALID_VALUE,
-            urlPatterns = VALID_URL_PATTERN,
+            name = NAME,
+            value = VALUE,
+            urlPatterns = URL_PATTERN,
             loadOnStartup = 1,
             initParams = @WebInitParam(name = INIT, value = PARAM),
-            asyncSupported = VALID_ASYNC_SUPPORT,
-            smallIcon = VALID_SMALL_ICON,
-            largeIcon = VALID_LARGE_ICON,
-            description = VALID_DESCRIPTION,
-            displayName = VALID_DISPLAY_NAME
+            asyncSupported = ASYNC_SUPPORT,
+            smallIcon = SMALL_ICON,
+            largeIcon = LARGE_ICON,
+            description = DESCRIPTION,
+            displayName = DISPLAY_NAME
     )
     public static class AllAnnotatedServlet extends HttpServlet {
     }
 
-    @WebServlet(VALID_VALUE)
+    @WebServlet(VALUE)
     public static class AnnotatedWithValueServlet extends HttpServlet {
     }
 
-    @WebServlet(urlPatterns = VALID_URL_PATTERN)
+    @WebServlet(urlPatterns = URL_PATTERN)
     public static class AnnotatedWithUrlPatternsServlet extends HttpServlet {
     }
 

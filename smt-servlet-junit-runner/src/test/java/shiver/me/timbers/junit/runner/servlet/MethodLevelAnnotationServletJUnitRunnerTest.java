@@ -31,7 +31,7 @@ public class MethodLevelAnnotationServletJUnitRunnerTest {
     private int port;
 
     @Test
-    public void Configuration_at_the_class_level_should_work() {
+    public void Configuration_at_the_method_level_should_work() {
 
         // Given
         final Servlets servlets = mock(Servlets.class);

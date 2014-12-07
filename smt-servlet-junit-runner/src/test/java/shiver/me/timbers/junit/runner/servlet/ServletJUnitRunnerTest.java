@@ -37,6 +37,10 @@ public class ServletJUnitRunnerTest {
         final ServletsFactory servletsFactory = mock(ServletsFactory.class);
         when(servletsFactory.create(any(TestClass.class))).thenReturn(servlets);
 
+        final Filters filters = mock(Filters.class);
+        final FiltersFactory filtersFactory = mock(FiltersFactory.class);
+        when(filtersFactory.create(any(TestClass.class))).thenReturn(filters);
+
         @SuppressWarnings("unchecked")
         final ContainerConfiguration<Object> containerConfiguration = mock(ContainerConfiguration.class);
         @SuppressWarnings("unchecked")
@@ -53,6 +57,7 @@ public class ServletJUnitRunnerTest {
         new ServletJUnitRunner<>(
                 portConfigFactory,
                 servletsFactory,
+                filtersFactory,
                 containerConfigFactory,
                 portSetter,
                 runListenerFactory,
@@ -64,6 +69,7 @@ public class ServletJUnitRunnerTest {
         verify(container).config(portConfig);
         verify(container).config(containerConfiguration);
         verify(container).load(servlets);
+        verify(container).load(filters);
         verify(container).start();
         verify(portSetter).set(any(TestClass.class), eq(portConfig));
         verify(runListenerFactory).create(container);

@@ -19,4 +19,6 @@ public interface Container<C> {
     void start();
 
     void shutdown();
+
+    void load(Filters filters);
 }

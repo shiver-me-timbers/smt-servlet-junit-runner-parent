@@ -4,6 +4,7 @@ import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 import shiver.me.timbers.junit.runner.servlet.Container;
+import shiver.me.timbers.junit.runner.servlet.Filters;
 import shiver.me.timbers.junit.runner.servlet.ServletDetails;
 import shiver.me.timbers.junit.runner.servlet.Servlets;
 import shiver.me.timbers.junit.runner.servlet.config.ContainerConfiguration;
@@ -47,6 +48,11 @@ public class Tomcat7Container implements Container<Tomcat> {
                 context.addServletMapping(urlPattern, name);
             }
         }
+    }
+
+    @Override
+    public void load(Filters filters) {
+
     }
 
     @Override

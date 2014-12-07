@@ -43,6 +43,7 @@ public class AnnotationServletJUnitRunner<C> extends ServletJUnitRunner<C> {
                         new FreeRandomPortConfigFactory()
                 ),
                 new AnnotationServletsFactory(),
+                new AnnotationFiltersFactory(),
                 new AggregatedContainerConfigFactory<>(
                         new ClassAnnotationContainerConfigFactory<C>(),
                         new MethodAnnotationContainerConfigFactory<C>()
