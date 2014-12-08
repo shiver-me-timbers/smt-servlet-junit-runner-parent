@@ -2,6 +2,7 @@ package shiver.me.timbers.junit.runner.tomcat;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
+import org.apache.catalina.Wrapper;
 import org.apache.catalina.startup.Tomcat;
 import shiver.me.timbers.junit.runner.servlet.Container;
 import shiver.me.timbers.junit.runner.servlet.FilterDetail;
@@ -14,6 +15,8 @@ import shiver.me.timbers.junit.runner.tomcat.filter.FilterDetailFilterDef;
 import shiver.me.timbers.junit.runner.tomcat.filter.FilterDetailFilterMap;
 
 import javax.servlet.ServletException;
+
+import static java.util.Map.Entry;
 
 /**
  * @author Karl Bennett
@@ -45,10 +48,17 @@ public class Tomcat7Container implements Container<Tomcat> {
 
             final String name = servletDetail.getName();
 
-            Tomcat.addServlet(context, name, servletDetail.getServlet());
+            final Wrapper wrapper = Tomcat.addServlet(context, name, servletDetail.getServlet().getClass().getName());
+
+            wrapper.setLoadOnStartup(servletDetail.loadOnStartup());
+            wrapper.setAsyncSupported(servletDetail.asyncSupported());
 
             for (String urlPattern : servletDetail.getUrlPatterns()) {
-                context.addServletMapping(urlPattern, name);
+                wrapper.addMapping(urlPattern);
+            }
+
+            for (Entry<String, String> entry : servletDetail.getInitParams().entrySet()) {
+                wrapper.addInitParameter(entry.getKey(), entry.getValue());
             }
         }
     }

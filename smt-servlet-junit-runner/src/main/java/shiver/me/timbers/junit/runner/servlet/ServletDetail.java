@@ -20,7 +20,7 @@ public class ServletDetail {
 
     private final String name;
     private final List<String> urlPatterns;
-    private final boolean loadOnStartup;
+    private final int loadOnStartup;
     private final Map<String, String> initParams;
     private final boolean asyncSupported;
     private final String smallIcon;
@@ -35,12 +35,12 @@ public class ServletDetail {
     }
 
     private ServletDetail(Servlet servlet, WebServlet webServlet) {
-        this(webServlet.name(), findUrlPatterns(webServlet), 0 <= webServlet.loadOnStartup(),
+        this(webServlet.name(), findUrlPatterns(webServlet), webServlet.loadOnStartup(),
                 transform(webServlet.initParams()), webServlet.asyncSupported(), webServlet.smallIcon(),
                 webServlet.largeIcon(), webServlet.description(), webServlet.displayName(), servlet);
     }
 
-    public ServletDetail(String name, List<String> urlPatterns, boolean loadOnStartup, Map<String, String> initParams,
+    public ServletDetail(String name, List<String> urlPatterns, int loadOnStartup, Map<String, String> initParams,
                          boolean asyncSupported, String smallIcon, String largeIcon, String description,
                          String displayName, Servlet servlet) {
         this.name = name;
@@ -67,7 +67,7 @@ public class ServletDetail {
         return urlPatterns;
     }
 
-    public boolean loadOnStartup() {
+    public int loadOnStartup() {
         return loadOnStartup;
     }
 

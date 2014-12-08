@@ -28,7 +28,7 @@ import static shiver.me.timbers.junit.runner.servlet.test.Constants.VALUE;
 public class ServletDetailTest {
 
     private static final String NAME = "valid-servlet";
-    private static final boolean LOAD_ON_STARTUP = true;
+    private static final int LOAD_ON_STARTUP = 1;
 
     @Test
     public void An_annotated_servlet_class_can_be_used_for_creation() {
@@ -114,7 +114,7 @@ public class ServletDetailTest {
     }
 
     private static void assertDefaults(ServletDetail actual) {
-        assertFalse(actual.loadOnStartup());
+        assertEquals(-1, actual.loadOnStartup());
         assertEquals(new HashMap<String, String>(), actual.getInitParams());
         assertFalse(actual.asyncSupported());
         assertThat(actual.getSmallIcon(), isEmptyString());
@@ -127,7 +127,7 @@ public class ServletDetailTest {
             name = NAME,
             value = VALUE,
             urlPatterns = URL_PATTERN,
-            loadOnStartup = 1,
+            loadOnStartup = LOAD_ON_STARTUP,
             initParams = @WebInitParam(name = INIT, value = PARAM),
             asyncSupported = ASYNC_SUPPORT,
             smallIcon = SMALL_ICON,
