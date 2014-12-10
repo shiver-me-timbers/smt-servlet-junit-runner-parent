@@ -2,6 +2,7 @@ package shiver.me.timbers.junit.runner.servlet;
 
 import javax.servlet.Servlet;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -33,7 +34,12 @@ public class SettableServlets implements Servlets {
     }
 
     @Override
-    public List<ServletDetail> getServlets() {
+    public List<ServletDetail> asList() {
         return servlets;
+    }
+
+    @Override
+    public Iterator<ServletDetail> iterator() {
+        return servlets.iterator();
     }
 }

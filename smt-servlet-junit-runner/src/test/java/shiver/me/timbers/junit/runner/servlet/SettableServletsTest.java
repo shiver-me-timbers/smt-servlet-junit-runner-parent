@@ -5,11 +5,8 @@ import shiver.me.timbers.junit.runner.servlet.test.ServletOne;
 import shiver.me.timbers.junit.runner.servlet.test.ServletThree;
 import shiver.me.timbers.junit.runner.servlet.test.ServletTwo;
 
-import java.util.ArrayList;
-
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockEmptyServlets;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockServlets;
 import static shiver.me.timbers.junit.runner.servlet.test.ServletsMatcher.equalTo;
 
@@ -19,8 +16,7 @@ public class SettableServletsTest {
     public void No_servlet_classes_can_be_used_for_creation() {
 
         // Given
-        final Servlets expected = mock(Servlets.class);
-        when(expected.getServlets()).thenReturn(new ArrayList<ServletDetail>());
+        final Servlets expected = mockEmptyServlets();
 
         // When
         final Servlets actual = new SettableServlets();

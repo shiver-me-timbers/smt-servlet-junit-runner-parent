@@ -5,6 +5,7 @@ import java.util.List;
 /**
  * @author Karl Bennett
  */
-public interface Filters {
-    List<FilterDetail> getFilters();
+public interface Filters extends Iterable<FilterDetail> {
+
+    List<FilterDetail> asList();
 }

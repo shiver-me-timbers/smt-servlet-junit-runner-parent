@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * @author Karl Bennett
  */
-public interface Servlets {
+public interface Servlets extends Iterable<ServletDetail> {
 
-    List<ServletDetail> getServlets();
+    List<ServletDetail> asList();
 }

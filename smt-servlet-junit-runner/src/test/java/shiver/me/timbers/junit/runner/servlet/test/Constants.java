@@ -26,26 +26,48 @@ public class Constants {
     public static final String URL_PATTERN = "/url-pattern";
     public static final boolean ASYNC_SUPPORT = true;
 
+    public static Servlets mockEmptyServlets() {
+
+        return mockServlets(new ArrayList<ServletDetail>());
+    }
+
     public static Servlets mockServlets() {
 
-        final Servlets mock = mock(Servlets.class);
-        when(mock.getServlets()).thenReturn(new ArrayList<ServletDetail>() {{
+        return mockServlets(new ArrayList<ServletDetail>() {{
             add(new ServletDetail(ServletOne.class));
             add(new ServletDetail(ServletTwo.class));
             add(new ServletDetail(ServletThree.class));
         }});
+    }
+
+    public static Servlets mockServlets(ArrayList<ServletDetail> list) {
+
+        final Servlets mock = mock(Servlets.class);
+        when(mock.asList()).thenReturn(list);
+        when(mock.iterator()).thenReturn(list.iterator());
 
         return mock;
     }
 
+    public static Filters mockEmptyFilters() {
+
+        return mockFilters(new ArrayList<FilterDetail>());
+    }
+
     public static Filters mockFilters() {
 
-        final Filters mock = mock(Filters.class);
-        when(mock.getFilters()).thenReturn(new ArrayList<FilterDetail>() {{
+        return mockFilters(new ArrayList<FilterDetail>() {{
             add(new FilterDetail(FilterOne.class));
             add(new FilterDetail(FilterTwo.class));
             add(new FilterDetail(FilterThree.class));
         }});
+    }
+
+    public static Filters mockFilters(ArrayList<FilterDetail> list) {
+
+        final Filters mock = mock(Filters.class);
+        when(mock.asList()).thenReturn(list);
+        when(mock.iterator()).thenReturn(list.iterator());
 
         return mock;
     }

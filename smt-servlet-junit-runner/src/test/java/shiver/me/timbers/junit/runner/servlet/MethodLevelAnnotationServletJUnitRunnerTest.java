@@ -7,14 +7,11 @@ import shiver.me.timbers.junit.runner.servlet.annotation.Port;
 import shiver.me.timbers.junit.runner.servlet.test.TestAnnotationServletJUnitRunner;
 import shiver.me.timbers.junit.runner.servlet.test.TestServletContainer;
 
-import java.util.ArrayList;
-
 import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockEmptyServlets;
 import static shiver.me.timbers.junit.runner.servlet.test.ServletsMatcher.equalTo;
 
 @RunWith(TestAnnotationServletJUnitRunner.class)
@@ -34,8 +31,7 @@ public class MethodLevelAnnotationServletJUnitRunnerTest {
     public void Configuration_at_the_method_level_should_work() {
 
         // Given
-        final Servlets servlets = mock(Servlets.class);
-        when(servlets.getServlets()).thenReturn(new ArrayList<ServletDetail>());
+        final Servlets servlets = mockEmptyServlets();
 
         // Then
         assertThat(port, greaterThan(0));

@@ -2,6 +2,7 @@ package shiver.me.timbers.junit.runner.servlet;
 
 import javax.servlet.Filter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -21,19 +22,24 @@ public class SettableFilters implements Filters {
         return details;
     }
 
-    private final List<FilterDetail> servlets;
+    private final List<FilterDetail> filters;
 
     @SafeVarargs
-    public SettableFilters(Class<? extends Filter>... servlets) {
-        this(transform(servlets));
+    public SettableFilters(Class<? extends Filter>... filters) {
+        this(transform(filters));
     }
 
-    public SettableFilters(List<FilterDetail> servlets) {
-        this.servlets = servlets;
+    public SettableFilters(List<FilterDetail> filters) {
+        this.filters = filters;
     }
 
     @Override
-    public List<FilterDetail> getFilters() {
-        return servlets;
+    public List<FilterDetail> asList() {
+        return filters;
+    }
+
+    @Override
+    public Iterator<FilterDetail> iterator() {
+        return filters.iterator();
     }
 }

@@ -6,8 +6,8 @@ import shiver.me.timbers.junit.runner.servlet.test.ServletOne;
 import shiver.me.timbers.junit.runner.servlet.test.ServletThree;
 import shiver.me.timbers.junit.runner.servlet.test.ServletTwo;
 
-import static org.hamcrest.Matchers.empty;
 import static org.junit.Assert.assertThat;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockEmptyServlets;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockServlets;
 import static shiver.me.timbers.junit.runner.servlet.test.ServletsMatcher.equalTo;
 
@@ -17,6 +17,8 @@ public class AnnotationServletsFactoryTest {
     public void No_servlets_are_returned_if_no_configuration_supplied() {
 
         // Given
+        final Servlets expected = mockEmptyServlets();
+
         class TestClass {
         }
 
@@ -24,13 +26,15 @@ public class AnnotationServletsFactoryTest {
         final Servlets servlets = new AnnotationServletsFactory().create(new TestClass());
 
         // Then
-        assertThat(servlets.getServlets(), empty());
+        assertThat(servlets, equalTo(expected));
     }
 
     @Test
     public void No_servlets_are_returned_if_none_are_configured() {
 
         // Given
+        final Servlets expected = mockEmptyServlets();
+
         @ContainerConfiguration
         class TestClass {
         }
@@ -39,7 +43,7 @@ public class AnnotationServletsFactoryTest {
         final Servlets servlets = new AnnotationServletsFactory().create(new TestClass());
 
         // Then
-        assertThat(servlets.getServlets(), empty());
+        assertThat(servlets, equalTo(expected));
     }
 
     @Test
@@ -47,6 +51,7 @@ public class AnnotationServletsFactoryTest {
 
         // Given
         final Servlets expected = mockServlets();
+
         @ContainerConfiguration(servlets = {ServletOne.class, ServletTwo.class, ServletThree.class})
         class TestClass {
         }

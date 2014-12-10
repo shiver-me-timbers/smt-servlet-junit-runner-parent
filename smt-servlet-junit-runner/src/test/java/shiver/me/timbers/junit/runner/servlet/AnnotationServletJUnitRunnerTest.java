@@ -15,7 +15,6 @@ import shiver.me.timbers.junit.runner.servlet.test.ServletOne;
 import shiver.me.timbers.junit.runner.servlet.test.ServletThree;
 import shiver.me.timbers.junit.runner.servlet.test.ServletTwo;
 
-import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static org.hamcrest.Matchers.greaterThan;
@@ -23,7 +22,8 @@ import static org.mockito.Matchers.argThat;
 import static org.mockito.Matchers.intThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockEmptyFilters;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockEmptyServlets;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockFilters;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockServlets;
 import static shiver.me.timbers.junit.runner.servlet.test.FiltersMatcher.equalTo;
@@ -73,10 +73,8 @@ public class AnnotationServletJUnitRunnerTest {
 
         // Given
         final RunNotifier notifier = new RunNotifier();
-        final Servlets servlets = mock(Servlets.class);
-        when(servlets.getServlets()).thenReturn(new ArrayList<ServletDetail>());
-        final Filters filters = mock(Filters.class);
-        when(filters.getFilters()).thenReturn(new ArrayList<FilterDetail>());
+        final Servlets servlets = mockEmptyServlets();
+        final Filters filters = mockEmptyFilters();
 
         // When
         new AnnotationServletJUnitRunner<>(new TestContainer(), MethodLevelConfig.class).run(notifier);

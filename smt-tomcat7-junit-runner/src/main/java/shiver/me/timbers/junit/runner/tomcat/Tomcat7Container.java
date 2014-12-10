@@ -44,7 +44,7 @@ public class Tomcat7Container implements Container<Tomcat> {
     @Override
     public void load(Servlets servlets) {
 
-        for (ServletDetail servletDetail : servlets.getServlets()) {
+        for (ServletDetail servletDetail : servlets) {
 
             final String name = servletDetail.getName();
 
@@ -66,7 +66,7 @@ public class Tomcat7Container implements Container<Tomcat> {
     @Override
     public void load(Filters filters) {
 
-        for (FilterDetail filterDetail : filters.getFilters()) {
+        for (FilterDetail filterDetail : filters) {
             context.addFilterDef(new FilterDetailFilterDef(filterDetail));
             context.addFilterMap(new FilterDetailFilterMap(filterDetail));
         }
