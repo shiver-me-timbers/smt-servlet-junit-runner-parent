@@ -2,9 +2,12 @@ package shiver.me.timbers.junit.runner.servlet.test;
 
 import shiver.me.timbers.junit.runner.servlet.FilterDetail;
 import shiver.me.timbers.junit.runner.servlet.Filters;
+import shiver.me.timbers.junit.runner.servlet.Packages;
 import shiver.me.timbers.junit.runner.servlet.ServletDetail;
 import shiver.me.timbers.junit.runner.servlet.Servlets;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -25,6 +28,10 @@ public class Constants {
     public static final String VALUE = "/value";
     public static final String URL_PATTERN = "/url-pattern";
     public static final boolean ASYNC_SUPPORT = true;
+
+    public static final String PACKAGE_ONE = "shiver.me.timbers.junit.runner.servlet.test.one";
+    public static final String PACKAGE_TWO = "shiver.me.timbers.junit.runner.servlet.test.two";
+    public static final String PACKAGE_THREE = "shiver.me.timbers.junit.runner.servlet.test.three";
 
     public static Servlets mockEmptyServlets() {
 
@@ -66,6 +73,38 @@ public class Constants {
     public static Filters mockFilters(ArrayList<FilterDetail> list) {
 
         final Filters mock = mock(Filters.class);
+        when(mock.asList()).thenReturn(list);
+        when(mock.iterator()).thenReturn(list.iterator());
+
+        return mock;
+    }
+
+    public static Packages mockEmptyPackages() {
+
+        return mockPackages(new ArrayList<URL>());
+    }
+
+    public static Packages mockPackages() {
+
+        return mockPackages(new ArrayList<URL>() {{
+            add(toURL(PACKAGE_ONE));
+            add(toURL(PACKAGE_TWO));
+            add(toURL(PACKAGE_THREE));
+        }});
+    }
+
+    private static URL toURL(String pkg) {
+
+        try {
+            return new URL("file://" + pkg.replaceAll("\\.", "/"));
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static Packages mockPackages(ArrayList<URL> list) {
+
+        final Packages mock = mock(Packages.class);
         when(mock.asList()).thenReturn(list);
         when(mock.iterator()).thenReturn(list.iterator());
 

@@ -21,4 +21,6 @@ public interface Container<C> {
     void shutdown();
 
     void load(Filters filters);
+
+    void load(Packages packages);
 }

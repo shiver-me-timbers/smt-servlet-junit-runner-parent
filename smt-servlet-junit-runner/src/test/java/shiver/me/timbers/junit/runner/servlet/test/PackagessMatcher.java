@@ -3,34 +3,33 @@ package shiver.me.timbers.junit.runner.servlet.test;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import shiver.me.timbers.junit.runner.servlet.Filters;
+import shiver.me.timbers.junit.runner.servlet.Packages;
 
 import static shiver.me.timbers.junit.runner.servlet.test.ContainsAllMatcher.containsAll;
-import static shiver.me.timbers.junit.runner.servlet.test.FilterDetailsMatcher.filterDetailsMatcher;
 
 /**
  * @author Karl Bennett
  */
-public class FiltersMatcher extends TypeSafeMatcher<Filters> {
+public class PackagessMatcher extends TypeSafeMatcher<Packages> {
 
-    public static Matcher<Filters> equalTo(Filters expected) {
-        return new FiltersMatcher(expected);
+    public static Matcher<Packages> equalTo(Packages expected) {
+        return new PackagessMatcher(expected);
     }
 
-    private final Filters expected;
+    private final Packages expected;
 
-    public FiltersMatcher(Filters expected) {
+    public PackagessMatcher(Packages expected) {
         this.expected = expected;
     }
 
     @Override
-    protected boolean matchesSafely(Filters actual) {
+    protected boolean matchesSafely(Packages actual) {
 
         if (expected.asList().size() != actual.asList().size()) {
             return false;
         }
 
-        if (!containsAll(expected).with(filterDetailsMatcher()).matchesSafely(actual)) {
+        if (!containsAll(expected).matchesSafely(actual)) {
             return false;
         }
 

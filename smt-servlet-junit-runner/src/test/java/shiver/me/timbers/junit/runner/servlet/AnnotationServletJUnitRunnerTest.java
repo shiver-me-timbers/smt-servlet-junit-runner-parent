@@ -22,11 +22,17 @@ import static org.mockito.Matchers.argThat;
 import static org.mockito.Matchers.intThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.PACKAGE_ONE;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.PACKAGE_THREE;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.PACKAGE_TWO;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockEmptyFilters;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockEmptyPackages;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockEmptyServlets;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockFilters;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockPackages;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockServlets;
 import static shiver.me.timbers.junit.runner.servlet.test.FiltersMatcher.equalTo;
+import static shiver.me.timbers.junit.runner.servlet.test.PackagessMatcher.equalTo;
 import static shiver.me.timbers.junit.runner.servlet.test.ServletsMatcher.equalTo;
 
 public class AnnotationServletJUnitRunnerTest {
@@ -52,6 +58,7 @@ public class AnnotationServletJUnitRunnerTest {
         final RunNotifier notifier = new RunNotifier();
         final Servlets servlets = mockServlets();
         final Filters filters = mockFilters();
+        final Packages packages = mockPackages();
 
         // When
         new AnnotationServletJUnitRunner<>(new TestContainer(), ClassLevelConfig.class).run(notifier);
@@ -62,6 +69,7 @@ public class AnnotationServletJUnitRunnerTest {
         verify(server).configuredPort(PORT);
         verify(server).load(argThat(equalTo(servlets)));
         verify(server).load(argThat(equalTo(filters)));
+        verify(server).load(argThat(equalTo(packages)));
         verify(server).start();
         verify(server).injectedPort(PORT);
         verify(server).shutdown();
@@ -75,6 +83,7 @@ public class AnnotationServletJUnitRunnerTest {
         final RunNotifier notifier = new RunNotifier();
         final Servlets servlets = mockEmptyServlets();
         final Filters filters = mockEmptyFilters();
+        final Packages packages = mockEmptyPackages();
 
         // When
         new AnnotationServletJUnitRunner<>(new TestContainer(), MethodLevelConfig.class).run(notifier);
@@ -85,6 +94,7 @@ public class AnnotationServletJUnitRunnerTest {
         verify(server).configuredPort(intThat(greaterThan(0)));
         verify(server).load(argThat(equalTo(servlets)));
         verify(server).load(argThat(equalTo(filters)));
+        verify(server).load(argThat(equalTo(packages)));
         verify(server).start();
         verify(server).injectedPort(intThat(greaterThan(0)));
         verify(server).shutdown();
@@ -94,7 +104,8 @@ public class AnnotationServletJUnitRunnerTest {
             port = PORT,
             value = TestContainerConfiguration.class,
             servlets = {ServletOne.class, ServletTwo.class, ServletThree.class},
-            filters = {FilterOne.class, FilterTwo.class, FilterThree.class}
+            filters = {FilterOne.class, FilterTwo.class, FilterThree.class},
+            packages = {PACKAGE_ONE, PACKAGE_TWO, PACKAGE_THREE}
     )
     public static class ClassLevelConfig {
 
@@ -157,6 +168,11 @@ public class AnnotationServletJUnitRunnerTest {
         }
 
         @Override
+        public void load(Packages packages) {
+            server.load(packages);
+        }
+
+        @Override
         public void start() {
             server.start();
         }
@@ -182,5 +198,7 @@ public class AnnotationServletJUnitRunnerTest {
         void shutdown();
 
         void load(Filters filters);
+
+        void load(Packages packages);
     }
 }

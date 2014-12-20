@@ -30,7 +30,7 @@ public class ServletsMatcher extends TypeSafeMatcher<Servlets> {
             return false;
         }
 
-        if (!containsAll(expected).with(servletDetailsMatcher()).matches(actual)) {
+        if (!containsAll(expected).with(servletDetailsMatcher()).matchesSafely(actual)) {
             return false;
         }
 
