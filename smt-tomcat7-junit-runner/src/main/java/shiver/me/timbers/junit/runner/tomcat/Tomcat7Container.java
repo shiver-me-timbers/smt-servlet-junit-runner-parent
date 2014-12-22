@@ -7,6 +7,7 @@ import org.apache.catalina.startup.Tomcat;
 import shiver.me.timbers.junit.runner.servlet.Container;
 import shiver.me.timbers.junit.runner.servlet.FilterDetail;
 import shiver.me.timbers.junit.runner.servlet.Filters;
+import shiver.me.timbers.junit.runner.servlet.Packages;
 import shiver.me.timbers.junit.runner.servlet.ServletDetail;
 import shiver.me.timbers.junit.runner.servlet.Servlets;
 import shiver.me.timbers.junit.runner.servlet.configuration.ContainerConfiguration;
@@ -73,20 +74,40 @@ public class Tomcat7Container implements Container<Tomcat> {
     }
 
     @Override
+    public void load(Packages packages) {
+
+
+    }
+
+    @Override
     public void start() {
+        withLifeCycle(new LifeCycle() {
+            @Override
+            public void run() throws LifecycleException {
+                tomcat.start();
+            }
+        });
+    }
+
+    @Override
+    public void shutdown() {
+        withLifeCycle(new LifeCycle() {
+            @Override
+            public void run() throws LifecycleException {
+                tomcat.stop();
+            }
+        });
+    }
+
+    private static void withLifeCycle(LifeCycle run) {
         try {
-            tomcat.start();
+            run.run();
         } catch (LifecycleException e) {
             throw new RuntimeException(e);
         }
     }
 
-    @Override
-    public void shutdown() {
-        try {
-            tomcat.stop();
-        } catch (LifecycleException e) {
-            throw new RuntimeException(e);
-        }
+    private static interface LifeCycle {
+        public void run() throws LifecycleException;
     }
 }

@@ -33,6 +33,12 @@ public class ServletJUnitRunnerTest {
         final PortConfigurationFactory portConfigurationFactory = mock(PortConfigurationFactory.class);
         when(portConfigurationFactory.create(any(TestClass.class))).thenReturn(portConfiguration);
 
+        @SuppressWarnings("unchecked")
+        final ContainerConfiguration<Object> containerConfiguration = mock(ContainerConfiguration.class);
+        @SuppressWarnings("unchecked")
+        final ContainerConfigurationFactory<Object> containerConfigurationFactory = mock(ContainerConfigurationFactory.class);
+        when(containerConfigurationFactory.create(any(TestClass.class))).thenReturn(containerConfiguration);
+
         final Servlets servlets = mock(Servlets.class);
         final ServletsFactory servletsFactory = mock(ServletsFactory.class);
         when(servletsFactory.create(any(TestClass.class))).thenReturn(servlets);
@@ -41,11 +47,9 @@ public class ServletJUnitRunnerTest {
         final FiltersFactory filtersFactory = mock(FiltersFactory.class);
         when(filtersFactory.create(any(TestClass.class))).thenReturn(filters);
 
-        @SuppressWarnings("unchecked")
-        final ContainerConfiguration<Object> containerConfiguration = mock(ContainerConfiguration.class);
-        @SuppressWarnings("unchecked")
-        final ContainerConfigurationFactory<Object> containerConfigurationFactory = mock(ContainerConfigurationFactory.class);
-        when(containerConfigurationFactory.create(any(TestClass.class))).thenReturn(containerConfiguration);
+        final Packages packages = mock(Packages.class);
+        final PackagesFactory packagesFactory = mock(PackagesFactory.class);
+        when(packagesFactory.create(any(TestClass.class))).thenReturn(packages);
 
         final RunListener runListener = mock(RunListener.class);
         final RunListenerFactory runListenerFactory = mock(RunListenerFactory.class);
@@ -58,6 +62,7 @@ public class ServletJUnitRunnerTest {
                 portConfigurationFactory,
                 servletsFactory,
                 filtersFactory,
+                packagesFactory,
                 containerConfigurationFactory,
                 portSetter,
                 runListenerFactory,
@@ -70,6 +75,7 @@ public class ServletJUnitRunnerTest {
         verify(container).configure(containerConfiguration);
         verify(container).load(servlets);
         verify(container).load(filters);
+        verify(container).load(packages);
         verify(container).start();
         verify(portSetter).set(any(TestClass.class), eq(portConfiguration));
         verify(runListenerFactory).create(container);

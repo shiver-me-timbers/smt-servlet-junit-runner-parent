@@ -32,20 +32,20 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static shiver.me.timbers.junit.runner.tomcat.Tomcat7JUnitRunnerFilterTest.TestFilter;
 import static shiver.me.timbers.junit.runner.tomcat.Tomcat7JUnitRunnerFilterTest.TestServlet;
+import static shiver.me.timbers.junit.runner.tomcat.test.Constants.FILTER_NAME;
+import static shiver.me.timbers.junit.runner.tomcat.test.Constants.INIT;
+import static shiver.me.timbers.junit.runner.tomcat.test.Constants.PARAM;
+import static shiver.me.timbers.junit.runner.tomcat.test.Constants.URL_PATTERN;
 
 @RunWith(Tomcat7JUnitRunner.class)
 @ContainerConfiguration(filters = TestFilter.class, servlets = TestServlet.class)
 public class Tomcat7JUnitRunnerFilterTest {
 
     private static final AtomicReference<Boolean> LOADED = new AtomicReference<>();
-    private static final AtomicReference<String> FILTER_NAME = new AtomicReference<>();
+    private static final AtomicReference<String> NAME = new AtomicReference<>();
     private static final AtomicReference<String> INIT_PARAM_VALUE = new AtomicReference<>();
     private static final AtomicReference<Boolean> ASYNC_SUPPORTED = new AtomicReference<>();
 
-    private static final String INIT = "init";
-    private static final String PARAM = "param";
-    private static final String NAME = "test-filter";
-    private static final String URL_PATTERN = "/test";
     private static final String FILTERED = "filtered";
 
     @Port
@@ -57,7 +57,7 @@ public class Tomcat7JUnitRunnerFilterTest {
         // Then
         assertThat(port, greaterThan(0));
         assertTrue(LOADED.get());
-        assertEquals(NAME, FILTER_NAME.get());
+        assertEquals(FILTER_NAME, NAME.get());
         assertEquals(PARAM, INIT_PARAM_VALUE.get());
 
         final Response response = ClientBuilder.newClient()
@@ -71,7 +71,7 @@ public class Tomcat7JUnitRunnerFilterTest {
 
     @WebFilter(
             urlPatterns = URL_PATTERN,
-            filterName = NAME,
+            filterName = FILTER_NAME,
             initParams = @WebInitParam(name = INIT, value = PARAM),
             asyncSupported = true
     )
@@ -80,7 +80,7 @@ public class Tomcat7JUnitRunnerFilterTest {
         @Override
         public void init(FilterConfig filterConfig) throws ServletException {
             LOADED.set(true);
-            FILTER_NAME.set(filterConfig.getFilterName());
+            NAME.set(filterConfig.getFilterName());
             INIT_PARAM_VALUE.set(filterConfig.getInitParameter(INIT));
         }
 

@@ -6,7 +6,6 @@ import shiver.me.timbers.junit.runner.servlet.Packages;
 import shiver.me.timbers.junit.runner.servlet.ServletDetail;
 import shiver.me.timbers.junit.runner.servlet.Servlets;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map;
@@ -94,12 +93,7 @@ public class Constants {
     }
 
     private static URL toURL(String pkg) {
-
-        try {
-            return new URL("file://" + pkg.replaceAll("\\.", "/"));
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
+        return Thread.currentThread().getContextClassLoader().getResource(pkg.replaceAll("\\.", "/"));
     }
 
     public static Packages mockPackages(ArrayList<URL> list) {

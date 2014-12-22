@@ -26,21 +26,20 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static shiver.me.timbers.junit.runner.tomcat.Tomcat7JUnitRunnerServletTest.TestServlet;
+import static shiver.me.timbers.junit.runner.tomcat.test.Constants.INIT;
+import static shiver.me.timbers.junit.runner.tomcat.test.Constants.PARAM;
+import static shiver.me.timbers.junit.runner.tomcat.test.Constants.SERVLET_NAME;
+import static shiver.me.timbers.junit.runner.tomcat.test.Constants.SUCCESS;
+import static shiver.me.timbers.junit.runner.tomcat.test.Constants.URL_PATTERN;
 
 @RunWith(Tomcat7JUnitRunner.class)
 @ContainerConfiguration(servlets = TestServlet.class)
 public class Tomcat7JUnitRunnerServletTest {
 
     private static final AtomicReference<Boolean> LOADED = new AtomicReference<>();
-    private static final AtomicReference<String> SERVLET_NAME = new AtomicReference<>();
+    private static final AtomicReference<String> NAME = new AtomicReference<>();
     private static final AtomicReference<String> INIT_PARAM_VALUE = new AtomicReference<>();
     private static final AtomicReference<Boolean> ASYNC_SUPPORTED = new AtomicReference<>();
-
-    private static final String INIT = "init";
-    private static final String PARAM = "param";
-    private static final String NAME = "test-servlet";
-    private static final String URL_PATTERN = "/test";
-    private static final String SUCCESS = "success";
 
     @Port
     private int port;
@@ -51,7 +50,7 @@ public class Tomcat7JUnitRunnerServletTest {
         // Then
         assertThat(port, greaterThan(0));
         assertTrue(LOADED.get());
-        assertEquals(NAME, SERVLET_NAME.get());
+        assertEquals(SERVLET_NAME, NAME.get());
         assertEquals(PARAM, INIT_PARAM_VALUE.get());
 
         final Response response = ClientBuilder.newClient()
@@ -66,7 +65,7 @@ public class Tomcat7JUnitRunnerServletTest {
 
     @WebServlet(
             urlPatterns = URL_PATTERN,
-            name = NAME,
+            name = SERVLET_NAME,
             asyncSupported = true,
             initParams = @WebInitParam(name = INIT, value = PARAM),
             loadOnStartup = 1
@@ -76,7 +75,7 @@ public class Tomcat7JUnitRunnerServletTest {
         @Override
         public void init(ServletConfig config) throws ServletException {
             LOADED.set(true);
-            SERVLET_NAME.set(config.getServletName());
+            NAME.set(config.getServletName());
             INIT_PARAM_VALUE.set(config.getInitParameter(INIT));
         }
 

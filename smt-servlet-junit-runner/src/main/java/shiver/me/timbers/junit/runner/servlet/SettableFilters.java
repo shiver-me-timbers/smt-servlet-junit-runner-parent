@@ -11,12 +11,12 @@ import java.util.List;
 public class SettableFilters implements Filters {
 
     @SafeVarargs
-    private static List<FilterDetail> transform(Class<? extends Filter>... servlets) {
+    private static List<FilterDetail> transform(Class<? extends Filter>... filters) {
 
-        final List<FilterDetail> details = new ArrayList<>(servlets.length);
+        final List<FilterDetail> details = new ArrayList<>(filters.length);
 
-        for (Class<? extends Filter> servlet : servlets) {
-            details.add(new FilterDetail(servlet));
+        for (Class<? extends Filter> filter : filters) {
+            details.add(new FilterDetail(filter));
         }
 
         return details;
