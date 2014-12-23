@@ -1,1 +1,0 @@
-This file is here simply to allow the package it is in to be added to the git repository.
