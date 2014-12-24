@@ -7,9 +7,7 @@ import java.util.Map;
 
 import static java.util.Collections.unmodifiableList;
 import static shiver.me.timbers.junit.runner.servlet.Reflections.instantiate;
-import static shiver.me.timbers.junit.runner.servlet.annotation.Annotations.buildAnnotation;
-import static shiver.me.timbers.junit.runner.servlet.annotation.Annotations.findUrlPatterns;
-import static shiver.me.timbers.junit.runner.servlet.annotation.Annotations.transform;
+import static shiver.me.timbers.junit.runner.servlet.annotation.Annotations.*;
 
 /**
  * This class contains the instantiated servlet and all the details that can be retrieved about it.

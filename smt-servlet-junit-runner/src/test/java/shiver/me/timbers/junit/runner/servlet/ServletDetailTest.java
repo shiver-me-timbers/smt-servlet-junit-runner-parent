@@ -11,19 +11,8 @@ import java.util.HashMap;
 import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.isEmptyString;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.ASYNC_SUPPORT;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.DESCRIPTION;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.DISPLAY_NAME;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.INIT;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.INIT_PARAMS;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.LARGE_ICON;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.PARAM;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.SMALL_ICON;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.URL_PATTERN;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.VALUE;
+import static org.junit.Assert.*;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.*;
 
 public class ServletDetailTest {
 

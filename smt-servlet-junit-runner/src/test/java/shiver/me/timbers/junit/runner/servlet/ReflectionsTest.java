@@ -7,9 +7,7 @@ import java.lang.reflect.Method;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static shiver.me.timbers.junit.runner.servlet.Reflections.callMethod;
-import static shiver.me.timbers.junit.runner.servlet.Reflections.getMethod;
-import static shiver.me.timbers.junit.runner.servlet.Reflections.instantiate;
+import static shiver.me.timbers.junit.runner.servlet.Reflections.*;
 
 /**
  * @author Karl Bennett

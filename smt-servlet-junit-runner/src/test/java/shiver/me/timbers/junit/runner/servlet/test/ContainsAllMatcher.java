@@ -5,9 +5,9 @@ import org.hamcrest.TypeSafeMatcher;
 
 /**
  * This matcher can be used to check that two {@link Iterable}s are equal. The order of the elements is ignored.
- *
+ * <p/>
  * Additionally a matcher can be added using {@link #with} which be used to checking each element.
- *
+ * <p/>
  * The standard {@link org.hamcrest.Matchers#equalTo} method will be used otherwise.
  *
  * @author Karl Bennett

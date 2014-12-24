@@ -13,11 +13,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 import static javax.ws.rs.core.Response.Status.OK;
-import static shiver.me.timbers.junit.runner.tomcat.test.Constants.INIT;
-import static shiver.me.timbers.junit.runner.tomcat.test.Constants.PACKAGE_SERVLET_NAME;
-import static shiver.me.timbers.junit.runner.tomcat.test.Constants.PARAM;
-import static shiver.me.timbers.junit.runner.tomcat.test.Constants.SUCCESS;
-import static shiver.me.timbers.junit.runner.tomcat.test.Constants.URL_PATTERN;
+import static shiver.me.timbers.junit.runner.tomcat.test.Constants.*;
 
 @WebServlet(
         urlPatterns = URL_PATTERN,

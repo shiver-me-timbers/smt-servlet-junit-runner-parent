@@ -2,7 +2,6 @@ package shiver.me.timbers.junit.runner.servlet.test;
 
 import shiver.me.timbers.junit.runner.servlet.FilterDetail;
 import shiver.me.timbers.junit.runner.servlet.Filters;
-import shiver.me.timbers.junit.runner.servlet.Packages;
 import shiver.me.timbers.junit.runner.servlet.ServletDetail;
 import shiver.me.timbers.junit.runner.servlet.Servlets;
 import shiver.me.timbers.junit.runner.servlet.test.one.PackageFilterOne;
@@ -114,33 +113,6 @@ public class Constants {
     public static Filters mockFilters(ArrayList<FilterDetail> list) {
 
         final Filters mock = mock(Filters.class);
-        when(mock.asList()).thenReturn(list);
-        when(mock.iterator()).thenReturn(list.iterator());
-
-        return mock;
-    }
-
-    public static Packages mockEmptyPackages() {
-
-        return mockPackages(new ArrayList<URL>());
-    }
-
-    public static Packages mockPackages() {
-
-        return mockPackages(new ArrayList<URL>() {{
-            add(toURL(PACKAGE_ONE));
-            add(toURL(PACKAGE_TWO));
-            add(toURL(PACKAGE_THREE));
-        }});
-    }
-
-    private static URL toURL(String pkg) {
-        return Thread.currentThread().getContextClassLoader().getResource(pkg.replaceAll("\\.", "/"));
-    }
-
-    public static Packages mockPackages(ArrayList<URL> list) {
-
-        final Packages mock = mock(Packages.class);
         when(mock.asList()).thenReturn(list);
         when(mock.iterator()).thenReturn(list.iterator());
 

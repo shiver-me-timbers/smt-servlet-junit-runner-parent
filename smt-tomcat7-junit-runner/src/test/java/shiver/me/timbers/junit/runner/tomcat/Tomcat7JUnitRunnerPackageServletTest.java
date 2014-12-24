@@ -11,18 +11,9 @@ import javax.ws.rs.core.Response;
 import static javax.ws.rs.core.MediaType.TEXT_PLAIN_TYPE;
 import static javax.ws.rs.core.Response.Status.OK;
 import static org.hamcrest.Matchers.greaterThan;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static shiver.me.timbers.junit.runner.tomcat.test.Constants.PACKAGE_ONE;
-import static shiver.me.timbers.junit.runner.tomcat.test.Constants.PARAM;
-import static shiver.me.timbers.junit.runner.tomcat.test.Constants.SERVLET_NAME;
-import static shiver.me.timbers.junit.runner.tomcat.test.Constants.SUCCESS;
-import static shiver.me.timbers.junit.runner.tomcat.test.Constants.URL_PATTERN;
-import static shiver.me.timbers.junit.runner.tomcat.test.one.PackageTestServlet.ASYNC_SUPPORTED;
-import static shiver.me.timbers.junit.runner.tomcat.test.one.PackageTestServlet.INIT_PARAM_VALUE;
-import static shiver.me.timbers.junit.runner.tomcat.test.one.PackageTestServlet.LOADED;
-import static shiver.me.timbers.junit.runner.tomcat.test.one.PackageTestServlet.NAME;
+import static org.junit.Assert.*;
+import static shiver.me.timbers.junit.runner.tomcat.test.Constants.*;
+import static shiver.me.timbers.junit.runner.tomcat.test.one.PackageTestServlet.*;
 
 @RunWith(Tomcat7JUnitRunner.class)
 @ContainerConfiguration(packages = PACKAGE_ONE)

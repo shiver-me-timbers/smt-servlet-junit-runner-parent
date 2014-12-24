@@ -21,7 +21,6 @@ public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
 
     private final PortConfigurationFactory portConfigurationFactory;
     private final FiltersFactory filtersFactory;
-    private final PackagesFactory packagesFactory;
     private final ContainerConfigurationFactory<C> containerConfigurationFactory;
     private final ServletsFactory servletsFactory;
     private final PortSetter portSetter;
@@ -32,7 +31,6 @@ public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
             PortConfigurationFactory portConfigurationFactory,
             ServletsFactory servletsFactory,
             FiltersFactory filtersFactory,
-            PackagesFactory packagesFactory,
             ContainerConfigurationFactory<C> containerConfigurationFactory,
             PortSetter portSetter,
             RunListenerFactory runListenerFactory,
@@ -42,7 +40,6 @@ public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
         super(test);
         this.portConfigurationFactory = portConfigurationFactory;
         this.filtersFactory = filtersFactory;
-        this.packagesFactory = packagesFactory;
         this.containerConfigurationFactory = containerConfigurationFactory;
         this.servletsFactory = servletsFactory;
         this.portSetter = portSetter;
@@ -61,13 +58,10 @@ public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
 
         final Filters filters = filtersFactory.create(target);
 
-        final Packages packages = packagesFactory.create(target);
-
         container.configure(portConfiguration);
         container.configure(containerConfiguration);
         container.load(servlets);
         container.load(filters);
-        container.load(packages);
         container.start();
 
         portSetter.set(target, portConfiguration);

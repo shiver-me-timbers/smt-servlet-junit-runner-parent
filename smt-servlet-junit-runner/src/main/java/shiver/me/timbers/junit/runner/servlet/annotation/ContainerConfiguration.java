@@ -13,11 +13,11 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * This annotation can be used to configure the servlet container. This can be done through code or XML.
- *
+ * <p/>
  * To manually configure the container with code the annotation can be applied at the class level with an implementation
  * of the {@link shiver.me.timbers.junit.runner.servlet.configuration.ContainerConfiguration} interface. This implementation
  * should be generically typed to the containers configuration class.
- *
+ * <p/>
  * <pre>
  * {@code
  *  &#64;ContainerConfiguration(CustomContainerConfiguration.class)
@@ -25,9 +25,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  *  }
  * }
  * </pre>
- *
+ * <p/>
  * Or apply it to a method that has the servlet containers configuration class as it's first argument.
- *
+ * <p/>
  * <pre>
  * {@code
  *  class SomeTest {
@@ -38,10 +38,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  *  }
  * }
  * </pre>
- *
+ * <p/>
  * The {@link Servlet}s that should be loaded into the container for the test class can be set by listing them at the
  * class level.
- *
+ * <p/>
  * <pre>
  * {@code
  *  &#64;ContainerConfiguration(servlets = {ServletOne.class, ServletTwo.class, ServletThree.class})
@@ -49,9 +49,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  *  }
  * }
  * </pre>
- *
+ * <p/>
  * {@link Filter}s can be set the same way.
- *
+ * <p/>
  * <pre>
  * {@code
  *  &#64;ContainerConfiguration(filters = {FilterOne.class, FilterTwo.class, FilterThree.class})
@@ -59,9 +59,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  *  }
  * }
  * </pre>
- *
+ * <p/>
  * Alternatively a list of packages can be supplied that will be scanned for any {@link Servlet}s and {@link Filter}s.
- *
+ * <p/>
  * <pre>
  * {@code
  *  &#64;ContainerConfiguration(packages = {"one.package", "two.package", "three.package"})
@@ -69,10 +69,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  *  }
  * }
  * </pre>
- *
+ * <p/>
  * Lastly the path to a {@code web.xml} can be provided which will then be used by the container. This path should be
  * relative to the root of the class path.
- *
+ * <p/>
  * <pre>
  * {@code
  *  &#64;ContainerConfiguration(webXml = "path/to/web.xml")

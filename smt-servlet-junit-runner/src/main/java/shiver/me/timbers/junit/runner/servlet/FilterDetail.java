@@ -8,9 +8,7 @@ import java.util.Map;
 
 import static java.util.Arrays.asList;
 import static shiver.me.timbers.junit.runner.servlet.Reflections.instantiate;
-import static shiver.me.timbers.junit.runner.servlet.annotation.Annotations.buildAnnotation;
-import static shiver.me.timbers.junit.runner.servlet.annotation.Annotations.findUrlPatterns;
-import static shiver.me.timbers.junit.runner.servlet.annotation.Annotations.transform;
+import static shiver.me.timbers.junit.runner.servlet.annotation.Annotations.*;
 
 /**
  * @author Karl Bennett

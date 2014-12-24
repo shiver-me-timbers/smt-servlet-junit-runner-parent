@@ -9,7 +9,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 /**
  * This annotation can be used to inject a dynamically allocated port by applying it to an {@code Integer/int} field
  * within a test.
- *
+ * <p/>
  * <pre>
  * {@code
  *  class SomeOtherTest {

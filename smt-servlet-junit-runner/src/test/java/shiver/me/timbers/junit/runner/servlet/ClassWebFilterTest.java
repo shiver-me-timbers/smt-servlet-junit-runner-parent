@@ -9,10 +9,7 @@ import javax.servlet.annotation.WebInitParam;
 
 import static javax.servlet.DispatcherType.REQUEST;
 import static org.hamcrest.Matchers.isEmptyString;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 public class ClassWebFilterTest {
 

@@ -7,9 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import static java.util.Arrays.asList;
-import static shiver.me.timbers.junit.runner.servlet.Reflections.callMethod;
-import static shiver.me.timbers.junit.runner.servlet.Reflections.getMethod;
-import static shiver.me.timbers.junit.runner.servlet.Reflections.instantiate;
+import static shiver.me.timbers.junit.runner.servlet.Reflections.*;
 
 /**
  * Simple reflection utilities.

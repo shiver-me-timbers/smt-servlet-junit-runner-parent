@@ -16,11 +16,9 @@ public interface Container<C> {
 
     void load(Servlets servlets);
 
+    void load(Filters filters);
+
     void start();
 
     void shutdown();
-
-    void load(Filters filters);
-
-    void load(Packages packages);
 }
