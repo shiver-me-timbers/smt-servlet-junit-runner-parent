@@ -8,7 +8,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static shiver.me.timbers.junit.runner.servlet.configuration.NullContainerConfiguration.NULL_CONTAINER_CONFIG;
 
-public class AggregatedContainerConfigurationFactoryTest {
+public class CompositeContainerConfigurationFactoryTest {
 
     private static final Object TEST = new Object();
 
@@ -24,7 +24,7 @@ public class AggregatedContainerConfigurationFactoryTest {
     public void A_null_container_config_is_returned_if_no_container_config_factories_supplied() {
 
         // When
-        final ContainerConfiguration<Object> actual = new AggregatedContainerConfigurationFactory<>().create(TEST);
+        final ContainerConfiguration<Object> actual = new CompositeContainerConfigurationFactory<>().create(TEST);
 
         // Then
         assertEquals(NULL_CONTAINER_CONFIG, actual);
@@ -34,7 +34,7 @@ public class AggregatedContainerConfigurationFactoryTest {
     public void A_null_container_config_is_returned_if_the_supplied_container_config_factories() {
 
         // When
-        final ContainerConfiguration<Object> actual = new AggregatedContainerConfigurationFactory<Object>(nullConfig, nullConfig,
+        final ContainerConfiguration<Object> actual = new CompositeContainerConfigurationFactory<Object>(nullConfig, nullConfig,
                 nullConfig).create(TEST);
 
         // Then
@@ -51,7 +51,7 @@ public class AggregatedContainerConfigurationFactoryTest {
         when(configFactory.create(TEST)).thenReturn(expected);
 
         // When
-        final ContainerConfiguration<Object> actual = new AggregatedContainerConfigurationFactory<Object>(nullConfig, configFactory,
+        final ContainerConfiguration<Object> actual = new CompositeContainerConfigurationFactory<Object>(nullConfig, configFactory,
                 nullConfig).create(TEST);
 
         // Then

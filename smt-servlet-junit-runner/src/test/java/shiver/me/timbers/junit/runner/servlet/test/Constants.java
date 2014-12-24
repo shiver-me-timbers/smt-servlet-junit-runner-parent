@@ -11,7 +11,6 @@ import shiver.me.timbers.junit.runner.servlet.test.three.PackageServletTwo;
 import shiver.me.timbers.junit.runner.servlet.test.two.PackageFilterThree;
 import shiver.me.timbers.junit.runner.servlet.test.two.PackageServletThree;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map;
 

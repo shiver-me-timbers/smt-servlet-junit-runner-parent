@@ -5,12 +5,12 @@ import static shiver.me.timbers.junit.runner.servlet.configuration.NullContainer
 /**
  * @author Karl Bennett
  */
-public class AggregatedContainerConfigurationFactory<C> implements ContainerConfigurationFactory<C> {
+public class CompositeContainerConfigurationFactory<C> implements ContainerConfigurationFactory<C> {
 
     private final ContainerConfigurationFactory<C>[] containerConfigFactories;
 
     @SafeVarargs
-    public AggregatedContainerConfigurationFactory(ContainerConfigurationFactory<C>... containerConfigFactories) {
+    public CompositeContainerConfigurationFactory(ContainerConfigurationFactory<C>... containerConfigFactories) {
         this.containerConfigFactories = containerConfigFactories;
     }
 

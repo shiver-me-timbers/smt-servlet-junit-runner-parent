@@ -39,7 +39,7 @@ public class AnnotationServletJUnitRunner<C> extends ServletJUnitRunner<C> {
                 ),
                 new AnnotationServletsFactory(),
                 new AnnotationFiltersFactory(),
-                new AggregatedContainerConfigurationFactory<>(
+                new CompositeContainerConfigurationFactory<>(
                         new ClassAnnotationContainerConfigurationFactory<C>(),
                         new MethodAnnotationContainerConfigurationFactory<C>()
                 ),
