@@ -11,6 +11,11 @@ public class ServletsContainerConfigurationAnnotationFactory
         extends AnnotationExtractionFactory<ContainerConfiguration, Servlets> implements ServletsFactory {
 
     public ServletsContainerConfigurationAnnotationFactory() {
-        super(ContainerConfiguration.class, new ServletsEmptyFactory(), new ServletsAnnotationFactory());
+        super(
+                ContainerConfiguration.class, new ServletsEmptyFactory(),
+                new CompositeServletsAnnotationFactory(
+                        new ServletsAnnotationFactory()
+                )
+        );
     }
 }
