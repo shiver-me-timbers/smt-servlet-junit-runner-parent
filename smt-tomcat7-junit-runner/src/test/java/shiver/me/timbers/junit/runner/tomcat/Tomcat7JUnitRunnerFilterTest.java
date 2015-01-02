@@ -5,7 +5,12 @@ import org.junit.runner.RunWith;
 import shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.annotation.Port;
 
-import javax.servlet.*;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
@@ -22,10 +27,15 @@ import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 import static javax.ws.rs.core.MediaType.TEXT_PLAIN_TYPE;
 import static javax.ws.rs.core.Response.Status.OK;
 import static org.hamcrest.Matchers.greaterThan;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static shiver.me.timbers.junit.runner.tomcat.Tomcat7JUnitRunnerFilterTest.TestFilter;
 import static shiver.me.timbers.junit.runner.tomcat.Tomcat7JUnitRunnerFilterTest.TestServlet;
-import static shiver.me.timbers.junit.runner.tomcat.test.Constants.*;
+import static shiver.me.timbers.junit.runner.tomcat.test.Constants.FILTER_NAME;
+import static shiver.me.timbers.junit.runner.tomcat.test.Constants.INIT;
+import static shiver.me.timbers.junit.runner.tomcat.test.Constants.PARAM;
+import static shiver.me.timbers.junit.runner.tomcat.test.Constants.URL_PATTERN;
 
 @RunWith(Tomcat7JUnitRunner.class)
 @ContainerConfiguration(filters = TestFilter.class, servlets = TestServlet.class)

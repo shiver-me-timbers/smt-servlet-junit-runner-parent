@@ -33,9 +33,22 @@ public class SettableServlets implements Servlets {
         this.servlets = servlets;
     }
 
+    public SettableServlets(Servlets... servletses) {
+        this.servlets = new ArrayList<>();
+
+        for (Servlets servlets : servletses) {
+            add(servlets);
+        }
+    }
+
     @Override
     public List<ServletDetail> asList() {
         return servlets;
+    }
+
+    @Override
+    public void add(Servlets servlets) {
+        this.servlets.addAll(servlets.asList());
     }
 
     @Override

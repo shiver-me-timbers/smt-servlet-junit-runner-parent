@@ -8,19 +8,21 @@ import java.util.Map;
 
 import static java.util.Arrays.asList;
 import static shiver.me.timbers.junit.runner.servlet.Reflections.instantiate;
-import static shiver.me.timbers.junit.runner.servlet.annotation.Annotations.*;
+import static shiver.me.timbers.junit.runner.servlet.annotation.Annotations.buildAnnotation;
+import static shiver.me.timbers.junit.runner.servlet.annotation.Annotations.findUrlPatterns;
+import static shiver.me.timbers.junit.runner.servlet.annotation.Annotations.transform;
 
 /**
  * @author Karl Bennett
  */
 public class FilterDetail {
 
-    private static String findFilterName(Filter filter, WebFilter webFilter) {
+    private static String findFilterName(Class<? extends Filter> filter, WebFilter webFilter) {
 
         final String name = webFilter.filterName();
 
         if (name.isEmpty()) {
-            return filter.getClass().getSimpleName();
+            return filter.getSimpleName();
         }
 
         return name;
@@ -37,17 +39,26 @@ public class FilterDetail {
     private final List<DispatcherType> dispatcherTypes;
     private final boolean asyncSupported;
 
-    private final Filter filter;
+    private final Class<? extends Filter> filter;
 
     public FilterDetail(Class<? extends Filter> filter) {
-        this(instantiate(filter), buildAnnotation(filter, WebFilter.class, ClassWebFilter.class));
+        this(filter, buildAnnotation(filter, WebFilter.class, ClassWebFilter.class));
     }
 
-    private FilterDetail(Filter filter, WebFilter webFilter) {
-        this(webFilter.description(), webFilter.displayName(), transform(webFilter.initParams()),
-                findFilterName(filter, webFilter), webFilter.smallIcon(), webFilter.largeIcon(),
-                asList(webFilter.servletNames()), findUrlPatterns(webFilter), asList(webFilter.dispatcherTypes()),
-                webFilter.asyncSupported(), filter);
+    private FilterDetail(Class<? extends Filter> filter, WebFilter webFilter) {
+        this(
+                webFilter.description(),
+                webFilter.displayName(),
+                transform(webFilter.initParams()),
+                findFilterName(filter, webFilter),
+                webFilter.smallIcon(),
+                webFilter.largeIcon(),
+                asList(webFilter.servletNames()),
+                findUrlPatterns(webFilter),
+                asList(webFilter.dispatcherTypes()),
+                webFilter.asyncSupported(),
+                filter
+        );
     }
 
     public FilterDetail(
@@ -61,7 +72,7 @@ public class FilterDetail {
             List<String> urlPatterns,
             List<DispatcherType> dispatcherTypes,
             boolean asyncSupported,
-            Filter filter
+            Class<? extends Filter> filter
     ) {
         this.description = description;
         this.displayName = displayName;
@@ -116,7 +127,79 @@ public class FilterDetail {
         return asyncSupported;
     }
 
-    public Filter getFilter() {
+    public Class<? extends Filter> getFilter() {
         return filter;
+    }
+
+    public Filter getFilterInstance() {
+        return instantiate(filter);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        final FilterDetail that = (FilterDetail) o;
+
+        if (asyncSupported != that.asyncSupported) {
+            return false;
+        }
+        if (description != null ? !description.equals(that.description) : that.description != null) {
+            return false;
+        }
+        if (dispatcherTypes != null ? !dispatcherTypes.equals(that.dispatcherTypes) : that.dispatcherTypes != null) {
+            return false;
+        }
+        if (displayName != null ? !displayName.equals(that.displayName) : that.displayName != null) {
+            return false;
+        }
+        if (filter != null ? !filter.equals(that.filter) : that.filter != null) {
+            return false;
+        }
+        if (filterName != null ? !filterName.equals(that.filterName) : that.filterName != null) {
+            return false;
+        }
+        if (initParams != null ? !initParams.equals(that.initParams) : that.initParams != null) {
+            return false;
+        }
+        if (largeIcon != null ? !largeIcon.equals(that.largeIcon) : that.largeIcon != null) {
+            return false;
+        }
+        if (servletNames != null ? !servletNames.equals(that.servletNames) : that.servletNames != null) {
+            return false;
+        }
+        if (smallIcon != null ? !smallIcon.equals(that.smallIcon) : that.smallIcon != null) {
+            return false;
+        }
+        if (urlPatterns != null ? !urlPatterns.equals(that.urlPatterns) : that.urlPatterns != null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+
+        int result = description != null ? description.hashCode() : 0;
+        result = 31 * result + (displayName != null ? displayName.hashCode() : 0);
+        result = 31 * result + (initParams != null ? initParams.hashCode() : 0);
+        result = 31 * result + (filterName != null ? filterName.hashCode() : 0);
+        result = 31 * result + (smallIcon != null ? smallIcon.hashCode() : 0);
+        result = 31 * result + (largeIcon != null ? largeIcon.hashCode() : 0);
+        result = 31 * result + (servletNames != null ? servletNames.hashCode() : 0);
+        result = 31 * result + (urlPatterns != null ? urlPatterns.hashCode() : 0);
+        result = 31 * result + (dispatcherTypes != null ? dispatcherTypes.hashCode() : 0);
+        result = 31 * result + (asyncSupported ? 1 : 0);
+        result = 31 * result + (filter != null ? filter.hashCode() : 0);
+
+        return result;
     }
 }

@@ -9,10 +9,20 @@ import javax.servlet.http.HttpServlet;
 import java.util.HashMap;
 
 import static java.util.Arrays.asList;
-import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.isEmptyString;
-import static org.junit.Assert.*;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.ASYNC_SUPPORT;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.DESCRIPTION;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.DISPLAY_NAME;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.INIT;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.INIT_PARAMS;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.LARGE_ICON;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.PARAM;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.SMALL_ICON;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.URL_PATTERN;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.VALUE;
 
 public class ServletDetailTest {
 
@@ -35,7 +45,7 @@ public class ServletDetailTest {
         assertEquals(LARGE_ICON, actual.getLargeIcon());
         assertEquals(DESCRIPTION, actual.getDescription());
         assertEquals(DISPLAY_NAME, actual.getDisplayName());
-        assertThat(actual.getServlet(), instanceOf(AllAnnotatedServlet.class));
+        assertEquals(AllAnnotatedServlet.class, actual.getServlet());
     }
 
     @Test
@@ -48,7 +58,7 @@ public class ServletDetailTest {
         assertThat(actual.getName(), isEmptyString());
         assertEquals(asList(VALUE), actual.getUrlPatterns());
         assertDefaults(actual);
-        assertThat(actual.getServlet(), instanceOf(AnnotatedWithValueServlet.class));
+        assertEquals(AnnotatedWithValueServlet.class, actual.getServlet());
     }
 
     @Test
@@ -61,7 +71,7 @@ public class ServletDetailTest {
         assertThat(actual.getName(), isEmptyString());
         assertEquals(asList(URL_PATTERN), actual.getUrlPatterns());
         assertDefaults(actual);
-        assertThat(actual.getServlet(), instanceOf(AnnotatedWithUrlPatternsServlet.class));
+        assertEquals(AnnotatedWithUrlPatternsServlet.class, actual.getServlet());
     }
 
     @Test
@@ -78,28 +88,28 @@ public class ServletDetailTest {
         assertEquals(name, actual.getName());
         assertEquals(asList(urlPattern), actual.getUrlPatterns());
         assertDefaults(actual);
-        assertThat(actual.getServlet(), instanceOf(UnannotatedServlet.class));
+        assertEquals(UnannotatedServlet.class, actual.getServlet());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void A_servlet_class_with_a_private_default_constructor_cannot_be_used_for_creation() {
+    public void A_servlet_class_with_a_private_default_constructor_cannot_be_instantiated() {
 
         // When
-        new ServletDetail(PrivateDefaultConstructorServlet.class);
+        new ServletDetail(PrivateDefaultConstructorServlet.class).getServletInstance();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void A_servlet_class_with_no_default_constructor_cannot_be_used_for_creation() {
+    public void A_servlet_class_with_no_default_constructor_cannot_be_instantiated() {
 
         // When
-        new ServletDetail(NoDefaultConstructorServlet.class);
+        new ServletDetail(NoDefaultConstructorServlet.class).getServletInstance();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void A_servlet_interface_cannot_be_used_for_creation() {
+    public void A_servlet_interface_cannot_be_instantiated() {
 
         // When
-        new ServletDetail(Servlet.class);
+        new ServletDetail(Servlet.class).getServletInstance();
     }
 
     private static void assertDefaults(ServletDetail actual) {

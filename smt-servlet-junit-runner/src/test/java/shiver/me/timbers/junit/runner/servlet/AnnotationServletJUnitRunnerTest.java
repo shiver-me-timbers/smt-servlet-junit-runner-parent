@@ -8,7 +8,12 @@ import org.junit.runners.model.InitializationError;
 import shiver.me.timbers.junit.runner.servlet.annotation.Port;
 import shiver.me.timbers.junit.runner.servlet.configuration.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.configuration.PortConfiguration;
-import shiver.me.timbers.junit.runner.servlet.test.*;
+import shiver.me.timbers.junit.runner.servlet.test.FilterOne;
+import shiver.me.timbers.junit.runner.servlet.test.FilterThree;
+import shiver.me.timbers.junit.runner.servlet.test.FilterTwo;
+import shiver.me.timbers.junit.runner.servlet.test.ServletOne;
+import shiver.me.timbers.junit.runner.servlet.test.ServletThree;
+import shiver.me.timbers.junit.runner.servlet.test.ServletTwo;
 
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -17,7 +22,13 @@ import static org.mockito.Matchers.argThat;
 import static org.mockito.Matchers.intThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.*;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.PACKAGE_ONE;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.PACKAGE_THREE;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.PACKAGE_TWO;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockAllFilters;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockAllServlets;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockEmptyFilters;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockEmptyServlets;
 import static shiver.me.timbers.junit.runner.servlet.test.FiltersMatcher.equalTo;
 import static shiver.me.timbers.junit.runner.servlet.test.ServletsMatcher.equalTo;
 

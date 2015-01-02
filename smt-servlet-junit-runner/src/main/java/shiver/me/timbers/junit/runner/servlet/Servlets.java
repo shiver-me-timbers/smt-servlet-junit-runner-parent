@@ -8,4 +8,6 @@ import java.util.List;
 public interface Servlets extends Iterable<ServletDetail> {
 
     List<ServletDetail> asList();
+
+    void add(Servlets servlets);
 }

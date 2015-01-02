@@ -6,7 +6,6 @@ import org.hamcrest.TypeSafeMatcher;
 import shiver.me.timbers.junit.runner.servlet.Servlets;
 
 import static shiver.me.timbers.junit.runner.servlet.test.ContainsAllMatcher.containsAll;
-import static shiver.me.timbers.junit.runner.servlet.test.ServletDetailsMatcher.servletDetailsMatcher;
 
 /**
  * @author Karl Bennett
@@ -30,7 +29,7 @@ public class ServletsMatcher extends TypeSafeMatcher<Servlets> {
             return false;
         }
 
-        if (!containsAll(expected).with(servletDetailsMatcher()).matchesSafely(actual)) {
+        if (!containsAll(expected).matchesSafely(actual)) {
             return false;
         }
 

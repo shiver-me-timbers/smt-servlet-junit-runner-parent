@@ -11,9 +11,19 @@ import java.util.HashMap;
 import static java.util.Arrays.asList;
 import static javax.servlet.DispatcherType.FORWARD;
 import static javax.servlet.DispatcherType.REQUEST;
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.*;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.isEmptyString;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.ASYNC_SUPPORT;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.DESCRIPTION;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.DISPLAY_NAME;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.INIT_PARAMS;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.LARGE_ICON;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.SMALL_ICON;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.URL_PATTERN;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.VALUE;
 
 public class FilterDetailTest {
 
@@ -40,7 +50,7 @@ public class FilterDetailTest {
         assertEquals(asList(VALUE), actual.getUrlPatterns());
         assertEquals(asList(FORWARD), actual.getDispatcherTypes());
         assertEquals(ASYNC_SUPPORT, actual.asyncSupported());
-        assertThat(actual.getFilter(), instanceOf(AllAnnotatedFilter.class));
+        assertEquals(AllAnnotatedFilter.class, actual.getFilter());
     }
 
     @Test
@@ -53,7 +63,7 @@ public class FilterDetailTest {
         assertEquals(AnnotatedWithNoNameFilter.class.getSimpleName(), actual.getFilterName());
         assertThat(actual.getUrlPatterns(), empty());
         assertDefaults(actual);
-        assertThat(actual.getFilter(), instanceOf(AnnotatedWithNoNameFilter.class));
+        assertEquals(AnnotatedWithNoNameFilter.class, actual.getFilter());
     }
 
     @Test
@@ -66,7 +76,7 @@ public class FilterDetailTest {
         assertEquals(AnnotatedWithValueFilter.class.getSimpleName(), actual.getFilterName());
         assertEquals(asList(VALUE), actual.getUrlPatterns());
         assertDefaults(actual);
-        assertThat(actual.getFilter(), instanceOf(AnnotatedWithValueFilter.class));
+        assertEquals(AnnotatedWithValueFilter.class, actual.getFilter());
     }
 
     @Test
@@ -79,7 +89,7 @@ public class FilterDetailTest {
         assertEquals(AnnotatedWithUrlPatternsFilter.class.getSimpleName(), actual.getFilterName());
         assertEquals(asList(URL_PATTERN), actual.getUrlPatterns());
         assertDefaults(actual);
-        assertThat(actual.getFilter(), instanceOf(AnnotatedWithUrlPatternsFilter.class));
+        assertEquals(AnnotatedWithUrlPatternsFilter.class, actual.getFilter());
     }
 
     @Test
@@ -96,28 +106,28 @@ public class FilterDetailTest {
         assertEquals(name, actual.getFilterName());
         assertEquals(asList(urlPattern), actual.getUrlPatterns());
         assertDefaults(actual);
-        assertThat(actual.getFilter(), instanceOf(UnannotatedFilter.class));
+        assertEquals(UnannotatedFilter.class, actual.getFilter());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void A_filter_class_with_a_private_default_constructor_cannot_be_used_for_creation() {
+    public void A_filter_class_with_a_private_default_constructor_cannot_be_instantiated() {
 
         // When
-        new FilterDetail(PrivateDefaultConstructorFilter.class);
+        new FilterDetail(PrivateDefaultConstructorFilter.class).getFilterInstance();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void A_filter_class_with_no_default_constructor_cannot_be_used_for_creation() {
+    public void A_filter_class_with_no_default_constructor_cannot_be_instantiated() {
 
         // When
-        new FilterDetail(NoDefaultConstructorFilter.class);
+        new FilterDetail(NoDefaultConstructorFilter.class).getFilterInstance();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void A_filter_interface_cannot_be_used_for_creation() {
+    public void A_filter_interface_cannot_be_instantiated() {
 
         // When
-        new FilterDetail(Filter.class);
+        new FilterDetail(Filter.class).getFilterInstance();
     }
 
     @WebFilter(

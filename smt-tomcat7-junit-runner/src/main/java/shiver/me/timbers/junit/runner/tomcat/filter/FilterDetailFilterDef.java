@@ -12,7 +12,7 @@ public class FilterDetailFilterDef extends FilterDef {
 
     public FilterDetailFilterDef(FilterDetail filterDetail) {
 
-        setFilter(filterDetail.getFilter());
+        setFilter(filterDetail.getFilterInstance());
         setDescription(filterDetail.getDescription());
         setDisplayName(filterDetail.getDisplayName());
         setFilterName(filterDetail.getFilterName());

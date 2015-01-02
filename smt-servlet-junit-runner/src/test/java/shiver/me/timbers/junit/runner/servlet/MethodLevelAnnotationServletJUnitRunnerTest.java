@@ -8,7 +8,9 @@ import shiver.me.timbers.junit.runner.servlet.test.TestAnnotationServletJUnitRun
 import shiver.me.timbers.junit.runner.servlet.test.TestServletContainer;
 
 import static org.hamcrest.Matchers.greaterThan;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockEmptyServlets;
 import static shiver.me.timbers.junit.runner.servlet.test.ServletsMatcher.equalTo;
 
