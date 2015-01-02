@@ -12,9 +12,6 @@ import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-/**
- * @author Karl Bennett
- */
 public class AnnotationPortSetterTest {
 
     private int port;

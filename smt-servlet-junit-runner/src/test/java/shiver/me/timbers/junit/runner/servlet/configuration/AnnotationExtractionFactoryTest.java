@@ -13,9 +13,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 
-/**
- * @author Karl Bennett
- */
 public class AnnotationExtractionFactoryTest {
 
     @Test

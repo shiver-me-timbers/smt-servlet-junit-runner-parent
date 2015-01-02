@@ -4,11 +4,8 @@ import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 
 /**
- * This matcher can be used to check that two {@link Iterable}s are equal. The order of the elements is ignored.
- * <p/>
- * Additionally a matcher can be added using {@link #with} which be used to checking each element.
- * <p/>
- * The standard {@link org.hamcrest.Matchers#equalTo} method will be used otherwise.
+ * This matcher can be used to check that two {@link Iterable}s contain the same elements. The order of the elements is
+ * ignored.
  *
  * @author Karl Bennett
  */
@@ -19,11 +16,9 @@ public class ContainsAllMatcher<E, I extends Iterable<E>> extends TypeSafeMatche
     }
 
     private final I expected;
-    private WithMatcher<E> with;
 
     public ContainsAllMatcher(I expected) {
         this.expected = expected;
-        this.with = new EqualToWithMatcher<>();
     }
 
     @Override
@@ -41,7 +36,7 @@ public class ContainsAllMatcher<E, I extends Iterable<E>> extends TypeSafeMatche
     private boolean matchFound(I actual, E exp) {
 
         for (E act : actual) {
-            if (with.matcher(exp).matches(act)) {
+            if (exp.equals(act)) {
                 return true;
             }
         }
@@ -52,10 +47,5 @@ public class ContainsAllMatcher<E, I extends Iterable<E>> extends TypeSafeMatche
     @Override
     public void describeTo(Description description) {
         description.appendValue(expected);
-    }
-
-    public ContainsAllMatcher<E, I> with(WithMatcher<E> with) {
-        this.with = with;
-        return this;
     }
 }

@@ -16,9 +16,6 @@ import static org.mockito.Mockito.when;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockEmptyServlets;
 import static shiver.me.timbers.junit.runner.servlet.test.ServletsMatcher.equalTo;
 
-/**
- * @author Karl Bennett
- */
 public class CompositeServletsAnnotationFactoryTest {
 
     @Test

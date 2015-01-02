@@ -11,9 +11,6 @@ import static shiver.me.timbers.junit.runner.servlet.Reflections.callMethod;
 import static shiver.me.timbers.junit.runner.servlet.Reflections.getMethod;
 import static shiver.me.timbers.junit.runner.servlet.Reflections.instantiate;
 
-/**
- * @author Karl Bennett
- */
 public class ReflectionsTest {
 
     private static final String PUBLIC_METHOD_NAME = "publicMethod";

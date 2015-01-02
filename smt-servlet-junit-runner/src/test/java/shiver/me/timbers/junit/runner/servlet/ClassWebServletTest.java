@@ -12,9 +12,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
-/**
- * @author Karl Bennett
- */
 public class ClassWebServletTest {
 
     @Test

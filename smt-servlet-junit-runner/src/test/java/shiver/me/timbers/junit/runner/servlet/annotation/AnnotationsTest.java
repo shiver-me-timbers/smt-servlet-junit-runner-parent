@@ -17,9 +17,6 @@ import static shiver.me.timbers.junit.runner.servlet.annotation.Annotations.tran
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.INIT;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.PARAM;
 
-/**
- * @author Karl Bennett
- */
 public class AnnotationsTest {
 
     private static final String ANNOTATION_VALUE = "annotation-value";

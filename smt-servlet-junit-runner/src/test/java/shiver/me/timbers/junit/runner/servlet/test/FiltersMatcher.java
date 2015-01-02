@@ -7,9 +7,6 @@ import shiver.me.timbers.junit.runner.servlet.Filters;
 
 import static shiver.me.timbers.junit.runner.servlet.test.ContainsAllMatcher.containsAll;
 
-/**
- * @author Karl Bennett
- */
 public class FiltersMatcher extends TypeSafeMatcher<Filters> {
 
     public static Matcher<Filters> equalTo(Filters expected) {

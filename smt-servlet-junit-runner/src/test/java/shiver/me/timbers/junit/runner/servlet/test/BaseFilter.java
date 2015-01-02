@@ -8,9 +8,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import java.io.IOException;
 
-/**
- * @author Karl Bennett
- */
 public class BaseFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
