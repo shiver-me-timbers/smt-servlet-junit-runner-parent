@@ -8,40 +8,43 @@ import shiver.me.timbers.junit.runner.servlet.test.FilterThree;
 import shiver.me.timbers.junit.runner.servlet.test.FilterTwo;
 
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockEmptyFilters;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockFilters;
 import static shiver.me.timbers.junit.runner.servlet.test.FiltersMatcher.equalTo;
 
-public class AnnotationFiltersFactoryTest {
+public class FiltersAnnotationFactoryTest {
 
     @Test
+    @SuppressWarnings("unchecked")
     public void No_filters_are_returned_if_none_are_configured() {
 
         // Given
         final Filters expected = mockEmptyFilters();
 
-        class TestClass {
-        }
+        final ContainerConfiguration configuration = mock(ContainerConfiguration.class);
+        when(configuration.filters()).thenReturn(new Class[]{});
 
         // When
-        final Filters filters = new AnnotationFiltersFactory().create(new TestClass());
+        final Filters filters = new FiltersAnnotationFactory().create(configuration);
 
         // Then
         assertThat(filters, equalTo(expected));
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void Filters_are_returned_if_some_are_configured() {
 
         // Given
         final Filters expected = mockFilters();
 
-        @ContainerConfiguration(filters = {FilterOne.class, FilterTwo.class, FilterThree.class})
-        class TestClass {
-        }
+        final ContainerConfiguration configuration = mock(ContainerConfiguration.class);
+        when(configuration.filters()).thenReturn(new Class[]{FilterOne.class, FilterTwo.class, FilterThree.class});
 
         // When
-        final Filters filters = new AnnotationFiltersFactory().create(new TestClass());
+        final Filters filters = new FiltersAnnotationFactory().create(configuration);
 
         // Then
         assertThat(filters, equalTo(expected));

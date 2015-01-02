@@ -8,59 +8,45 @@ import shiver.me.timbers.junit.runner.servlet.test.ServletThree;
 import shiver.me.timbers.junit.runner.servlet.test.ServletTwo;
 
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockEmptyServlets;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockServlets;
 import static shiver.me.timbers.junit.runner.servlet.test.ServletsMatcher.equalTo;
 
-public class AnnotationServletsFactoryTest {
+public class ServletsAnnotationFactoryTest {
 
     @Test
-    public void No_servlets_are_returned_if_no_configuration_supplied() {
-
-        // Given
-        final Servlets expected = mockEmptyServlets();
-
-        class TestClass {
-        }
-
-        // When
-        final Servlets servlets = new AnnotationServletsFactory().create(new TestClass());
-
-        // Then
-        assertThat(servlets, equalTo(expected));
-    }
-
-    @Test
+    @SuppressWarnings("unchecked")
     public void No_servlets_are_returned_if_none_are_configured() {
 
         // Given
         final Servlets expected = mockEmptyServlets();
 
-        @ContainerConfiguration
-        class TestClass {
-        }
+        final ContainerConfiguration configuration = mock(ContainerConfiguration.class);
+        when(configuration.servlets()).thenReturn(new Class[]{});
 
         // When
-        final Servlets servlets = new AnnotationServletsFactory().create(new TestClass());
+        final Servlets servlets = new ServletsAnnotationFactory().create(configuration);
 
         // Then
         assertThat(servlets, equalTo(expected));
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void Servlets_are_returned_if_some_are_configured() {
 
         // Given
         final Servlets expected = mockServlets();
 
-        @ContainerConfiguration(servlets = {ServletOne.class, ServletTwo.class, ServletThree.class})
-        class TestClass {
-        }
+        final ContainerConfiguration configuration = mock(ContainerConfiguration.class);
+        when(configuration.servlets()).thenReturn(new Class[]{ServletOne.class, ServletTwo.class, ServletThree.class});
 
         // When
-        final Servlets servlets = new AnnotationServletsFactory().create(new TestClass());
+        final Servlets actual = new ServletsAnnotationFactory().create(configuration);
 
         // Then
-        assertThat(servlets, equalTo(expected));
+        assertThat(actual, equalTo(expected));
     }
 }
