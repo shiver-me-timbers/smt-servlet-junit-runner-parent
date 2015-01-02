@@ -1,4 +1,7 @@
-package shiver.me.timbers.junit.runner.servlet;
+package shiver.me.timbers.junit.runner.servlet.configuration.servlet;
+
+import shiver.me.timbers.junit.runner.servlet.Servlets;
+import shiver.me.timbers.junit.runner.servlet.SettableServlets;
 
 import java.util.ArrayList;
 import java.util.List;

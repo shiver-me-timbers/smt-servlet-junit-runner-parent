@@ -1,6 +1,8 @@
-package shiver.me.timbers.junit.runner.servlet;
+package shiver.me.timbers.junit.runner.servlet.configuration.servlet;
 
 import org.junit.Test;
+import shiver.me.timbers.junit.runner.servlet.ServletDetail;
+import shiver.me.timbers.junit.runner.servlet.Servlets;
 
 import javax.servlet.http.HttpServlet;
 import java.util.List;

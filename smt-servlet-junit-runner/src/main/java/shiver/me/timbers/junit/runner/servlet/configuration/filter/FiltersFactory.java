@@ -1,4 +1,6 @@
-package shiver.me.timbers.junit.runner.servlet;
+package shiver.me.timbers.junit.runner.servlet.configuration.filter;
+
+import shiver.me.timbers.junit.runner.servlet.Filters;
 
 /**
  * This factory will find any servlet configuration that has been set on the test and return it ready to be applied

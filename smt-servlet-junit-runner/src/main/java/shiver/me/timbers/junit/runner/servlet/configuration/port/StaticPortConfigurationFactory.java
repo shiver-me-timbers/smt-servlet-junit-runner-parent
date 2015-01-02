@@ -1,4 +1,4 @@
-package shiver.me.timbers.junit.runner.servlet.configuration;
+package shiver.me.timbers.junit.runner.servlet.configuration.port;
 
 /**
  * Returns a {@link PortConfiguration} that will set the port to a static value.

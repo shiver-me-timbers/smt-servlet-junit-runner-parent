@@ -10,7 +10,7 @@ import shiver.me.timbers.junit.runner.servlet.Filters;
 import shiver.me.timbers.junit.runner.servlet.ServletDetail;
 import shiver.me.timbers.junit.runner.servlet.Servlets;
 import shiver.me.timbers.junit.runner.servlet.configuration.ContainerConfiguration;
-import shiver.me.timbers.junit.runner.servlet.configuration.PortConfiguration;
+import shiver.me.timbers.junit.runner.servlet.configuration.port.PortConfiguration;
 import shiver.me.timbers.junit.runner.tomcat.filter.FilterDetailFilterDef;
 import shiver.me.timbers.junit.runner.tomcat.filter.FilterDetailFilterMap;
 

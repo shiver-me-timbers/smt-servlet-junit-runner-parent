@@ -1,10 +1,10 @@
-package shiver.me.timbers.junit.runner.servlet.configuration;
+package shiver.me.timbers.junit.runner.servlet.configuration.port;
 
 import org.junit.Test;
 import shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration;
 
 import static org.junit.Assert.assertEquals;
-import static shiver.me.timbers.junit.runner.servlet.configuration.NullPortConfiguration.NULL_PORT_CONFIG;
+import static shiver.me.timbers.junit.runner.servlet.configuration.port.NullPortConfiguration.NULL_PORT_CONFIG;
 
 public class AnnotationStaticPortConfigurationFactoryTest {
 

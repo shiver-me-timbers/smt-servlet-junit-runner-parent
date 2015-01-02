@@ -1,8 +1,6 @@
-package shiver.me.timbers.junit.runner.servlet.configuration;
+package shiver.me.timbers.junit.runner.servlet.configuration.port;
 
 import shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration;
-
-import static shiver.me.timbers.junit.runner.servlet.configuration.NullPortConfiguration.NULL_PORT_CONFIG;
 
 /**
  * This factory will return a port configuration that sets the port according to the value in the test classes
@@ -20,7 +18,7 @@ public class AnnotationStaticPortConfigurationFactory implements StaticPortConfi
         final ContainerConfiguration configuration = type.getAnnotation(ContainerConfiguration.class);
 
         if (portNotSet(configuration)) {
-            return NULL_PORT_CONFIG;
+            return NullPortConfiguration.NULL_PORT_CONFIG;
         }
 
         return new SocketPortConfiguration(configuration.port());

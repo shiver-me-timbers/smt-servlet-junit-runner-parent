@@ -7,7 +7,7 @@ import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.model.InitializationError;
 import shiver.me.timbers.junit.runner.servlet.annotation.Port;
 import shiver.me.timbers.junit.runner.servlet.configuration.ContainerConfiguration;
-import shiver.me.timbers.junit.runner.servlet.configuration.PortConfiguration;
+import shiver.me.timbers.junit.runner.servlet.configuration.port.PortConfiguration;
 import shiver.me.timbers.junit.runner.servlet.test.FilterOne;
 import shiver.me.timbers.junit.runner.servlet.test.FilterThree;
 import shiver.me.timbers.junit.runner.servlet.test.FilterTwo;

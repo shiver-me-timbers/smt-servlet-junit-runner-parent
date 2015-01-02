@@ -3,7 +3,7 @@ package shiver.me.timbers.junit.runner.servlet.inject;
 import org.junit.Before;
 import org.junit.Test;
 import shiver.me.timbers.junit.runner.servlet.annotation.Port;
-import shiver.me.timbers.junit.runner.servlet.configuration.PortConfiguration;
+import shiver.me.timbers.junit.runner.servlet.configuration.port.PortConfiguration;
 
 import java.lang.reflect.Field;
 

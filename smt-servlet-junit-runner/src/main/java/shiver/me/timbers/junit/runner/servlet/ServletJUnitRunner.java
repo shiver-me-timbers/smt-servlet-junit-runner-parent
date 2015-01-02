@@ -6,8 +6,10 @@ import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;
 import shiver.me.timbers.junit.runner.servlet.configuration.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.configuration.ContainerConfigurationFactory;
-import shiver.me.timbers.junit.runner.servlet.configuration.PortConfiguration;
-import shiver.me.timbers.junit.runner.servlet.configuration.PortConfigurationFactory;
+import shiver.me.timbers.junit.runner.servlet.configuration.filter.FiltersFactory;
+import shiver.me.timbers.junit.runner.servlet.configuration.port.PortConfiguration;
+import shiver.me.timbers.junit.runner.servlet.configuration.port.PortConfigurationFactory;
+import shiver.me.timbers.junit.runner.servlet.configuration.servlet.ServletsFactory;
 import shiver.me.timbers.junit.runner.servlet.inject.PortSetter;
 
 import java.util.List;

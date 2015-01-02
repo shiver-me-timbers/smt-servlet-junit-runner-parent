@@ -1,12 +1,14 @@
 package shiver.me.timbers.junit.runner.servlet;
 
 import org.junit.runners.model.InitializationError;
-import shiver.me.timbers.junit.runner.servlet.configuration.AnnotationStaticPortConfigurationFactory;
 import shiver.me.timbers.junit.runner.servlet.configuration.ClassAnnotationContainerConfigurationFactory;
 import shiver.me.timbers.junit.runner.servlet.configuration.CompositeContainerConfigurationFactory;
-import shiver.me.timbers.junit.runner.servlet.configuration.FreeRandomPortConfigFactory;
 import shiver.me.timbers.junit.runner.servlet.configuration.MethodAnnotationContainerConfigurationFactory;
-import shiver.me.timbers.junit.runner.servlet.configuration.SettablePortConfigurationFactory;
+import shiver.me.timbers.junit.runner.servlet.configuration.filter.AnnotationFiltersFactory;
+import shiver.me.timbers.junit.runner.servlet.configuration.port.AnnotationStaticPortConfigurationFactory;
+import shiver.me.timbers.junit.runner.servlet.configuration.port.FreeRandomPortConfigFactory;
+import shiver.me.timbers.junit.runner.servlet.configuration.port.SettablePortConfigurationFactory;
+import shiver.me.timbers.junit.runner.servlet.configuration.servlet.AnnotationServletsFactory;
 import shiver.me.timbers.junit.runner.servlet.inject.AnnotationPortSetter;
 
 /**

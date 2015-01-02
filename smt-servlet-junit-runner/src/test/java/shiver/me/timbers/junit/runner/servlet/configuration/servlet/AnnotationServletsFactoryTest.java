@@ -1,6 +1,7 @@
-package shiver.me.timbers.junit.runner.servlet;
+package shiver.me.timbers.junit.runner.servlet.configuration.servlet;
 
 import org.junit.Test;
+import shiver.me.timbers.junit.runner.servlet.Servlets;
 import shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.test.ServletOne;
 import shiver.me.timbers.junit.runner.servlet.test.ServletThree;
