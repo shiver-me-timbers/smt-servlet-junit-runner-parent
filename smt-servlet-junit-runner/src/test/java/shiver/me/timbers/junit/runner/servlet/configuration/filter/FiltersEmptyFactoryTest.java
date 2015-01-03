@@ -5,7 +5,7 @@ import shiver.me.timbers.junit.runner.servlet.Filters;
 
 import static org.junit.Assert.assertThat;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockEmptyFilters;
-import static shiver.me.timbers.junit.runner.servlet.test.FiltersMatcher.equalTo;
+import static shiver.me.timbers.junit.runner.servlet.test.EqualAllMatcher.equalAll;
 
 public class FiltersEmptyFactoryTest {
 
@@ -19,6 +19,6 @@ public class FiltersEmptyFactoryTest {
         final Filters filters = new FiltersEmptyFactory().create();
 
         // Then
-        assertThat(filters, equalTo(expected));
+        assertThat(filters, equalAll(expected));
     }
 }

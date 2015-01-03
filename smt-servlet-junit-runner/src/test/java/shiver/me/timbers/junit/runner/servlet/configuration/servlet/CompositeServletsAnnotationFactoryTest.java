@@ -14,7 +14,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockEmptyServlets;
-import static shiver.me.timbers.junit.runner.servlet.test.ServletsMatcher.equalTo;
+import static shiver.me.timbers.junit.runner.servlet.test.EqualAllMatcher.equalAll;
 
 public class CompositeServletsAnnotationFactoryTest {
 
@@ -28,7 +28,7 @@ public class CompositeServletsAnnotationFactoryTest {
         final Servlets actual = new CompositeServletsAnnotationFactory().create(mock(ContainerConfiguration.class));
 
         // Then
-        assertThat(actual, equalTo(expected));
+        assertThat(actual, equalAll(expected));
     }
 
     @Test
@@ -55,7 +55,7 @@ public class CompositeServletsAnnotationFactoryTest {
                 .create(configuration);
 
         // Then
-        assertThat(actual, equalTo(expected));
+        assertThat(actual, equalAll(expected));
     }
 
     @Test
@@ -103,7 +103,7 @@ public class CompositeServletsAnnotationFactoryTest {
                 .create(configuration);
 
         // Then
-        assertThat(actual, equalTo(expected));
+        assertThat(actual, equalAll(expected));
     }
 
     public static class One extends HttpServlet {

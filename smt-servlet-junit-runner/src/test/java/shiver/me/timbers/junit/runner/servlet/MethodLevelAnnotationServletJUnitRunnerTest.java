@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockEmptyServlets;
-import static shiver.me.timbers.junit.runner.servlet.test.ServletsMatcher.equalTo;
+import static shiver.me.timbers.junit.runner.servlet.test.EqualAllMatcher.equalAll;
 
 @RunWith(TestAnnotationServletJUnitRunner.class)
 public class MethodLevelAnnotationServletJUnitRunnerTest {
@@ -36,7 +36,7 @@ public class MethodLevelAnnotationServletJUnitRunnerTest {
         // Then
         assertThat(port, greaterThan(0));
         assertEquals(container.getPort(), port);
-        assertThat(container.getServlets(), equalTo(servlets));
+        assertThat(container.getServlets(), equalAll(servlets));
         assertTrue(container.isStarted());
     }
 }

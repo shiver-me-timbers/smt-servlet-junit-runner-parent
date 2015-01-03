@@ -23,8 +23,7 @@ import static shiver.me.timbers.junit.runner.servlet.test.Constants.PACKAGE_THRE
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.PACKAGE_TWO;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockAllFilters;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockAllServlets;
-import static shiver.me.timbers.junit.runner.servlet.test.FiltersMatcher.equalTo;
-import static shiver.me.timbers.junit.runner.servlet.test.ServletsMatcher.equalTo;
+import static shiver.me.timbers.junit.runner.servlet.test.EqualAllMatcher.equalAll;
 import static shiver.me.timbers.junit.runner.servlet.test.TestContainerConfiguration.TEST_SERVLET_CONTAINER_REFERENCE;
 
 @RunWith(TestAnnotationServletJUnitRunner.class)
@@ -55,8 +54,8 @@ public class ClassLevelAnnotationServletJUnitRunnerTest {
         assertEquals(PORT, container.getPort());
         assertThat((TestContainerConfiguration) container.getContainerConfiguration(),
                 isA(TestContainerConfiguration.class));
-        assertThat(container.getServlets(), equalTo(servlets));
-        assertThat(container.getFilters(), equalTo(filters));
+        assertThat(container.getServlets(), equalAll(servlets));
+        assertThat(container.getFilters(), equalAll(filters));
         assertTrue(container.isStarted());
     }
 }

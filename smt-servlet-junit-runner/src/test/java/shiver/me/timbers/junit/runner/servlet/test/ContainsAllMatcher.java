@@ -9,11 +9,7 @@ import org.hamcrest.TypeSafeMatcher;
  *
  * @author Karl Bennett
  */
-public class ContainsAllMatcher<E, I extends Iterable<E>> extends TypeSafeMatcher<I> {
-
-    public static <E, I extends Iterable<E>> ContainsAllMatcher<E, I> containsAll(I expected) {
-        return new ContainsAllMatcher<>(expected);
-    }
+public class ContainsAllMatcher<I extends Iterable> extends TypeSafeMatcher<I> {
 
     private final I expected;
 
@@ -24,7 +20,7 @@ public class ContainsAllMatcher<E, I extends Iterable<E>> extends TypeSafeMatche
     @Override
     protected boolean matchesSafely(I actual) {
 
-        for (E exp : expected) {
+        for (Object exp : expected) {
             if (!matchFound(actual, exp)) {
                 return false;
             }
@@ -33,9 +29,9 @@ public class ContainsAllMatcher<E, I extends Iterable<E>> extends TypeSafeMatche
         return true;
     }
 
-    private boolean matchFound(I actual, E exp) {
+    private boolean matchFound(I actual, Object exp) {
 
-        for (E act : actual) {
+        for (Object act : actual) {
             if (exp.equals(act)) {
                 return true;
             }

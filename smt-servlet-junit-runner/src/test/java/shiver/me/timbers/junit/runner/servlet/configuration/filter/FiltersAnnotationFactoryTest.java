@@ -12,7 +12,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockEmptyFilters;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockFilters;
-import static shiver.me.timbers.junit.runner.servlet.test.FiltersMatcher.equalTo;
+import static shiver.me.timbers.junit.runner.servlet.test.EqualAllMatcher.equalAll;
 
 public class FiltersAnnotationFactoryTest {
 
@@ -30,7 +30,7 @@ public class FiltersAnnotationFactoryTest {
         final Filters filters = new FiltersAnnotationFactory().create(configuration);
 
         // Then
-        assertThat(filters, equalTo(expected));
+        assertThat(filters, equalAll(expected));
     }
 
     @Test
@@ -47,6 +47,6 @@ public class FiltersAnnotationFactoryTest {
         final Filters filters = new FiltersAnnotationFactory().create(configuration);
 
         // Then
-        assertThat(filters, equalTo(expected));
+        assertThat(filters, equalAll(expected));
     }
 }

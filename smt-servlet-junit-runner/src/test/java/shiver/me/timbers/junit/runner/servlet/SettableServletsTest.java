@@ -8,7 +8,7 @@ import shiver.me.timbers.junit.runner.servlet.test.ServletTwo;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertThat;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockServlets;
-import static shiver.me.timbers.junit.runner.servlet.test.ServletsMatcher.equalTo;
+import static shiver.me.timbers.junit.runner.servlet.test.EqualAllMatcher.equalAll;
 
 public class SettableServletsTest {
 
@@ -22,7 +22,7 @@ public class SettableServletsTest {
         final Servlets actual = new SettableServlets(ServletOne.class, ServletTwo.class, ServletThree.class);
 
         // Then
-        assertThat(actual, equalTo(expected));
+        assertThat(actual, equalAll(expected));
     }
 
     @Test
@@ -36,7 +36,7 @@ public class SettableServletsTest {
                 new ServletDetail(ServletTwo.class), new ServletDetail(ServletThree.class)));
 
         // Then
-        assertThat(actual, equalTo(expected));
+        assertThat(actual, equalAll(expected));
     }
 
     @Test
@@ -51,6 +51,6 @@ public class SettableServletsTest {
         final Servlets actual = new SettableServlets(one, two);
 
         // Then
-        assertThat(actual, equalTo(expected));
+        assertThat(actual, equalAll(expected));
     }
 }

@@ -5,7 +5,7 @@ import shiver.me.timbers.junit.runner.servlet.Servlets;
 
 import static org.junit.Assert.assertThat;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockEmptyServlets;
-import static shiver.me.timbers.junit.runner.servlet.test.ServletsMatcher.equalTo;
+import static shiver.me.timbers.junit.runner.servlet.test.EqualAllMatcher.equalAll;
 
 public class ServletsEmptyFactoryTest {
 
@@ -19,6 +19,6 @@ public class ServletsEmptyFactoryTest {
         final Servlets actual = new ServletsEmptyFactory().create();
 
         // Then
-        assertThat(actual, equalTo(expected));
+        assertThat(actual, equalAll(expected));
     }
 }

@@ -29,8 +29,7 @@ import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockAllFilte
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockAllServlets;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockEmptyFilters;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockEmptyServlets;
-import static shiver.me.timbers.junit.runner.servlet.test.FiltersMatcher.equalTo;
-import static shiver.me.timbers.junit.runner.servlet.test.ServletsMatcher.equalTo;
+import static shiver.me.timbers.junit.runner.servlet.test.EqualAllMatcher.equalAll;
 
 public class AnnotationServletJUnitRunnerTest {
 
@@ -63,8 +62,8 @@ public class AnnotationServletJUnitRunnerTest {
         // Then
         verify(server).configured();
         verify(server).configuredPort(PORT);
-        verify(server).load(argThat(equalTo(servlets)));
-        verify(server).load(argThat(equalTo(filters)));
+        verify(server).load(argThat(equalAll(servlets)));
+        verify(server).load(argThat(equalAll(filters)));
         verify(server).start();
         verify(server).injectedPort(PORT);
         verify(server).shutdown();
@@ -86,8 +85,8 @@ public class AnnotationServletJUnitRunnerTest {
         // Then
         verify(server).configured();
         verify(server).configuredPort(intThat(greaterThan(0)));
-        verify(server).load(argThat(equalTo(servlets)));
-        verify(server).load(argThat(equalTo(filters)));
+        verify(server).load(argThat(equalAll(servlets)));
+        verify(server).load(argThat(equalAll(filters)));
         verify(server).start();
         verify(server).injectedPort(intThat(greaterThan(0)));
         verify(server).shutdown();

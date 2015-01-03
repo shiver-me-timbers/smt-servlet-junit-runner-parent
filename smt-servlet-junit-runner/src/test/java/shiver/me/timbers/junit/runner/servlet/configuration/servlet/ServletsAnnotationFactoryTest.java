@@ -12,7 +12,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockEmptyServlets;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockServlets;
-import static shiver.me.timbers.junit.runner.servlet.test.ServletsMatcher.equalTo;
+import static shiver.me.timbers.junit.runner.servlet.test.EqualAllMatcher.equalAll;
 
 public class ServletsAnnotationFactoryTest {
 
@@ -30,7 +30,7 @@ public class ServletsAnnotationFactoryTest {
         final Servlets servlets = new ServletsAnnotationFactory().create(configuration);
 
         // Then
-        assertThat(servlets, equalTo(expected));
+        assertThat(servlets, equalAll(expected));
     }
 
     @Test
@@ -47,6 +47,6 @@ public class ServletsAnnotationFactoryTest {
         final Servlets actual = new ServletsAnnotationFactory().create(configuration);
 
         // Then
-        assertThat(actual, equalTo(expected));
+        assertThat(actual, equalAll(expected));
     }
 }
