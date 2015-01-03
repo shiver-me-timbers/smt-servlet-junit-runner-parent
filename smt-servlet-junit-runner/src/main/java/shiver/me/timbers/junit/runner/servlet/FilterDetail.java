@@ -3,6 +3,8 @@ package shiver.me.timbers.junit.runner.servlet;
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import javax.servlet.annotation.WebFilter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -96,7 +98,7 @@ public class FilterDetail {
     }
 
     public Map<String, String> getInitParams() {
-        return initParams;
+        return new HashMap<>(initParams);
     }
 
     public String getFilterName() {
@@ -112,15 +114,15 @@ public class FilterDetail {
     }
 
     public List<String> getServletNames() {
-        return servletNames;
+        return new ArrayList<>(servletNames);
     }
 
     public List<String> getUrlPatterns() {
-        return urlPatterns;
+        return new ArrayList<>(urlPatterns);
     }
 
     public List<DispatcherType> getDispatcherTypes() {
-        return dispatcherTypes;
+        return new ArrayList<>(dispatcherTypes);
     }
 
     public boolean asyncSupported() {

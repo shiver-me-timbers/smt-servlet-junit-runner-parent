@@ -39,6 +39,22 @@ public class Constants {
     public static final String URL_PATTERN = "/url-pattern";
     public static final boolean ASYNC_SUPPORT = true;
 
+    public static final ServletDetail SERVLET_DETAIL_ONE = new ServletDetail(ServletOne.class);
+    public static final ServletDetail SERVLET_DETAIL_TWO = new ServletDetail(ServletTwo.class);
+    public static final ServletDetail SERVLET_DETAIL_THREE = new ServletDetail(ServletThree.class);
+
+    public static final ServletDetail PACKAGE_SERVLET_DETAIL_ONE = new ServletDetail(PackageServletOne.class);
+    public static final ServletDetail PACKAGE_SERVLET_DETAIL_TWO = new ServletDetail(PackageServletTwo.class);
+    public static final ServletDetail PACKAGE_SERVLET_DETAIL_THREE = new ServletDetail(PackageServletThree.class);
+
+    public static final FilterDetail FILTER_DETAIL_ONE = new FilterDetail(FilterOne.class);
+    public static final FilterDetail FILTER_DETAIL_TWO = new FilterDetail(FilterTwo.class);
+    public static final FilterDetail FILTER_DETAIL_THREE = new FilterDetail(FilterThree.class);
+
+    public static final FilterDetail PACKAGE_FILTER_DETAIL_ONE = new FilterDetail(PackageFilterOne.class);
+    public static final FilterDetail PACKAGE_FILTER_DETAIL_TWO = new FilterDetail(PackageFilterTwo.class);
+    public static final FilterDetail PACKAGE_FILTER_DETAIL_THREE = new FilterDetail(PackageFilterThree.class);
+
     public static final String PACKAGE_ONE = "shiver.me.timbers.junit.runner.servlet.test.one";
     public static final String PACKAGE_TWO = "shiver.me.timbers.junit.runner.servlet.test.two";
     public static final String PACKAGE_THREE = "shiver.me.timbers.junit.runner.servlet.test.three";
@@ -56,9 +72,9 @@ public class Constants {
 
         return mockListIterable(
                 Servlets.class,
-                new ServletDetail(ServletOne.class),
-                new ServletDetail(ServletTwo.class),
-                new ServletDetail(ServletThree.class)
+                SERVLET_DETAIL_ONE,
+                SERVLET_DETAIL_TWO,
+                SERVLET_DETAIL_THREE
         );
     }
 
@@ -66,9 +82,9 @@ public class Constants {
 
         return mockListIterable(
                 Servlets.class,
-                new ServletDetail(PackageServletOne.class),
-                new ServletDetail(PackageServletTwo.class),
-                new ServletDetail(PackageServletThree.class)
+                PACKAGE_SERVLET_DETAIL_ONE,
+                PACKAGE_SERVLET_DETAIL_TWO,
+                PACKAGE_SERVLET_DETAIL_THREE
         );
     }
 
@@ -90,9 +106,9 @@ public class Constants {
 
         return mockListIterable(
                 Filters.class,
-                new FilterDetail(FilterOne.class),
-                new FilterDetail(FilterTwo.class),
-                new FilterDetail(FilterThree.class)
+                FILTER_DETAIL_ONE,
+                FILTER_DETAIL_TWO,
+                FILTER_DETAIL_THREE
         );
     }
 
@@ -100,9 +116,9 @@ public class Constants {
 
         return mockListIterable(
                 Filters.class,
-                new FilterDetail(PackageFilterOne.class),
-                new FilterDetail(PackageFilterTwo.class),
-                new FilterDetail(PackageFilterThree.class)
+                PACKAGE_FILTER_DETAIL_ONE,
+                PACKAGE_FILTER_DETAIL_TWO,
+                PACKAGE_FILTER_DETAIL_THREE
         );
     }
 
