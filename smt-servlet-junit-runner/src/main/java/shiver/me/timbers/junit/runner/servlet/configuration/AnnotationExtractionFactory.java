@@ -1,5 +1,7 @@
 package shiver.me.timbers.junit.runner.servlet.configuration;
 
+import shiver.me.timbers.junit.runner.servlet.EmptyFactory;
+
 import java.lang.annotation.Annotation;
 
 /**

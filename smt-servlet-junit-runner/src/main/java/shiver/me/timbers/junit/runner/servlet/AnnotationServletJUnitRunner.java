@@ -6,7 +6,7 @@ import shiver.me.timbers.junit.runner.servlet.configuration.CompositeContainerCo
 import shiver.me.timbers.junit.runner.servlet.configuration.MethodAnnotationContainerConfigurationFactory;
 import shiver.me.timbers.junit.runner.servlet.configuration.filter.FiltersContainerConfigurationAnnotationFactory;
 import shiver.me.timbers.junit.runner.servlet.configuration.port.AnnotationStaticPortConfigurationFactory;
-import shiver.me.timbers.junit.runner.servlet.configuration.port.FreeRandomPortConfigFactory;
+import shiver.me.timbers.junit.runner.servlet.configuration.port.FreeRandomPortConfigurationFactory;
 import shiver.me.timbers.junit.runner.servlet.configuration.port.SettablePortConfigurationFactory;
 import shiver.me.timbers.junit.runner.servlet.configuration.servlet.ServletsContainerConfigurationAnnotationFactory;
 import shiver.me.timbers.junit.runner.servlet.inject.AnnotationPortSetter;
@@ -42,7 +42,7 @@ public class AnnotationServletJUnitRunner<C> extends ServletJUnitRunner<C> {
         super(
                 new SettablePortConfigurationFactory(
                         new AnnotationStaticPortConfigurationFactory(),
-                        new FreeRandomPortConfigFactory()
+                        new FreeRandomPortConfigurationFactory()
                 ),
                 new ServletsContainerConfigurationAnnotationFactory(),
                 new FiltersContainerConfigurationAnnotationFactory(),

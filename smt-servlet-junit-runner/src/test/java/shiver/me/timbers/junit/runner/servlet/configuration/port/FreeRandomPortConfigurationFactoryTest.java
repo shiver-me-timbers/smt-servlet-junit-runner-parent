@@ -10,7 +10,7 @@ public class FreeRandomPortConfigurationFactoryTest {
     @Test
     public void A_free_port_can_be_found() {
 
-        final PortConfiguration portConfiguration = new FreeRandomPortConfigFactory().create();
+        final PortConfiguration portConfiguration = new FreeRandomPortConfigurationFactory().create();
 
         assertThat(portConfiguration.getPort(), greaterThan(0));
     }

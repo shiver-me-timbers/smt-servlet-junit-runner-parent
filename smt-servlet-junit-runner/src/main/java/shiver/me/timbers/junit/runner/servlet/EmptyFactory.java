@@ -1,4 +1,4 @@
-package shiver.me.timbers.junit.runner.servlet.configuration;
+package shiver.me.timbers.junit.runner.servlet;
 
 /**
  * This factory is used when an instance is required with no input.

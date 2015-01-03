@@ -1,5 +1,7 @@
 package shiver.me.timbers.junit.runner.servlet.configuration;
 
+import shiver.me.timbers.junit.runner.servlet.Factory;
+
 import java.lang.annotation.Annotation;
 
 /**
@@ -7,6 +9,5 @@ import java.lang.annotation.Annotation;
  *
  * @author Karl Bennett
  */
-public interface AnnotationFactory<A extends Annotation, T> {
-    T create(A annotation);
+public interface AnnotationFactory<A extends Annotation, T> extends Factory<A, T> {
 }

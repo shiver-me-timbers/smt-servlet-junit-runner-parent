@@ -1,5 +1,6 @@
 package shiver.me.timbers.junit.runner.servlet.configuration.filter;
 
+import shiver.me.timbers.junit.runner.servlet.Factory;
 import shiver.me.timbers.junit.runner.servlet.Filters;
 
 /**
@@ -8,7 +9,5 @@ import shiver.me.timbers.junit.runner.servlet.Filters;
  *
  * @author Karl Bennett
  */
-public interface FiltersFactory {
-
-    Filters create(Object target);
+public interface FiltersFactory extends Factory<Object, Filters> {
 }

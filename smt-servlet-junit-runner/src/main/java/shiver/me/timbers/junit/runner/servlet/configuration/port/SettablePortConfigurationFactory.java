@@ -8,12 +8,12 @@ import static shiver.me.timbers.junit.runner.servlet.configuration.port.NullPort
 public class SettablePortConfigurationFactory implements PortConfigurationFactory {
 
     private final StaticPortConfigurationFactory staticPortConfigFactory;
-    private final RandomPortConfigFactory randomPortConfigFactory;
+    private final RandomPortConfigurationFactory randomPortConfigurationFactory;
 
     public SettablePortConfigurationFactory(StaticPortConfigurationFactory staticPortConfigFactory,
-                                            RandomPortConfigFactory randomPortConfigFactory) {
+                                            RandomPortConfigurationFactory randomPortConfigurationFactory) {
         this.staticPortConfigFactory = staticPortConfigFactory;
-        this.randomPortConfigFactory = randomPortConfigFactory;
+        this.randomPortConfigurationFactory = randomPortConfigurationFactory;
     }
 
     @Override
@@ -22,7 +22,7 @@ public class SettablePortConfigurationFactory implements PortConfigurationFactor
         final PortConfiguration config = staticPortConfigFactory.create(target);
 
         if (NULL_PORT_CONFIG.equals(config)) {
-            return randomPortConfigFactory.create();
+            return randomPortConfigurationFactory.create();
         }
 
         return config;

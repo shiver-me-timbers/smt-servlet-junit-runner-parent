@@ -1,9 +1,9 @@
 package shiver.me.timbers.junit.runner.servlet.configuration.filter;
 
+import shiver.me.timbers.junit.runner.servlet.EmptyFactory;
 import shiver.me.timbers.junit.runner.servlet.FilterDetail;
 import shiver.me.timbers.junit.runner.servlet.Filters;
 import shiver.me.timbers.junit.runner.servlet.SettableFilters;
-import shiver.me.timbers.junit.runner.servlet.configuration.EmptyFactory;
 
 import java.util.ArrayList;
 

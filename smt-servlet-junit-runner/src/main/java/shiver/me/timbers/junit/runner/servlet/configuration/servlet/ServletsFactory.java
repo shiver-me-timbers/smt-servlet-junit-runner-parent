@@ -1,5 +1,6 @@
 package shiver.me.timbers.junit.runner.servlet.configuration.servlet;
 
+import shiver.me.timbers.junit.runner.servlet.Factory;
 import shiver.me.timbers.junit.runner.servlet.Servlets;
 
 /**
@@ -8,7 +9,5 @@ import shiver.me.timbers.junit.runner.servlet.Servlets;
  *
  * @author Karl Bennett
  */
-public interface ServletsFactory {
-
-    Servlets create(Object target);
+public interface ServletsFactory extends Factory<Object, Servlets> {
 }

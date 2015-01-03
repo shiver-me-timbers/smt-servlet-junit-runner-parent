@@ -33,12 +33,12 @@ public class SettablePortConfigFactoryTest {
         final StaticPortConfigurationFactory staticPortConfigFactory = mock(StaticPortConfigurationFactory.class);
         when(staticPortConfigFactory.create(TEST)).thenReturn(NULL_PORT_CONFIG);
 
-        final RandomPortConfigFactory randomPortConfigFactory = mock(RandomPortConfigFactory.class);
-        when(randomPortConfigFactory.create()).thenReturn(EXPECTED);
+        final RandomPortConfigurationFactory randomPortConfigurationFactory = mock(RandomPortConfigurationFactory.class);
+        when(randomPortConfigurationFactory.create()).thenReturn(EXPECTED);
 
         // When
         final PortConfiguration actual = new SettablePortConfigurationFactory(staticPortConfigFactory,
-                randomPortConfigFactory).create(TEST);
+                randomPortConfigurationFactory).create(TEST);
 
         // Then
         assertEquals(EXPECTED, actual);

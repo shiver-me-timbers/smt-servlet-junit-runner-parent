@@ -1,6 +1,7 @@
 package shiver.me.timbers.junit.runner.servlet.configuration;
 
 import org.junit.Test;
+import shiver.me.timbers.junit.runner.servlet.EmptyFactory;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
