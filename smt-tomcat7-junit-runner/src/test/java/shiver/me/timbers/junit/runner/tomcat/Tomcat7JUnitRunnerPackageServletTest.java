@@ -15,8 +15,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static shiver.me.timbers.junit.runner.tomcat.test.Constants.PACKAGE_ONE;
+import static shiver.me.timbers.junit.runner.tomcat.test.Constants.PACKAGE_SERVLET_NAME;
 import static shiver.me.timbers.junit.runner.tomcat.test.Constants.PARAM;
-import static shiver.me.timbers.junit.runner.tomcat.test.Constants.SERVLET_NAME;
 import static shiver.me.timbers.junit.runner.tomcat.test.Constants.SUCCESS;
 import static shiver.me.timbers.junit.runner.tomcat.test.Constants.URL_PATTERN;
 import static shiver.me.timbers.junit.runner.tomcat.test.one.PackageTestServlet.ASYNC_SUPPORTED;
@@ -37,7 +37,7 @@ public class Tomcat7JUnitRunnerPackageServletTest {
         // Then
         assertThat(port, greaterThan(0));
         assertTrue(LOADED.get());
-        assertEquals(SERVLET_NAME, NAME.get());
+        assertEquals(PACKAGE_SERVLET_NAME, NAME.get());
         assertEquals(PARAM, INIT_PARAM_VALUE.get());
 
         final Response response = ClientBuilder.newClient()

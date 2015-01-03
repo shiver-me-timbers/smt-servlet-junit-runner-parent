@@ -37,9 +37,9 @@
         </dependency>
         <!-- Class path scanning library used to search for servlets and filter. -->
         <dependency>
-            <groupId>org.reflections</groupId>
-            <artifactId>reflections</artifactId>
-            <version>0.9.9</version>
+            <groupId>com.googlecode.openpojo</groupId>
+            <artifactId>openpojo</artifactId>
+            <version>0.6.2</version>
         </dependency>
     </dependencies>
 </project>

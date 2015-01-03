@@ -55,13 +55,15 @@ public class Constants {
     public static final FilterDetail PACKAGE_FILTER_DETAIL_TWO = new FilterDetail(PackageFilterTwo.class);
     public static final FilterDetail PACKAGE_FILTER_DETAIL_THREE = new FilterDetail(PackageFilterThree.class);
 
-    public static final String PACKAGE_ONE = "shiver.me.timbers.junit.runner.servlet.test.one";
-    public static final String PACKAGE_TWO = "shiver.me.timbers.junit.runner.servlet.test.two";
-    public static final String PACKAGE_THREE = "shiver.me.timbers.junit.runner.servlet.test.three";
+    public static final String TEST_PACKAGE = "shiver.me.timbers.junit.runner.servlet.test";
 
-    public static final String EMPTY_PACKAGE_ONE = "shiver.me.timbers.junit.runner.servlet.test.one.empty";
-    public static final String EMPTY_PACKAGE_TWO = "shiver.me.timbers.junit.runner.servlet.test.two.empty";
-    public static final String EMPTY_PACKAGE_THREE = "shiver.me.timbers.junit.runner.servlet.test.three.empty";
+    public static final String PACKAGE_ONE = TEST_PACKAGE + ".one";
+    public static final String PACKAGE_TWO = TEST_PACKAGE + ".two";
+    public static final String PACKAGE_THREE = TEST_PACKAGE + ".three";
+
+    public static final String EMPTY_PACKAGE_ONE = PACKAGE_ONE + ".empty";
+    public static final String EMPTY_PACKAGE_TWO = PACKAGE_TWO + ".empty";
+    public static final String EMPTY_PACKAGE_THREE = PACKAGE_THREE + ".empty";
 
     public static Servlets mockEmptyServlets() {
 
@@ -133,22 +135,25 @@ public class Constants {
 
     public static Packages mockPackages() {
 
-        return mockListIterable(
-                Packages.class,
+        return mockPackages(
                 PACKAGE_ONE,
                 PACKAGE_TWO,
                 PACKAGE_THREE
         );
     }
 
-    public static Packages mockNoServletPackages() {
+    public static Packages mockNoClassPackages() {
 
-        return mockListIterable(
-                Packages.class,
+        return mockPackages(
                 EMPTY_PACKAGE_ONE,
                 EMPTY_PACKAGE_TWO,
                 EMPTY_PACKAGE_THREE
         );
+    }
+
+    public static Packages mockPackages(String... packageStrings) {
+
+        return mockListIterable(Packages.class, packageStrings);
     }
 
     public static Packages mockEmptyPackages() {
