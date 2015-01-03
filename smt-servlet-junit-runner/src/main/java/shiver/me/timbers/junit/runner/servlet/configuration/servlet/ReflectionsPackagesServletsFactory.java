@@ -5,6 +5,7 @@ import shiver.me.timbers.junit.runner.servlet.Packages;
 import shiver.me.timbers.junit.runner.servlet.ServletDetail;
 import shiver.me.timbers.junit.runner.servlet.Servlets;
 import shiver.me.timbers.junit.runner.servlet.SettableServlets;
+import shiver.me.timbers.junit.runner.servlet.configuration.PackagesFactory;
 
 import javax.servlet.Servlet;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.Set;
 /**
  * @author Karl Bennett
  */
-public class ReflectionsPackagesServletsFactory implements PackagesServletsFactory {
+public class ReflectionsPackagesServletsFactory implements PackagesFactory<Servlets> {
 
     private static final String JAVAX_SERVLET = "javax.servlet";
 

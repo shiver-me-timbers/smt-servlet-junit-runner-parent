@@ -4,6 +4,7 @@ import shiver.me.timbers.junit.runner.servlet.Servlets;
 import shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.configuration.AnnotationExtractionFactory;
 import shiver.me.timbers.junit.runner.servlet.configuration.CompositeContainerConfigurationAnnotationFactory;
+import shiver.me.timbers.junit.runner.servlet.configuration.PackagesAnnotationFactory;
 
 /**
  * @author Karl Bennett
@@ -17,7 +18,7 @@ public class ServletsContainerConfigurationAnnotationFactory
                 new CompositeContainerConfigurationAnnotationFactory<>(
                         new ServletsListFactory(),
                         new ServletsAnnotationFactory(),
-                        new ServletsPackagesAnnotationFactory(new ReflectionsPackagesServletsFactory())
+                        new PackagesAnnotationFactory<>(new ReflectionsPackagesServletsFactory())
                 )
         );
     }
