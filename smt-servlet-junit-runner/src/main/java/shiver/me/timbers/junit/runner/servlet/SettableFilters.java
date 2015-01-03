@@ -33,9 +33,22 @@ public class SettableFilters implements Filters {
         this.filters = filters;
     }
 
+    public SettableFilters(Filters... filterses) {
+        this.filters = new ArrayList<>();
+
+        for (Filters filters : filterses) {
+            add(filters);
+        }
+    }
+
     @Override
     public List<FilterDetail> asList() {
         return filters;
+    }
+
+    @Override
+    public void add(Filters filters) {
+        this.filters.addAll(filters.asList());
     }
 
     @Override

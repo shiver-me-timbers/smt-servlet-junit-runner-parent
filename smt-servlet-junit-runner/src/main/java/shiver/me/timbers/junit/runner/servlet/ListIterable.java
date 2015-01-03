@@ -5,6 +5,9 @@ import java.util.List;
 /**
  * @author Karl Bennett
  */
-public interface ListIterable<T> extends Iterable<T> {
-    List<T> asList();
+public interface ListIterable<T, E> extends Iterable<E> {
+
+    List<E> asList();
+
+    void add(T type);
 }

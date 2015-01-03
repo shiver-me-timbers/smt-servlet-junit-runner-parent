@@ -35,5 +35,11 @@
             <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
+        <!-- Class path scanning library used to search for servlets and filter. -->
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.9.9</version>
+        </dependency>
     </dependencies>
 </project>

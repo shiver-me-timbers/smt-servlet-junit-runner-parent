@@ -15,14 +15,12 @@ import shiver.me.timbers.junit.runner.servlet.test.three.PackageServletTwo;
 import shiver.me.timbers.junit.runner.servlet.test.two.PackageFilterThree;
 import shiver.me.timbers.junit.runner.servlet.test.two.PackageServletThree;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import static java.lang.String.format;
 import static java.util.Collections.singletonMap;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -45,9 +43,9 @@ public class Constants {
     public static final String PACKAGE_TWO = "shiver.me.timbers.junit.runner.servlet.test.two";
     public static final String PACKAGE_THREE = "shiver.me.timbers.junit.runner.servlet.test.three";
 
-    public static final URL PACKAGE_ONE_URL = toURL(PACKAGE_ONE);
-    public static final URL PACKAGE_TWO_URL = toURL(PACKAGE_TWO);
-    public static final URL PACKAGE_THREE_URL = toURL(PACKAGE_THREE);
+    public static final String EMPTY_PACKAGE_ONE = "shiver.me.timbers.junit.runner.servlet.test.one.empty";
+    public static final String EMPTY_PACKAGE_TWO = "shiver.me.timbers.junit.runner.servlet.test.two.empty";
+    public static final String EMPTY_PACKAGE_THREE = "shiver.me.timbers.junit.runner.servlet.test.three.empty";
 
     public static Servlets mockEmptyServlets() {
 
@@ -119,41 +117,31 @@ public class Constants {
 
     public static Packages mockPackages() {
 
-        return mockPackages(
+        return mockListIterable(
+                Packages.class,
                 PACKAGE_ONE,
                 PACKAGE_TWO,
                 PACKAGE_THREE
         );
     }
 
-    public static Packages mockPackages(String... packageStrings) {
+    public static Packages mockNoServletPackages() {
 
-        final ArrayList<URL> list = new ArrayList<>();
-
-        for (String packageString : packageStrings) {
-            list.add(toURL(packageString));
-        }
-
-        return mockListIterable(Packages.class, list);
+        return mockListIterable(
+                Packages.class,
+                EMPTY_PACKAGE_ONE,
+                EMPTY_PACKAGE_TWO,
+                EMPTY_PACKAGE_THREE
+        );
     }
 
-    private static URL toURL(String packageString) {
+    public static Packages mockEmptyPackages() {
 
-        final URL url = Thread.currentThread().getContextClassLoader().getResource(toPath(packageString));
-
-        if (null == url) {
-            throw new IllegalArgumentException(format("The package %s does not exist.", packageString));
-        }
-
-        return url;
-    }
-
-    private static String toPath(String packageString) {
-        return packageString.replaceAll("\\.", "/");
+        return mockListIterable(Packages.class, new ArrayList<String>());
     }
 
     @SafeVarargs
-    public static <E, T extends ListIterable<E>> T mockListIterable(Class<T> type, E... elements) {
+    public static <E, T extends ListIterable<T, E>> T mockListIterable(Class<T> type, E... elements) {
 
         final ArrayList<E> list = new ArrayList<>();
 
@@ -162,7 +150,7 @@ public class Constants {
         return mockListIterable(type, list);
     }
 
-    public static <E, T extends ListIterable<E>> T mockListIterable(Class<T> type, List<E> list) {
+    public static <E, T extends ListIterable<T, E>> T mockListIterable(Class<T> type, List<E> list) {
 
         final T mock = mock(type);
         when(mock.asList()).thenReturn(list);

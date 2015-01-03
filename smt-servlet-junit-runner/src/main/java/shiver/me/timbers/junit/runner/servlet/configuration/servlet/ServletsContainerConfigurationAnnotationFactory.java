@@ -14,7 +14,8 @@ public class ServletsContainerConfigurationAnnotationFactory
         super(
                 ContainerConfiguration.class, new ServletsEmptyFactory(),
                 new CompositeServletsAnnotationFactory(
-                        new ServletsAnnotationFactory()
+                        new ServletsAnnotationFactory(),
+                        new ServletsPackagesAnnotationFactory(new ReflectionsPackagesServletsFactory())
                 )
         );
     }
