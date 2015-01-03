@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author Karl Bennett
  */
-public class ServletsListFactory implements Factory<List<Servlets>, Servlets> {
+public class ListServletsFactory implements Factory<List<Servlets>, Servlets> {
 
     @Override
     public Servlets create(List<Servlets> servletses) {

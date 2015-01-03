@@ -18,7 +18,7 @@ import static shiver.me.timbers.junit.runner.servlet.test.EqualAllMatcher.equalA
 /**
  * @author Karl Bennett
  */
-public class ServletsListFactoryTest {
+public class ListServletsFactoryTest {
 
     @Test
     public void An_empty_list_can_be_used_for_creation() throws Exception {
@@ -27,7 +27,7 @@ public class ServletsListFactoryTest {
         final Servlets expected = mockEmptyServlets();
 
         // When
-        final Servlets actual = new ServletsListFactory().create(Collections.<Servlets>emptyList());
+        final Servlets actual = new ListServletsFactory().create(Collections.<Servlets>emptyList());
 
         // Then
         assertThat(actual, equalAll(expected));
@@ -42,7 +42,7 @@ public class ServletsListFactoryTest {
         final Servlets expected = mockServlets();
 
         // When
-        final Servlets actual = new ServletsListFactory().create(asList(one, two));
+        final Servlets actual = new ListServletsFactory().create(asList(one, two));
 
         // Then
         assertThat(actual, equalAll(expected));
