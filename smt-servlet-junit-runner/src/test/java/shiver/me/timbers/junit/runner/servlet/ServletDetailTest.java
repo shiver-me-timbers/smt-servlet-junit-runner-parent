@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import java.util.HashMap;
 
 import static java.util.Arrays.asList;
+import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.isEmptyString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -45,7 +46,7 @@ public class ServletDetailTest {
         assertEquals(LARGE_ICON, actual.getLargeIcon());
         assertEquals(DESCRIPTION, actual.getDescription());
         assertEquals(DISPLAY_NAME, actual.getDisplayName());
-        assertEquals(AllAnnotatedServlet.class, actual.getServlet());
+        assertServlet(actual, AllAnnotatedServlet.class);
     }
 
     @Test
@@ -58,7 +59,7 @@ public class ServletDetailTest {
         assertThat(actual.getName(), isEmptyString());
         assertEquals(asList(VALUE), actual.getUrlPatterns());
         assertDefaults(actual);
-        assertEquals(AnnotatedWithValueServlet.class, actual.getServlet());
+        assertServlet(actual, AnnotatedWithValueServlet.class);
     }
 
     @Test
@@ -71,7 +72,7 @@ public class ServletDetailTest {
         assertThat(actual.getName(), isEmptyString());
         assertEquals(asList(URL_PATTERN), actual.getUrlPatterns());
         assertDefaults(actual);
-        assertEquals(AnnotatedWithUrlPatternsServlet.class, actual.getServlet());
+        assertServlet(actual, AnnotatedWithUrlPatternsServlet.class);
     }
 
     @Test
@@ -88,7 +89,7 @@ public class ServletDetailTest {
         assertEquals(name, actual.getName());
         assertEquals(asList(urlPattern), actual.getUrlPatterns());
         assertDefaults(actual);
-        assertEquals(UnannotatedServlet.class, actual.getServlet());
+        assertServlet(actual, UnannotatedServlet.class);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -110,6 +111,11 @@ public class ServletDetailTest {
 
         // When
         new ServletDetail(Servlet.class).getServletInstance();
+    }
+
+    private static void assertServlet(ServletDetail actual, Class<? extends Servlet> servlet) {
+        assertEquals(servlet, actual.getServlet());
+        assertThat(actual.getServletInstance(), instanceOf(servlet));
     }
 
     private static void assertDefaults(ServletDetail actual) {

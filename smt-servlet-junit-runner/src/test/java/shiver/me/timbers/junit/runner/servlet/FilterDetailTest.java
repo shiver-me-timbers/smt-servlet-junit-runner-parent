@@ -12,6 +12,7 @@ import static java.util.Arrays.asList;
 import static javax.servlet.DispatcherType.FORWARD;
 import static javax.servlet.DispatcherType.REQUEST;
 import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.isEmptyString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -50,7 +51,7 @@ public class FilterDetailTest {
         assertEquals(asList(VALUE), actual.getUrlPatterns());
         assertEquals(asList(FORWARD), actual.getDispatcherTypes());
         assertEquals(ASYNC_SUPPORT, actual.asyncSupported());
-        assertEquals(AllAnnotatedFilter.class, actual.getFilter());
+        assertFilter(actual, AllAnnotatedFilter.class);
     }
 
     @Test
@@ -63,7 +64,7 @@ public class FilterDetailTest {
         assertEquals(AnnotatedWithNoNameFilter.class.getSimpleName(), actual.getFilterName());
         assertThat(actual.getUrlPatterns(), empty());
         assertDefaults(actual);
-        assertEquals(AnnotatedWithNoNameFilter.class, actual.getFilter());
+        assertFilter(actual, AnnotatedWithNoNameFilter.class);
     }
 
     @Test
@@ -76,7 +77,7 @@ public class FilterDetailTest {
         assertEquals(AnnotatedWithValueFilter.class.getSimpleName(), actual.getFilterName());
         assertEquals(asList(VALUE), actual.getUrlPatterns());
         assertDefaults(actual);
-        assertEquals(AnnotatedWithValueFilter.class, actual.getFilter());
+        assertFilter(actual, AnnotatedWithValueFilter.class);
     }
 
     @Test
@@ -89,7 +90,7 @@ public class FilterDetailTest {
         assertEquals(AnnotatedWithUrlPatternsFilter.class.getSimpleName(), actual.getFilterName());
         assertEquals(asList(URL_PATTERN), actual.getUrlPatterns());
         assertDefaults(actual);
-        assertEquals(AnnotatedWithUrlPatternsFilter.class, actual.getFilter());
+        assertFilter(actual, AnnotatedWithUrlPatternsFilter.class);
     }
 
     @Test
@@ -106,7 +107,7 @@ public class FilterDetailTest {
         assertEquals(name, actual.getFilterName());
         assertEquals(asList(urlPattern), actual.getUrlPatterns());
         assertDefaults(actual);
-        assertEquals(UnannotatedFilter.class, actual.getFilter());
+        assertFilter(actual, UnannotatedFilter.class);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -145,6 +146,11 @@ public class FilterDetailTest {
 
     )
     public static class AllAnnotatedFilter extends BaseFilter {
+    }
+
+    private static void assertFilter(FilterDetail actual, Class<? extends Filter> filter) {
+        assertEquals(filter, actual.getFilter());
+        assertThat(actual.getFilterInstance(), instanceOf(filter));
     }
 
     private static void assertDefaults(FilterDetail actual) {
