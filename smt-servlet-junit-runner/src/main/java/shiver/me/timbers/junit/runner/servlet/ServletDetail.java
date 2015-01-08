@@ -30,7 +30,6 @@ public class ServletDetail {
     private final String largeIcon;
     private final String description;
     private final String displayName;
-
     private final Class<? extends Servlet> servlet;
 
     public ServletDetail(Class<? extends Servlet> servlet) {
@@ -52,6 +51,21 @@ public class ServletDetail {
         );
     }
 
+    public ServletDetail(ServletDetail servletDetail) {
+        this(
+                servletDetail.getName(),
+                servletDetail.getUrlPatterns(),
+                servletDetail.loadOnStartup(),
+                servletDetail.getInitParams(),
+                servletDetail.asyncSupported(),
+                servletDetail.getSmallIcon(),
+                servletDetail.getLargeIcon(),
+                servletDetail.getDescription(),
+                servletDetail.getDisplayName(),
+                servletDetail.getServlet()
+        );
+    }
+
     public ServletDetail(
             String name,
             List<String> urlPatterns,
@@ -65,7 +79,7 @@ public class ServletDetail {
             Class<? extends Servlet> servlet
     ) {
         this.name = name;
-        this.urlPatterns = unmodifiableList(urlPatterns);
+        this.urlPatterns = null == urlPatterns ? null : unmodifiableList(urlPatterns);
         this.loadOnStartup = loadOnStartup;
         this.initParams = initParams;
         this.asyncSupported = asyncSupported;
@@ -89,7 +103,7 @@ public class ServletDetail {
     }
 
     public List<String> getUrlPatterns() {
-        return new ArrayList<>(urlPatterns);
+        return null == urlPatterns ? null : new ArrayList<>(urlPatterns);
     }
 
     public int loadOnStartup() {
@@ -97,7 +111,7 @@ public class ServletDetail {
     }
 
     public Map<String, String> getInitParams() {
-        return new HashMap<>(initParams);
+        return null == initParams ? null : new HashMap<>(initParams);
     }
 
     public boolean asyncSupported() {

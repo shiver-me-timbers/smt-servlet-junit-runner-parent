@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static java.lang.String.format;
 import static java.util.Arrays.asList;
 import static shiver.me.timbers.junit.runner.servlet.Reflections.instantiate;
 import static shiver.me.timbers.junit.runner.servlet.annotation.Annotations.buildAnnotation;
@@ -40,7 +41,6 @@ public class FilterDetail {
     private final List<String> urlPatterns;
     private final List<DispatcherType> dispatcherTypes;
     private final boolean asyncSupported;
-
     private final Class<? extends Filter> filter;
 
     public FilterDetail(Class<? extends Filter> filter) {
@@ -60,6 +60,22 @@ public class FilterDetail {
                 asList(webFilter.dispatcherTypes()),
                 webFilter.asyncSupported(),
                 filter
+        );
+    }
+
+    public FilterDetail(FilterDetail filterDetail) {
+        this(
+                filterDetail.getDescription(),
+                filterDetail.getDisplayName(),
+                filterDetail.getInitParams(),
+                filterDetail.getFilterName(),
+                filterDetail.getSmallIcon(),
+                filterDetail.getLargeIcon(),
+                filterDetail.getServletNames(),
+                filterDetail.getUrlPatterns(),
+                filterDetail.getDispatcherTypes(),
+                filterDetail.asyncSupported(),
+                filterDetail.getFilter()
         );
     }
 
@@ -98,7 +114,7 @@ public class FilterDetail {
     }
 
     public Map<String, String> getInitParams() {
-        return new HashMap<>(initParams);
+        return null == initParams ? null : new HashMap<>(initParams);
     }
 
     public String getFilterName() {
@@ -114,15 +130,15 @@ public class FilterDetail {
     }
 
     public List<String> getServletNames() {
-        return new ArrayList<>(servletNames);
+        return null == servletNames ? null : new ArrayList<>(servletNames);
     }
 
     public List<String> getUrlPatterns() {
-        return new ArrayList<>(urlPatterns);
+        return null == urlPatterns ? null : new ArrayList<>(urlPatterns);
     }
 
     public List<DispatcherType> getDispatcherTypes() {
-        return new ArrayList<>(dispatcherTypes);
+        return null == dispatcherTypes ? null : new ArrayList<>(dispatcherTypes);
     }
 
     public boolean asyncSupported() {
@@ -203,5 +219,35 @@ public class FilterDetail {
         result = 31 * result + (filter != null ? filter.hashCode() : 0);
 
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return format(
+                "FilterDetail {\n" +
+                        "description='%s',\n" +
+                        "displayName='%s',\n" +
+                        "initParams=%s,\n" +
+                        "filterName='%s',\n" +
+                        "smallIcon='%s',\n" +
+                        "largeIcon='%s',\n" +
+                        "servletNames=%s,\n" +
+                        "urlPatterns=%s,\n" +
+                        "dispatcherTypes=%s,\n" +
+                        "asyncSupported=%s,\n" +
+                        "filter=%s,\n" +
+                        "}",
+                description,
+                displayName,
+                initParams,
+                filterName,
+                smallIcon,
+                largeIcon,
+                servletNames,
+                urlPatterns,
+                dispatcherTypes,
+                asyncSupported,
+                filter
+        );
     }
 }

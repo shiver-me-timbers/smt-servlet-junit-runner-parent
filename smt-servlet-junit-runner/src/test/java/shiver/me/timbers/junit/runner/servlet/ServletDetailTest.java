@@ -7,13 +7,17 @@ import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import static java.lang.String.format;
 import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.isEmptyString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.ASYNC_SUPPORT;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.DESCRIPTION;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.DISPLAY_NAME;
@@ -113,6 +117,70 @@ public class ServletDetailTest {
         new ServletDetail(Servlet.class).getServletInstance();
     }
 
+    @Test
+    public void A_servlet_detail_can_be_checked_for_equality() {
+
+        final Equal<ServletDetail> equal = new Equal<ServletDetail>() {
+            @Override
+            public boolean equal(ServletDetail left, Object right) {
+                return left.equals(right);
+            }
+        };
+
+        assertEquality(equal);
+    }
+
+    @Test
+    public void A_servlet_detail_can_be_generate_a_hash_code() {
+
+        final Equal<ServletDetail> equal = new Equal<ServletDetail>() {
+            @Override
+            public boolean equal(ServletDetail left, Object right) {
+
+                if (null == right) {
+                    return false;
+                }
+
+                return left.hashCode() == right.hashCode();
+            }
+        };
+
+        assertEquality(equal);
+    }
+
+    @Test
+    public void A_servlet_detail_can_be_to_stringed() {
+
+        final String expected = format(
+                "ServletDetail {\n" +
+                        "name='%s',\n" +
+                        "urlPatterns=%s,\n" +
+                        "loadOnStartup=%d,\n" +
+                        "initParams=%s,\n" +
+                        "asyncSupported=%s,\n" +
+                        "smallIcon='%s',\n" +
+                        "largeIcon='%s',\n" +
+                        "description='%s',\n" +
+                        "displayName='%s',\n" +
+                        "servlet=%s\n" +
+                        "}",
+                NAME,
+                asList(URL_PATTERN),
+                LOAD_ON_STARTUP,
+                INIT_PARAMS,
+                ASYNC_SUPPORT,
+                SMALL_ICON,
+                LARGE_ICON,
+                DESCRIPTION,
+                DISPLAY_NAME,
+                Servlet.class
+        );
+
+        final String actual = new ServletDetail(new ServletDetailBuilder().withAll().build()).toString();
+
+        assertEquals(expected, actual);
+    }
+
     private static void assertServlet(ServletDetail actual, Class<? extends Servlet> servlet) {
         assertEquals(servlet, actual.getServlet());
         assertThat(actual.getServletInstance(), instanceOf(servlet));
@@ -126,6 +194,39 @@ public class ServletDetailTest {
         assertThat(actual.getLargeIcon(), isEmptyString());
         assertThat(actual.getDescription(), isEmptyString());
         assertThat(actual.getDisplayName(), isEmptyString());
+    }
+
+    private static void assertEquality(Equal<ServletDetail> equal) {
+
+        final ServletDetail populated = new ServletDetailBuilder().withAll().build();
+        final ServletDetail empty = new ServletDetailBuilder().withAsyncSupported(true).build();
+
+        assertEquality(populated, equal, new MockDifferent());
+        assertEquality(empty, equal, new MockDifferent());
+        assertEquality(populated, equal, new NullDifferent());
+    }
+
+    private static void assertEquality(ServletDetail left, Equal<ServletDetail> eq, Different different) {
+
+        assertTrue(eq.equal(left, left));
+        assertTrue(eq.equal(left, new ServletDetail(left)));
+
+        assertFalse(eq.equal(left, new ServletDetailBuilder(left).withName(different.string()).build()));
+        assertFalse(eq.equal(left,
+                new ServletDetailBuilder(left).withUrlPatterns(different.list(String.class)).build()));
+        assertFalse(eq.equal(left, new ServletDetailBuilder(left).withLoadOnStartup(different.integer()).build()));
+        assertFalse(eq.equal(left,
+                new ServletDetailBuilder(left).withInitParams(different.map("diff", "erent")).build()));
+        assertFalse(eq.equal(left, new ServletDetailBuilder(left).withAsyncSupported(different.bool()).build()));
+        assertFalse(eq.equal(left, new ServletDetailBuilder(left).withSmallIcon(different.string()).build()));
+        assertFalse(eq.equal(left, new ServletDetailBuilder(left).withLargeIcon(different.string()).build()));
+        assertFalse(eq.equal(left, new ServletDetailBuilder(left).withDescription(different.string()).build()));
+        assertFalse(eq.equal(left, new ServletDetailBuilder(left).withDisplayName(different.string()).build()));
+        assertFalse(eq.equal(left,
+                new ServletDetailBuilder(left).withServlet(different.type(DifferentServlet.class)).build()));
+
+        assertFalse(eq.equal(left, new Object()));
+        assertFalse(eq.equal(left, null));
     }
 
     @WebServlet(
@@ -161,6 +262,144 @@ public class ServletDetailTest {
 
     public static class NoDefaultConstructorServlet extends HttpServlet {
         public NoDefaultConstructorServlet(Object arg) {
+        }
+    }
+
+    public static class DifferentServlet extends HttpServlet {
+    }
+
+    private static class ServletDetailBuilder {
+
+        private String name;
+        private List<String> urlPatterns;
+        private int loadOnStartup;
+        private Map<String, String> initParams;
+        private boolean asyncSupported;
+        private String smallIcon;
+        private String largeIcon;
+        private String description;
+        private String displayName;
+        private Class<? extends Servlet> servlet;
+
+        public ServletDetailBuilder() {
+        }
+
+        public ServletDetailBuilder(ServletDetail servletDetail) {
+            this(
+                    servletDetail.getName(),
+                    servletDetail.getUrlPatterns(),
+                    servletDetail.loadOnStartup(),
+                    servletDetail.getInitParams(),
+                    servletDetail.asyncSupported(),
+                    servletDetail.getSmallIcon(),
+                    servletDetail.getLargeIcon(),
+                    servletDetail.getDescription(),
+                    servletDetail.getDisplayName(),
+                    servletDetail.getServlet()
+            );
+        }
+
+        private ServletDetailBuilder(
+                String name,
+                List<String> urlPatterns,
+                int loadOnStartup,
+                Map<String, String> initParams,
+                boolean asyncSupported,
+                String smallIcon,
+                String largeIcon,
+                String description,
+                String displayName,
+                Class<? extends Servlet> servlet
+        ) {
+            this.name = name;
+            this.urlPatterns = urlPatterns;
+            this.loadOnStartup = loadOnStartup;
+            this.initParams = initParams;
+            this.asyncSupported = asyncSupported;
+            this.smallIcon = smallIcon;
+            this.largeIcon = largeIcon;
+            this.description = description;
+            this.displayName = displayName;
+            this.servlet = servlet;
+        }
+
+        public ServletDetail build() {
+            return new ServletDetail(
+                    name,
+                    urlPatterns,
+                    loadOnStartup,
+                    initParams,
+                    asyncSupported,
+                    smallIcon,
+                    largeIcon,
+                    description,
+                    displayName,
+                    servlet
+            );
+        }
+
+        public ServletDetailBuilder withAll() {
+            withName(NAME);
+            withUrlPatterns(asList(URL_PATTERN));
+            withLoadOnStartup(LOAD_ON_STARTUP);
+            withInitParams(INIT_PARAMS);
+            withAsyncSupported(ASYNC_SUPPORT);
+            withSmallIcon(SMALL_ICON);
+            withLargeIcon(LARGE_ICON);
+            withDescription(DESCRIPTION);
+            withDisplayName(DISPLAY_NAME);
+            withServlet(Servlet.class);
+            return this;
+        }
+
+        public ServletDetailBuilder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public ServletDetailBuilder withUrlPatterns(List<String> urlPatterns) {
+            this.urlPatterns = urlPatterns;
+            return this;
+        }
+
+        public ServletDetailBuilder withLoadOnStartup(int loadOnStartup) {
+            this.loadOnStartup = loadOnStartup;
+            return this;
+        }
+
+        public ServletDetailBuilder withInitParams(Map<String, String> initParams) {
+            this.initParams = initParams;
+            return this;
+        }
+
+        public ServletDetailBuilder withAsyncSupported(boolean asyncSupported) {
+            this.asyncSupported = asyncSupported;
+            return this;
+        }
+
+        public ServletDetailBuilder withSmallIcon(String smallIcon) {
+            this.smallIcon = smallIcon;
+            return this;
+        }
+
+        public ServletDetailBuilder withLargeIcon(String largeIcon) {
+            this.largeIcon = largeIcon;
+            return this;
+        }
+
+        public ServletDetailBuilder withDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public ServletDetailBuilder withDisplayName(String displayName) {
+            this.displayName = displayName;
+            return this;
+        }
+
+        public ServletDetailBuilder withServlet(Class<? extends Servlet> servlet) {
+            this.servlet = servlet;
+            return this;
         }
     }
 }
