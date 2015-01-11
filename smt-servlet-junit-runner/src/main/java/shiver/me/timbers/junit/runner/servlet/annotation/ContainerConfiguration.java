@@ -33,6 +33,15 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  *      }
  *  }</pre>
  *
+ * By default the server will be started on a random port. The number of this port can be accessed with the {@link Port}
+ * annotation.<br/>
+ * It is also possible to manually set the port.<br/><br/>
+ *
+ * <pre>
+ * {@literal @}ContainerConfiguration(port = 8080)
+ *  class SomeTest {
+ *  }</pre>
+ *
  * The {@link Servlet}s that should be loaded into the container for the test can be set by listing them at the class
  * level.<br/><br/>
  *

@@ -13,7 +13,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * <pre>
  * {@code
  *  class SomeOtherTest {
- *      &#64;Port
+ *     {@literal @}Port
  *      private int port;
  *  }
  * }

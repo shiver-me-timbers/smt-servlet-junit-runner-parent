@@ -7,7 +7,9 @@ import shiver.me.timbers.junit.runner.servlet.AnnotationServletJUnitRunner;
 import javax.servlet.ServletException;
 
 /**
- * {@inheritDoc}
+ * This JUnit test runner will start up an Embedded Tomcat instance for the related test. The
+ * {@link shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration} annotation can then be used to
+ * configure the Tomcat instance.
  *
  * @author Karl Bennett
  */
