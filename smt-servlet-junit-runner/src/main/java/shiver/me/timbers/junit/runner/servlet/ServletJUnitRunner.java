@@ -6,12 +6,14 @@ import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;
 import shiver.me.timbers.junit.runner.servlet.configuration.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.configuration.ContainerConfigurationFactory;
+import shiver.me.timbers.junit.runner.servlet.configuration.WebXmlFactory;
 import shiver.me.timbers.junit.runner.servlet.configuration.filter.FiltersFactory;
 import shiver.me.timbers.junit.runner.servlet.configuration.port.PortConfiguration;
 import shiver.me.timbers.junit.runner.servlet.configuration.port.PortConfigurationFactory;
 import shiver.me.timbers.junit.runner.servlet.configuration.servlet.ServletsFactory;
 import shiver.me.timbers.junit.runner.servlet.inject.PortSetter;
 
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -23,6 +25,7 @@ public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
 
     private final PortConfigurationFactory portConfigurationFactory;
     private final FiltersFactory filtersFactory;
+    private final WebXmlFactory webXmlFactory;
     private final ContainerConfigurationFactory<C> containerConfigurationFactory;
     private final ServletsFactory servletsFactory;
     private final PortSetter portSetter;
@@ -33,6 +36,7 @@ public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
             PortConfigurationFactory portConfigurationFactory,
             ServletsFactory servletsFactory,
             FiltersFactory filtersFactory,
+            WebXmlFactory webXmlFactory,
             ContainerConfigurationFactory<C> containerConfigurationFactory,
             PortSetter portSetter,
             RunListenerFactory runListenerFactory,
@@ -42,6 +46,7 @@ public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
         super(test);
         this.portConfigurationFactory = portConfigurationFactory;
         this.filtersFactory = filtersFactory;
+        this.webXmlFactory = webXmlFactory;
         this.containerConfigurationFactory = containerConfigurationFactory;
         this.servletsFactory = servletsFactory;
         this.portSetter = portSetter;
@@ -60,15 +65,24 @@ public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
 
         final Filters filters = filtersFactory.create(target);
 
+        final URL webXml = webXmlFactory.create(target);
+
         container.configure(portConfiguration);
         container.configure(containerConfiguration);
         container.load(servlets);
         container.load(filters);
+        load(container, webXml);
         container.start();
 
         portSetter.set(target, portConfiguration);
 
         return super.rules(target);
+    }
+
+    private static void load(Container container, URL webXml) {
+        if (null != webXml) {
+            container.load(webXml);
+        }
     }
 
     @Override

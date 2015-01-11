@@ -6,6 +6,8 @@ import shiver.me.timbers.junit.runner.servlet.Servlets;
 import shiver.me.timbers.junit.runner.servlet.configuration.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.configuration.port.PortConfiguration;
 
+import java.net.URL;
+
 public class TestServletContainer implements Container {
 
     private PortConfiguration portConfiguration;
@@ -13,6 +15,7 @@ public class TestServletContainer implements Container {
     private Servlets servlets;
     private Filters filters;
     private boolean started = false;
+    private URL webXml;
 
     @Override
     public void configure(PortConfiguration portConfiguration) {
@@ -48,6 +51,15 @@ public class TestServletContainer implements Container {
 
     public Filters getFilters() {
         return filters;
+    }
+
+    @Override
+    public void load(URL webXml) {
+        this.webXml = webXml;
+    }
+
+    public URL getWebXml() {
+        return webXml;
     }
 
     @Override

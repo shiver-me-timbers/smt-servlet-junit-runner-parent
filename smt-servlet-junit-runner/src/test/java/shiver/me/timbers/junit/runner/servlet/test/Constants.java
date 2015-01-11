@@ -4,6 +4,8 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import shiver.me.timbers.junit.runner.servlet.ListIterable;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -16,6 +18,16 @@ import static org.mockito.Mockito.when;
 
 public class Constants {
 
+    public static URL url() {
+        try {
+            return new URL("file:/url");
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static final int PORT = 9996;
+
     public static final String INIT = "init";
     public static final String PARAM = "param";
 
@@ -27,6 +39,9 @@ public class Constants {
     public static final String VALUE = "/value";
     public static final String URL_PATTERN = "/url-pattern";
     public static final boolean ASYNC_SUPPORT = true;
+
+    public static final String WEB_XML_PATH = "web.xml";
+    public static final URL WEB_XML_URL = Thread.currentThread().getContextClassLoader().getResource(WEB_XML_PATH);
 
     @SafeVarargs
     public static <E, T extends ListIterable<T, E>> T mockListIterable(Class<T> type, E... elements) {

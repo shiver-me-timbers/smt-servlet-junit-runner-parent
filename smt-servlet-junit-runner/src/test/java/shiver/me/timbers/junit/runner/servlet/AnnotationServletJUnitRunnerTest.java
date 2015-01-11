@@ -19,13 +19,19 @@ import shiver.me.timbers.junit.runner.servlet.test.ServletTwo;
 
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebServlet;
+import java.net.URL;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static org.hamcrest.Matchers.greaterThan;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Matchers.intThat;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.PORT;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.WEB_XML_PATH;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.WEB_XML_URL;
 import static shiver.me.timbers.junit.runner.servlet.test.EqualAllMatcher.equalAll;
 import static shiver.me.timbers.junit.runner.servlet.test.FilterConstants.CONFIGURED_FILTER_DETAIL_ONE_NAME;
 import static shiver.me.timbers.junit.runner.servlet.test.FilterConstants.CONFIGURED_FILTER_DETAIL_ONE_PATH;
@@ -44,8 +50,6 @@ import static shiver.me.timbers.junit.runner.servlet.test.ServletConstants.mockA
 import static shiver.me.timbers.junit.runner.servlet.test.ServletConstants.mockEmptyServlets;
 
 public class AnnotationServletJUnitRunnerTest {
-
-    private static final int PORT = 9997;
 
     private static final AtomicReference<TestServletContainer> REFERENCE = new AtomicReference<>();
 
@@ -76,6 +80,7 @@ public class AnnotationServletJUnitRunnerTest {
         verify(server).configuredPort(PORT);
         verify(server).load(argThat(equalAll(servlets)));
         verify(server).load(argThat(equalAll(filters)));
+        verify(server).load(WEB_XML_URL);
         verify(server).start();
         verify(server).injectedPort(PORT);
         verify(server).shutdown();
@@ -99,6 +104,7 @@ public class AnnotationServletJUnitRunnerTest {
         verify(server).configuredPort(intThat(greaterThan(0)));
         verify(server).load(argThat(equalAll(servlets)));
         verify(server).load(argThat(equalAll(filters)));
+        verify(server, never()).load(any(URL.class));
         verify(server).start();
         verify(server).injectedPort(intThat(greaterThan(0)));
         verify(server).shutdown();
@@ -141,7 +147,8 @@ public class AnnotationServletJUnitRunnerTest {
                     )
             },
             filters = {FilterOne.class, FilterTwo.class, FilterThree.class},
-            packages = {PACKAGE_ONE, PACKAGE_TWO, PACKAGE_THREE}
+            packages = {PACKAGE_ONE, PACKAGE_TWO, PACKAGE_THREE},
+            webXml = WEB_XML_PATH
     )
     public static class ClassLevelConfig {
 
@@ -204,6 +211,11 @@ public class AnnotationServletJUnitRunnerTest {
         }
 
         @Override
+        public void load(URL webXml) {
+            server.load(webXml);
+        }
+
+        @Override
         public void start() {
             server.start();
         }
@@ -226,8 +238,10 @@ public class AnnotationServletJUnitRunnerTest {
 
         void load(Servlets servlets);
 
-        void shutdown();
-
         void load(Filters filters);
+
+        void load(URL webXml);
+
+        void shutdown();
     }
 }

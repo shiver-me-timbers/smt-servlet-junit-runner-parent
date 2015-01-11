@@ -23,6 +23,9 @@ import static org.hamcrest.Matchers.isA;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.PORT;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.WEB_XML_PATH;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.WEB_XML_URL;
 import static shiver.me.timbers.junit.runner.servlet.test.EqualAllMatcher.equalAll;
 import static shiver.me.timbers.junit.runner.servlet.test.FilterConstants.CONFIGURED_FILTER_DETAIL_ONE_NAME;
 import static shiver.me.timbers.junit.runner.servlet.test.FilterConstants.CONFIGURED_FILTER_DETAIL_ONE_PATH;
@@ -41,7 +44,7 @@ import static shiver.me.timbers.junit.runner.servlet.test.TestContainerConfigura
 
 @RunWith(TestAnnotationServletJUnitRunner.class)
 @ContainerConfiguration(
-        port = 9996,
+        port = PORT,
         value = TestContainerConfiguration.class,
         servlets = {ServletOne.class, ServletTwo.class, ServletThree.class},
         servletConfigurations = {
@@ -77,11 +80,10 @@ import static shiver.me.timbers.junit.runner.servlet.test.TestContainerConfigura
                         servlet = FilterTwo.class
                 )
         },
-        packages = {PACKAGE_ONE, PACKAGE_TWO, PACKAGE_THREE}
+        packages = {PACKAGE_ONE, PACKAGE_TWO, PACKAGE_THREE},
+        webXml = WEB_XML_PATH
 )
 public class ClassLevelAnnotationServletJUnitRunnerTest {
-
-    private static final int PORT = 9996;
 
     @Port
     private int port;
@@ -101,6 +103,7 @@ public class ClassLevelAnnotationServletJUnitRunnerTest {
                 isA(TestContainerConfiguration.class));
         assertThat(container.getServlets(), equalAll(servlets));
         assertThat(container.getFilters(), equalAll(filters));
+        assertEquals(WEB_XML_URL, container.getWebXml());
         assertTrue(container.isStarted());
     }
 }

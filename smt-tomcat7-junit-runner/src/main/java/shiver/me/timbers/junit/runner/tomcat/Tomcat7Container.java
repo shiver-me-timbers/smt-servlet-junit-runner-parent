@@ -15,6 +15,7 @@ import shiver.me.timbers.junit.runner.tomcat.filter.FilterDetailFilterDef;
 import shiver.me.timbers.junit.runner.tomcat.filter.FilterDetailFilterMap;
 
 import javax.servlet.ServletException;
+import java.net.URL;
 
 import static java.util.Map.Entry;
 
@@ -70,6 +71,11 @@ public class Tomcat7Container implements Container<Tomcat> {
             context.addFilterDef(new FilterDetailFilterDef(filterDetail));
             context.addFilterMap(new FilterDetailFilterMap(filterDetail));
         }
+    }
+
+    @Override
+    public void load(URL webXml) {
+        throw new UnsupportedOperationException();
     }
 
     @Override

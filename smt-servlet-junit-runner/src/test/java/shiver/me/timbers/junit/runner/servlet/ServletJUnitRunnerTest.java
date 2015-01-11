@@ -7,18 +7,23 @@ import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.model.InitializationError;
 import shiver.me.timbers.junit.runner.servlet.configuration.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.configuration.ContainerConfigurationFactory;
+import shiver.me.timbers.junit.runner.servlet.configuration.WebXmlFactory;
 import shiver.me.timbers.junit.runner.servlet.configuration.filter.FiltersFactory;
 import shiver.me.timbers.junit.runner.servlet.configuration.port.PortConfiguration;
 import shiver.me.timbers.junit.runner.servlet.configuration.port.PortConfigurationFactory;
 import shiver.me.timbers.junit.runner.servlet.configuration.servlet.ServletsFactory;
 import shiver.me.timbers.junit.runner.servlet.inject.PortSetter;
 
+import java.net.URL;
+
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.url;
 
 public class ServletJUnitRunnerTest {
 
@@ -51,6 +56,10 @@ public class ServletJUnitRunnerTest {
         final FiltersFactory filtersFactory = mock(FiltersFactory.class);
         when(filtersFactory.create(any(TestClass.class))).thenReturn(filters);
 
+        final URL url = url();
+        final WebXmlFactory webXmlFactory = mock(WebXmlFactory.class);
+        when(webXmlFactory.create(any(TestClass.class))).thenReturn(url);
+
         final RunListener runListener = mock(RunListener.class);
         final RunListenerFactory runListenerFactory = mock(RunListenerFactory.class);
         when(runListenerFactory.create(container)).thenReturn(runListener);
@@ -62,6 +71,7 @@ public class ServletJUnitRunnerTest {
                 portConfigurationFactory,
                 servletsFactory,
                 filtersFactory,
+                webXmlFactory,
                 containerConfigurationFactory,
                 portSetter,
                 runListenerFactory,
@@ -74,6 +84,7 @@ public class ServletJUnitRunnerTest {
         verify(container).configure(containerConfiguration);
         verify(container).load(servlets);
         verify(container).load(filters);
+        verify(container).load(url);
         verify(container).start();
         verify(portSetter).set(any(TestClass.class), eq(portConfiguration));
         verify(runListenerFactory).create(container);
@@ -82,6 +93,32 @@ public class ServletJUnitRunnerTest {
         verify(notifier).fireTestFinished(any(Description.class));
 
         verifyNoMoreInteractions(container, portSetter, runListenerFactory, notifier);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void Configuration_should_only_carried_out_when_necessary() throws InitializationError {
+
+        // Given
+        final RunNotifier notifier = mock(RunNotifier.class);
+
+        final Container<Object> container = mock(Container.class);
+
+        // When
+        new ServletJUnitRunner<>(
+                mock(PortConfigurationFactory.class),
+                mock(ServletsFactory.class),
+                mock(FiltersFactory.class),
+                mock(WebXmlFactory.class),
+                mock(ContainerConfigurationFactory.class),
+                mock(PortSetter.class),
+                mock(RunListenerFactory.class),
+                container,
+                TestClass.class
+        ).run(notifier);
+
+        // Then
+        verify(container, never()).load(any(URL.class));
     }
 
     public static class TestClass {

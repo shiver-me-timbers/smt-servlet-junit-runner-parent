@@ -4,6 +4,7 @@ import org.junit.runners.model.InitializationError;
 import shiver.me.timbers.junit.runner.servlet.configuration.ClassAnnotationContainerConfigurationFactory;
 import shiver.me.timbers.junit.runner.servlet.configuration.CompositeContainerConfigurationFactory;
 import shiver.me.timbers.junit.runner.servlet.configuration.MethodAnnotationContainerConfigurationFactory;
+import shiver.me.timbers.junit.runner.servlet.configuration.WebXmlContainerConfigurationAnnotationFactory;
 import shiver.me.timbers.junit.runner.servlet.configuration.filter.FiltersContainerConfigurationAnnotationFactory;
 import shiver.me.timbers.junit.runner.servlet.configuration.port.AnnotationStaticPortConfigurationFactory;
 import shiver.me.timbers.junit.runner.servlet.configuration.port.FreeRandomPortConfigurationFactory;
@@ -26,6 +27,7 @@ public class AnnotationServletJUnitRunner<C> extends ServletJUnitRunner<C> {
                 ),
                 new ServletsContainerConfigurationAnnotationFactory(),
                 new FiltersContainerConfigurationAnnotationFactory(),
+                new WebXmlContainerConfigurationAnnotationFactory(),
                 new CompositeContainerConfigurationFactory<>(
                         new ClassAnnotationContainerConfigurationFactory<C>(),
                         new MethodAnnotationContainerConfigurationFactory<C>()

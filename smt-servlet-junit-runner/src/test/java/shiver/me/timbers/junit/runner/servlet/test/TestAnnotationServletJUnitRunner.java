@@ -8,6 +8,8 @@ import shiver.me.timbers.junit.runner.servlet.Servlets;
 import shiver.me.timbers.junit.runner.servlet.configuration.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.configuration.port.PortConfiguration;
 
+import java.net.URL;
+
 public class TestAnnotationServletJUnitRunner extends AnnotationServletJUnitRunner<TestServletContainer> {
 
     public TestAnnotationServletJUnitRunner(Class test) throws InitializationError {
@@ -40,6 +42,11 @@ public class TestAnnotationServletJUnitRunner extends AnnotationServletJUnitRunn
                     @Override
                     public void load(Filters filters) {
                         container.load(filters);
+                    }
+
+                    @Override
+                    public void load(URL webXml) {
+                        container.load(webXml);
                     }
 
                     @Override
