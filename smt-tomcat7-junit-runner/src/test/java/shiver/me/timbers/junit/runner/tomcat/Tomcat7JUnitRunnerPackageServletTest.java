@@ -5,15 +5,14 @@ import org.junit.runner.RunWith;
 import shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.annotation.Port;
 
-import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
 
-import static javax.ws.rs.core.MediaType.TEXT_PLAIN_TYPE;
 import static javax.ws.rs.core.Response.Status.OK;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static shiver.me.timbers.junit.runner.tomcat.test.Constants.GET;
 import static shiver.me.timbers.junit.runner.tomcat.test.Constants.PACKAGE_ONE;
 import static shiver.me.timbers.junit.runner.tomcat.test.Constants.PACKAGE_SERVLET_NAME;
 import static shiver.me.timbers.junit.runner.tomcat.test.Constants.PARAM;
@@ -40,10 +39,7 @@ public class Tomcat7JUnitRunnerPackageServletTest {
         assertEquals(PACKAGE_SERVLET_NAME, NAME.get());
         assertEquals(PARAM, INIT_PARAM_VALUE.get());
 
-        final Response response = ClientBuilder.newClient()
-                .target(String.format("http://localhost:%d/%s", port, URL_PATTERN))
-                .request(TEXT_PLAIN_TYPE).get();
-
+        final Response response = GET(port, URL_PATTERN);
 
         assertTrue(ASYNC_SUPPORTED.get());
         assertEquals(OK.getStatusCode(), response.getStatus());

@@ -27,7 +27,8 @@ public class ServletsContainerConfigurationAnnotationFactory
                                         new ServletServletsFactory(),
                                         Servlet.class
                                 )
-                        )
+                        ),
+                        new ConfiguredServletsAnnotationFactory()
                 )
         );
     }

@@ -68,12 +68,12 @@ public class Constants {
 
     public static final ServletDetail CONFIGURED_SERVLET_DETAIL_ONE = new ServletDetail(
             ServletOne.class,
-            create().withName(CONFIGURED_SERVLET_DETAIL_ONE_NAME).withUrlPatterns(CONFIGURED_SERVLET_DETAIL_ONE_PATH)
+            create().withName(CONFIGURED_SERVLET_DETAIL_ONE_NAME).withValue(CONFIGURED_SERVLET_DETAIL_ONE_PATH)
                     .build()
     );
     public static final ServletDetail CONFIGURED_SERVLET_DETAIL_TWO = new ServletDetail(
             ServletTwo.class,
-            create().withName(CONFIGURED_SERVLET_DETAIL_TWO_NAME).withUrlPatterns(CONFIGURED_SERVLET_DETAIL_TWO_PATH)
+            create().withName(CONFIGURED_SERVLET_DETAIL_TWO_NAME).withValue(CONFIGURED_SERVLET_DETAIL_TWO_PATH)
                     .build()
     );
 

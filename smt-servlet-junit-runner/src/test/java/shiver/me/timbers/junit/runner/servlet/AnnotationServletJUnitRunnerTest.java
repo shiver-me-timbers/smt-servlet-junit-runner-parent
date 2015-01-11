@@ -108,14 +108,14 @@ public class AnnotationServletJUnitRunnerTest {
                                     name = CONFIGURED_SERVLET_DETAIL_ONE_NAME,
                                     value = CONFIGURED_SERVLET_DETAIL_ONE_PATH
                             ),
-                            servlet = ServletTwo.class
+                            servlet = ServletOne.class
                     ),
                     @ServletConfiguration(
                             configuration = @WebServlet(
                                     name = CONFIGURED_SERVLET_DETAIL_TWO_NAME,
                                     value = CONFIGURED_SERVLET_DETAIL_TWO_PATH
                             ),
-                            servlet = ServletThree.class
+                            servlet = ServletTwo.class
                     )
             },
             filters = {FilterOne.class, FilterTwo.class, FilterThree.class},

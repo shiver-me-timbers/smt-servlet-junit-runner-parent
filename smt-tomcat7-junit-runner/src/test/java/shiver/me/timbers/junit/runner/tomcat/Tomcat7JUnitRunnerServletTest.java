@@ -12,20 +12,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
-import static javax.ws.rs.core.MediaType.TEXT_PLAIN_TYPE;
 import static javax.ws.rs.core.Response.Status.OK;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static shiver.me.timbers.junit.runner.tomcat.Tomcat7JUnitRunnerServletTest.TestServlet;
+import static shiver.me.timbers.junit.runner.tomcat.test.Constants.GET;
 import static shiver.me.timbers.junit.runner.tomcat.test.Constants.INIT;
 import static shiver.me.timbers.junit.runner.tomcat.test.Constants.PARAM;
 import static shiver.me.timbers.junit.runner.tomcat.test.Constants.SERVLET_NAME;
@@ -53,10 +52,7 @@ public class Tomcat7JUnitRunnerServletTest {
         assertEquals(SERVLET_NAME, NAME.get());
         assertEquals(PARAM, INIT_PARAM_VALUE.get());
 
-        final Response response = ClientBuilder.newClient()
-                .target(String.format("http://localhost:%d/%s", port, URL_PATTERN))
-                .request(TEXT_PLAIN_TYPE).get();
-
+        final Response response = GET(port, URL_PATTERN);
 
         assertTrue(ASYNC_SUPPORTED.get());
         assertEquals(OK.getStatusCode(), response.getStatus());
