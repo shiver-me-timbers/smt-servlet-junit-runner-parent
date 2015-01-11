@@ -11,8 +11,8 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockEmptyServlets;
 import static shiver.me.timbers.junit.runner.servlet.test.EqualAllMatcher.equalAll;
+import static shiver.me.timbers.junit.runner.servlet.test.ServletConstants.mockEmptyServlets;
 
 @RunWith(TestAnnotationServletJUnitRunner.class)
 public class MethodLevelAnnotationServletJUnitRunnerTest {

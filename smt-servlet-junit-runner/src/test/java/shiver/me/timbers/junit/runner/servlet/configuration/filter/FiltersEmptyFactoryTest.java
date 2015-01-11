@@ -4,8 +4,8 @@ import org.junit.Test;
 import shiver.me.timbers.junit.runner.servlet.Filters;
 
 import static org.junit.Assert.assertThat;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockEmptyFilters;
 import static shiver.me.timbers.junit.runner.servlet.test.EqualAllMatcher.equalAll;
+import static shiver.me.timbers.junit.runner.servlet.test.FilterConstants.mockEmptyFilters;
 
 public class FiltersEmptyFactoryTest {
 

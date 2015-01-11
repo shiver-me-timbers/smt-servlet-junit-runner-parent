@@ -12,12 +12,12 @@ import javax.servlet.annotation.WebServlet;
 public @interface ServletConfiguration {
 
     /**
-     * The configuration for the {@link Servlet} that should be loaded for this test.
+     * The configuration for the {@code Servlet} that should be loaded for this test.
      */
     WebServlet configuration();
 
     /**
-     * The {@link Servlet} that should be loaded for this test.
+     * The {@code Servlet} that should be loaded for this test.
      */
     Class<? extends Servlet> servlet();
 }

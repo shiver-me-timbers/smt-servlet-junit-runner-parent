@@ -27,11 +27,11 @@ import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.TEST_PACKAGE;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockEmptyPackages;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockNoClassPackages;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockPackages;
 import static shiver.me.timbers.junit.runner.servlet.test.EqualAllMatcher.equalAll;
+import static shiver.me.timbers.junit.runner.servlet.test.PackageConstants.TEST_PACKAGE;
+import static shiver.me.timbers.junit.runner.servlet.test.PackageConstants.mockEmptyPackages;
+import static shiver.me.timbers.junit.runner.servlet.test.PackageConstants.mockNoClassPackages;
+import static shiver.me.timbers.junit.runner.servlet.test.PackageConstants.mockPackages;
 
 public class OpenPojoPackagesFactoryTest {
 

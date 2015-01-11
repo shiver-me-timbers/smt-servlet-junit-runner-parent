@@ -3,7 +3,6 @@ package shiver.me.timbers.junit.runner.servlet.configuration.filter;
 import org.junit.Test;
 import shiver.me.timbers.junit.runner.servlet.Filters;
 import shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration;
-import shiver.me.timbers.junit.runner.servlet.test.Constants;
 import shiver.me.timbers.junit.runner.servlet.test.FilterOne;
 import shiver.me.timbers.junit.runner.servlet.test.FilterThree;
 import shiver.me.timbers.junit.runner.servlet.test.FilterTwo;
@@ -11,8 +10,9 @@ import shiver.me.timbers.junit.runner.servlet.test.FilterTwo;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockEmptyFilters;
 import static shiver.me.timbers.junit.runner.servlet.test.EqualAllMatcher.equalAll;
+import static shiver.me.timbers.junit.runner.servlet.test.FilterConstants.mockAnnotatedFilters;
+import static shiver.me.timbers.junit.runner.servlet.test.FilterConstants.mockEmptyFilters;
 
 public class FiltersAnnotationFactoryTest {
 
@@ -38,7 +38,7 @@ public class FiltersAnnotationFactoryTest {
     public void Filters_are_returned_if_some_are_configured() {
 
         // Given
-        final Filters expected = Constants.mockAnnotatedFilters();
+        final Filters expected = mockAnnotatedFilters();
 
         final ContainerConfiguration configuration = mock(ContainerConfiguration.class);
         when(configuration.filters()).thenReturn(new Class[]{FilterOne.class, FilterTwo.class, FilterThree.class});

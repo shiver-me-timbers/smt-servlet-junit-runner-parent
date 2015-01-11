@@ -4,11 +4,11 @@ import org.junit.Test;
 
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertThat;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.PACKAGE_ONE;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.PACKAGE_THREE;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.PACKAGE_TWO;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockPackages;
 import static shiver.me.timbers.junit.runner.servlet.test.EqualAllMatcher.equalAll;
+import static shiver.me.timbers.junit.runner.servlet.test.PackageConstants.PACKAGE_ONE;
+import static shiver.me.timbers.junit.runner.servlet.test.PackageConstants.PACKAGE_THREE;
+import static shiver.me.timbers.junit.runner.servlet.test.PackageConstants.PACKAGE_TWO;
+import static shiver.me.timbers.junit.runner.servlet.test.PackageConstants.mockPackages;
 
 public class SettablePackagesTest {
 

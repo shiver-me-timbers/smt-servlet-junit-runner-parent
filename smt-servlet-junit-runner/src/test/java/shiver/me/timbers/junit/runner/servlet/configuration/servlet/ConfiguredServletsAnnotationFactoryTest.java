@@ -12,13 +12,13 @@ import javax.servlet.annotation.WebServlet;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.CONFIGURED_SERVLET_DETAIL_ONE_NAME;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.CONFIGURED_SERVLET_DETAIL_ONE_PATH;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.CONFIGURED_SERVLET_DETAIL_TWO_NAME;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.CONFIGURED_SERVLET_DETAIL_TWO_PATH;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockConfguredServlets;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockEmptyServlets;
 import static shiver.me.timbers.junit.runner.servlet.test.EqualAllMatcher.equalAll;
+import static shiver.me.timbers.junit.runner.servlet.test.ServletConstants.CONFIGURED_SERVLET_DETAIL_ONE_NAME;
+import static shiver.me.timbers.junit.runner.servlet.test.ServletConstants.CONFIGURED_SERVLET_DETAIL_ONE_PATH;
+import static shiver.me.timbers.junit.runner.servlet.test.ServletConstants.CONFIGURED_SERVLET_DETAIL_TWO_NAME;
+import static shiver.me.timbers.junit.runner.servlet.test.ServletConstants.CONFIGURED_SERVLET_DETAIL_TWO_PATH;
+import static shiver.me.timbers.junit.runner.servlet.test.ServletConstants.mockConfiguredServlets;
+import static shiver.me.timbers.junit.runner.servlet.test.ServletConstants.mockEmptyServlets;
 
 public class ConfiguredServletsAnnotationFactoryTest {
 
@@ -44,7 +44,7 @@ public class ConfiguredServletsAnnotationFactoryTest {
     public void Servlets_are_returned_if_some_are_configured() {
 
         // Given
-        final Servlets expected = mockConfguredServlets();
+        final Servlets expected = mockConfiguredServlets();
 
         @ContainerConfiguration(
                 servletConfigurations = {

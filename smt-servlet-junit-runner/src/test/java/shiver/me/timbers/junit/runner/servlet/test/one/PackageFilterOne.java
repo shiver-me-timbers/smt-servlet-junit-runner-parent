@@ -4,6 +4,8 @@ import shiver.me.timbers.junit.runner.servlet.test.BaseFilter;
 
 import javax.servlet.annotation.WebFilter;
 
-@WebFilter("/package-filter-one")
+import static shiver.me.timbers.junit.runner.servlet.test.FilterConstants.PACKAGE_FILTER_DETAIL_ONE_PATH;
+
+@WebFilter(PACKAGE_FILTER_DETAIL_ONE_PATH)
 public class PackageFilterOne extends BaseFilter {
 }

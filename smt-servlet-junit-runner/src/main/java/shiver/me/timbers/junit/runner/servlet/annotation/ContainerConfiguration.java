@@ -124,6 +124,11 @@ public @interface ContainerConfiguration {
     Class<? extends Filter>[] filters() default {};
 
     /**
+     * The explicitly configured {@link Filter}s that should be loaded for this test.
+     */
+    FilterConfiguration[] filterConfigurations() default {};
+
+    /**
      * The packages that should be scanned for {@link Servlet} classes.
      */
     String[] packages() default {};

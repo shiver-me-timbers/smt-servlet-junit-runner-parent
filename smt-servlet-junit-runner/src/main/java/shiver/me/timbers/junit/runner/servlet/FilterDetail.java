@@ -47,7 +47,7 @@ public class FilterDetail {
         this(filter, buildAnnotation(filter, WebFilter.class, ClassWebFilter.class));
     }
 
-    private FilterDetail(Class<? extends Filter> filter, WebFilter webFilter) {
+    public FilterDetail(Class<? extends Filter> filter, WebFilter webFilter) {
         this(
                 webFilter.description(),
                 webFilter.displayName(),

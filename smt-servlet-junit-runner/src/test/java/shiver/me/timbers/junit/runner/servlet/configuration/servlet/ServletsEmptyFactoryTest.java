@@ -4,8 +4,8 @@ import org.junit.Test;
 import shiver.me.timbers.junit.runner.servlet.Servlets;
 
 import static org.junit.Assert.assertThat;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockEmptyServlets;
 import static shiver.me.timbers.junit.runner.servlet.test.EqualAllMatcher.equalAll;
+import static shiver.me.timbers.junit.runner.servlet.test.ServletConstants.mockEmptyServlets;
 
 public class ServletsEmptyFactoryTest {
 
