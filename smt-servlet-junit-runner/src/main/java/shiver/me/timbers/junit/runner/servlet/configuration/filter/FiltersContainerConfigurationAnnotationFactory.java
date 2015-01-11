@@ -28,7 +28,8 @@ public class FiltersContainerConfigurationAnnotationFactory
                                         new FilterFiltersFactory(),
                                         Filter.class
                                 )
-                        )
+                        ),
+                        new ConfiguredFiltersAnnotationFactory()
                 )
         );
     }
