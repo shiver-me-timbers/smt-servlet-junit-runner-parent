@@ -30,6 +30,7 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static shiver.me.timbers.junit.runner.tomcat.Tomcat7JUnitRunnerFilterTest.TestFilter;
 import static shiver.me.timbers.junit.runner.tomcat.Tomcat7JUnitRunnerFilterTest.TestServlet;
+import static shiver.me.timbers.junit.runner.tomcat.test.Constants.FILTERED;
 import static shiver.me.timbers.junit.runner.tomcat.test.Constants.FILTER_NAME;
 import static shiver.me.timbers.junit.runner.tomcat.test.Constants.GET;
 import static shiver.me.timbers.junit.runner.tomcat.test.Constants.INIT;
@@ -44,8 +45,6 @@ public class Tomcat7JUnitRunnerFilterTest {
     private static final AtomicReference<String> NAME = new AtomicReference<>();
     private static final AtomicReference<String> INIT_PARAM_VALUE = new AtomicReference<>();
     private static final AtomicReference<Boolean> ASYNC_SUPPORTED = new AtomicReference<>();
-
-    private static final String FILTERED = "filtered";
 
     @Port
     private int port;

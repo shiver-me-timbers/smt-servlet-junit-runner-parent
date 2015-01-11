@@ -75,7 +75,7 @@ public class Tomcat7Container implements Container<Tomcat> {
 
     @Override
     public void load(URL webXml) {
-        throw new UnsupportedOperationException();
+        context.setAltDDName(webXml.getPath());
     }
 
     @Override
