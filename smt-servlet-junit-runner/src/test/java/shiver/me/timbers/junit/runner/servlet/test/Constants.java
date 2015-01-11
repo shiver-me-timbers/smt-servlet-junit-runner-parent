@@ -24,6 +24,7 @@ import java.util.Map;
 import static java.util.Collections.singletonMap;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static shiver.me.timbers.junit.runner.servlet.WebServletBuilder.create;
 
 public class Constants {
 
@@ -39,6 +40,24 @@ public class Constants {
     public static final String URL_PATTERN = "/url-pattern";
     public static final boolean ASYNC_SUPPORT = true;
 
+    public static final String SERVLET_DETAIL_ONE_NAME = "servlet-one";
+    public static final String SERVLET_DETAIL_THREE_NAME = "servlet-three";
+
+    public static final String PACKAGE_SERVLET_DETAIL_ONE_NAME = "package-servlet-one";
+    public static final String PACKAGE_SERVLET_DETAIL_TWO_NAME = "package-servlet-two";
+
+    public static final String CONFIGURED_SERVLET_DETAIL_ONE_NAME = "configured-servlet-one";
+    public static final String CONFIGURED_SERVLET_DETAIL_TWO_NAME = "configured-servlet-two";
+
+    public static final String SERVLET_DETAIL_ONE_PATH = "/one";
+    public static final String SERVLET_DETAIL_THREE_PATH = "/three";
+
+    public static final String PACKAGE_SERVLET_DETAIL_ONE_PATH = "/package-one";
+    public static final String PACKAGE_SERVLET_DETAIL_TWO_PATH = "/package-two";
+
+    public static final String CONFIGURED_SERVLET_DETAIL_ONE_PATH = "/configured-one";
+    public static final String CONFIGURED_SERVLET_DETAIL_TWO_PATH = "/configured-two";
+
     public static final ServletDetail SERVLET_DETAIL_ONE = new ServletDetail(ServletOne.class);
     public static final ServletDetail SERVLET_DETAIL_TWO = new ServletDetail(ServletTwo.class);
     public static final ServletDetail SERVLET_DETAIL_THREE = new ServletDetail(ServletThree.class);
@@ -46,6 +65,17 @@ public class Constants {
     public static final ServletDetail PACKAGE_SERVLET_DETAIL_ONE = new ServletDetail(PackageServletOne.class);
     public static final ServletDetail PACKAGE_SERVLET_DETAIL_TWO = new ServletDetail(PackageServletTwo.class);
     public static final ServletDetail PACKAGE_SERVLET_DETAIL_THREE = new ServletDetail(PackageServletThree.class);
+
+    public static final ServletDetail CONFIGURED_SERVLET_DETAIL_ONE = new ServletDetail(
+            ServletOne.class,
+            create().withName(CONFIGURED_SERVLET_DETAIL_ONE_NAME).withUrlPatterns(CONFIGURED_SERVLET_DETAIL_ONE_PATH)
+                    .build()
+    );
+    public static final ServletDetail CONFIGURED_SERVLET_DETAIL_TWO = new ServletDetail(
+            ServletTwo.class,
+            create().withName(CONFIGURED_SERVLET_DETAIL_TWO_NAME).withUrlPatterns(CONFIGURED_SERVLET_DETAIL_TWO_PATH)
+                    .build()
+    );
 
     public static final FilterDetail FILTER_DETAIL_ONE = new FilterDetail(FilterOne.class);
     public static final FilterDetail FILTER_DETAIL_TWO = new FilterDetail(FilterTwo.class);
@@ -70,31 +100,31 @@ public class Constants {
         return mockListIterable(Servlets.class, new ArrayList<ServletDetail>());
     }
 
-    public static Servlets mockServlets() {
+    public static Servlets mockAnnotatedServlets() {
 
-        return mockListIterable(
-                Servlets.class,
-                SERVLET_DETAIL_ONE,
-                SERVLET_DETAIL_TWO,
-                SERVLET_DETAIL_THREE
-        );
+        return mockServlets(SERVLET_DETAIL_ONE, SERVLET_DETAIL_TWO, SERVLET_DETAIL_THREE);
     }
 
     public static Servlets mockPackageServlets() {
 
-        return mockListIterable(
-                Servlets.class,
-                PACKAGE_SERVLET_DETAIL_ONE,
-                PACKAGE_SERVLET_DETAIL_TWO,
-                PACKAGE_SERVLET_DETAIL_THREE
-        );
+        return mockServlets(PACKAGE_SERVLET_DETAIL_ONE, PACKAGE_SERVLET_DETAIL_TWO, PACKAGE_SERVLET_DETAIL_THREE);
+    }
+
+    public static Servlets mockConfguredServlets() {
+
+        return mockServlets(CONFIGURED_SERVLET_DETAIL_ONE, CONFIGURED_SERVLET_DETAIL_TWO);
+    }
+
+    public static Servlets mockServlets(ServletDetail... servletDetails) {
+        return mockListIterable(Servlets.class, servletDetails);
     }
 
     public static Servlets mockAllServlets() {
 
-        final ArrayList<ServletDetail> list = new ArrayList<>();
-        list.addAll(mockServlets().asList());
+        final List<ServletDetail> list = new ArrayList<>();
+        list.addAll(mockAnnotatedServlets().asList());
         list.addAll(mockPackageServlets().asList());
+        list.addAll(mockConfguredServlets().asList());
 
         return mockListIterable(Servlets.class, list);
     }
@@ -104,30 +134,24 @@ public class Constants {
         return mockListIterable(Filters.class, new ArrayList<FilterDetail>());
     }
 
-    public static Filters mockFilters() {
+    public static Filters mockAnnotatedFilters() {
 
-        return mockListIterable(
-                Filters.class,
-                FILTER_DETAIL_ONE,
-                FILTER_DETAIL_TWO,
-                FILTER_DETAIL_THREE
-        );
+        return mockFilters(FILTER_DETAIL_ONE, FILTER_DETAIL_TWO, FILTER_DETAIL_THREE);
     }
 
     public static Filters mockPackageFilters() {
 
-        return mockListIterable(
-                Filters.class,
-                PACKAGE_FILTER_DETAIL_ONE,
-                PACKAGE_FILTER_DETAIL_TWO,
-                PACKAGE_FILTER_DETAIL_THREE
-        );
+        return mockFilters(PACKAGE_FILTER_DETAIL_ONE, PACKAGE_FILTER_DETAIL_TWO, PACKAGE_FILTER_DETAIL_THREE);
+    }
+
+    public static Filters mockFilters(FilterDetail... filterDetails) {
+        return mockListIterable(Filters.class, filterDetails);
     }
 
     public static Filters mockAllFilters() {
 
-        final ArrayList<FilterDetail> list = new ArrayList<>();
-        list.addAll(mockFilters().asList());
+        final List<FilterDetail> list = new ArrayList<>();
+        list.addAll(mockAnnotatedFilters().asList());
         list.addAll(mockPackageFilters().asList());
 
         return mockListIterable(Filters.class, list);
@@ -135,20 +159,12 @@ public class Constants {
 
     public static Packages mockPackages() {
 
-        return mockPackages(
-                PACKAGE_ONE,
-                PACKAGE_TWO,
-                PACKAGE_THREE
-        );
+        return mockPackages(PACKAGE_ONE, PACKAGE_TWO, PACKAGE_THREE);
     }
 
     public static Packages mockNoClassPackages() {
 
-        return mockPackages(
-                EMPTY_PACKAGE_ONE,
-                EMPTY_PACKAGE_TWO,
-                EMPTY_PACKAGE_THREE
-        );
+        return mockPackages(EMPTY_PACKAGE_ONE, EMPTY_PACKAGE_TWO, EMPTY_PACKAGE_THREE);
     }
 
     public static Packages mockPackages(String... packageStrings) {
@@ -164,7 +180,7 @@ public class Constants {
     @SafeVarargs
     public static <E, T extends ListIterable<T, E>> T mockListIterable(Class<T> type, E... elements) {
 
-        final ArrayList<E> list = new ArrayList<>();
+        final List<E> list = new ArrayList<>();
 
         Collections.addAll(list, elements);
 

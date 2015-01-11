@@ -12,74 +12,79 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * This annotation can be used to configure the servlet container. This can be done through code or XML.
+ * This annotation can be used to configure a tests servlet container. This can be done through code or XML.
  * <p/>
  * To manually configure the container with code the annotation can be applied at the class level with an implementation
- * of the {@link shiver.me.timbers.junit.runner.servlet.configuration.ContainerConfiguration} interface. This implementation
- * should be generically typed to the containers configuration class.
+ * of the {@link shiver.me.timbers.junit.runner.servlet.configuration.ContainerConfiguration} interface. This
+ * implementation should be generically typed to the containers configuration class.
  * <p/>
  * <pre>
- * {@code
- *  &#64;ContainerConfiguration(CustomContainerConfiguration.class)
+ * {@literal @}ContainerConfiguration(CustomContainerConfiguration.class)
  *  class SomeTest {
- *  }
- * }
- * </pre>
- * <p/>
- * Or apply it to a method that has the servlet containers configuration class as it's first argument.
- * <p/>
+ *  }</pre>
+ *
+ * Or apply it to a method that has the servlet containers configuration class as it's first argument.<br/><br/>
+ *
  * <pre>
- * {@code
  *  class SomeTest {
- *      &#64;ContainerConfiguration
+ *     {@literal @}ContainerConfiguration
  *      public void config(Tomcat tomcat) {
  *          // Configuration goes here.
  *      }
- *  }
- * }
- * </pre>
- * <p/>
- * The {@link Servlet}s that should be loaded into the container for the test class can be set by listing them at the
- * class level.
- * <p/>
+ *  }</pre>
+ *
+ * The {@link Servlet}s that should be loaded into the container for the test can be set by listing them at the class
+ * level.<br/><br/>
+ *
  * <pre>
- * {@code
- *  &#64;ContainerConfiguration(servlets = {ServletOne.class, ServletTwo.class, ServletThree.class})
+ * {@literal @}ContainerConfiguration(servlets = {ServletOne.class, ServletTwo.class, ServletThree.class})
  *  class SomeTest {
- *  }
- * }
- * </pre>
- * <p/>
- * {@link Filter}s can be set the same way.
- * <p/>
+ *  }</pre>
+ *
+ * {@link Filter}s can be set the same way.<br/><br/>
+ *
  * <pre>
- * {@code
- *  &#64;ContainerConfiguration(filters = {FilterOne.class, FilterTwo.class, FilterThree.class})
+ * {@literal @}ContainerConfiguration(filters = {FilterOne.class, FilterTwo.class, FilterThree.class})
  *  class SomeTest {
- *  }
- * }
- * </pre>
- * <p/>
- * Alternatively a list of packages can be supplied that will be scanned for any {@link Servlet}s and {@link Filter}s.
- * <p/>
+ *  }</pre>
+ *
+ * Alternatively a list of packages can be supplied that will be scanned for any {@link Servlet}s and {@link Filter}s.<br/><br/>
+ *
  * <pre>
- * {@code
- *  &#64;ContainerConfiguration(packages = {"one.package", "two.package", "three.package"})
+ * {@literal @}ContainerConfiguration(packages = {"package.one", "package.two", "package.three"})
  *  class SomeTest {
- *  }
- * }
- * </pre>
- * <p/>
- * Lastly the path to a {@code web.xml} can be provided which will then be used by the container. This path should be
- * relative to the root of the class path.
- * <p/>
+ *  }</pre>
+ *
+ * Lastly the path to a {@code web.xml} file can be provided which will then be used by the container. This path should
+ * be relative to the root of the class path.<br/><br/>
+ *
  * <pre>
- * {@code
- *  &#64;ContainerConfiguration(webXml = "path/to/web.xml")
+ * {@literal @}ContainerConfiguration(webXml = "path/to/web.xml")
  *  class SomeTest {
- *  }
- * }
- * </pre>
+ *  }</pre>
+ *
+ * Any {@code Servlet} or {@code Filter} classes that are to be loaded, but don't have any explicit configuration
+ * through annotations or XML will be given the minimum default configuration of:<br/>
+ * {@code name}/{@code filterName}: the simple class name<br/>
+ * {@code urlPatterns}: /[the simple class name]<br/><br/>
+ *
+ * It is also possible to set some explicit configuration for the {@code Servlet} or {@code Filter} just for the test.
+ * This will override any other configuration.<br/><br/>
+ *
+ * <pre>
+ * {@literal @}ContainerConfiguration(
+ *      servletConfigurations = {
+ *         {@literal @}ServletConfiguration(
+ *              configuration ={@literal @}WebServlet(
+ *                  name = "servlet-one",
+ *                  value = "/one"
+ *              )
+ *              servlet = ServletOne.class
+ *          )
+ *      }
+ *  )
+ *  class SomeTest {
+ *  }</pre>
  *
  * @author Karl Bennett
  */
@@ -98,6 +103,11 @@ public @interface ContainerConfiguration {
      * The {@link Servlet}s that should be loaded for this test.
      */
     Class<? extends Servlet>[] servlets() default {};
+
+    /**
+     * The explicitly configured {@link Servlet}s that should be loaded for this test.
+     */
+    ServletConfiguration[] servletConfigurations() default {};
 
     /**
      * The {@link Filter}s that should be loaded for this test.

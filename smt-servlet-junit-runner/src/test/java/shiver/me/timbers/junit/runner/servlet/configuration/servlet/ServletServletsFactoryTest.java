@@ -2,6 +2,7 @@ package shiver.me.timbers.junit.runner.servlet.configuration.servlet;
 
 import org.junit.Test;
 import shiver.me.timbers.junit.runner.servlet.Servlets;
+import shiver.me.timbers.junit.runner.servlet.test.Constants;
 import shiver.me.timbers.junit.runner.servlet.test.ServletOne;
 import shiver.me.timbers.junit.runner.servlet.test.ServletThree;
 import shiver.me.timbers.junit.runner.servlet.test.ServletTwo;
@@ -11,7 +12,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertThat;
-import static shiver.me.timbers.junit.runner.servlet.test.Constants.mockServlets;
 import static shiver.me.timbers.junit.runner.servlet.test.EqualAllMatcher.equalAll;
 
 /**
@@ -28,7 +28,7 @@ public class ServletServletsFactoryTest {
                 ServletTwo.class,
                 ServletThree.class
         );
-        final Servlets expected = mockServlets();
+        final Servlets expected = Constants.mockAnnotatedServlets();
 
         // When
         final Servlets actual = new ServletServletsFactory().create(types);

@@ -36,7 +36,7 @@ public class ServletDetail {
         this(servlet, buildAnnotation(servlet, WebServlet.class, ClassWebServlet.class));
     }
 
-    private ServletDetail(Class<? extends Servlet> servlet, WebServlet webServlet) {
+    public ServletDetail(Class<? extends Servlet> servlet, WebServlet webServlet) {
         this(
                 webServlet.name(),
                 findUrlPatterns(webServlet),

@@ -6,6 +6,7 @@ import org.junit.runner.Result;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.model.InitializationError;
 import shiver.me.timbers.junit.runner.servlet.annotation.Port;
+import shiver.me.timbers.junit.runner.servlet.annotation.ServletConfiguration;
 import shiver.me.timbers.junit.runner.servlet.configuration.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.configuration.port.PortConfiguration;
 import shiver.me.timbers.junit.runner.servlet.test.FilterOne;
@@ -15,6 +16,7 @@ import shiver.me.timbers.junit.runner.servlet.test.ServletOne;
 import shiver.me.timbers.junit.runner.servlet.test.ServletThree;
 import shiver.me.timbers.junit.runner.servlet.test.ServletTwo;
 
+import javax.servlet.annotation.WebServlet;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static org.hamcrest.Matchers.greaterThan;
@@ -22,6 +24,10 @@ import static org.mockito.Matchers.argThat;
 import static org.mockito.Matchers.intThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.CONFIGURED_SERVLET_DETAIL_ONE_NAME;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.CONFIGURED_SERVLET_DETAIL_ONE_PATH;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.CONFIGURED_SERVLET_DETAIL_TWO_NAME;
+import static shiver.me.timbers.junit.runner.servlet.test.Constants.CONFIGURED_SERVLET_DETAIL_TWO_PATH;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.PACKAGE_ONE;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.PACKAGE_THREE;
 import static shiver.me.timbers.junit.runner.servlet.test.Constants.PACKAGE_TWO;
@@ -96,6 +102,22 @@ public class AnnotationServletJUnitRunnerTest {
             port = PORT,
             value = TestContainerConfiguration.class,
             servlets = {ServletOne.class, ServletTwo.class, ServletThree.class},
+            servletConfigurations = {
+                    @ServletConfiguration(
+                            configuration = @WebServlet(
+                                    name = CONFIGURED_SERVLET_DETAIL_ONE_NAME,
+                                    value = CONFIGURED_SERVLET_DETAIL_ONE_PATH
+                            ),
+                            servlet = ServletTwo.class
+                    ),
+                    @ServletConfiguration(
+                            configuration = @WebServlet(
+                                    name = CONFIGURED_SERVLET_DETAIL_TWO_NAME,
+                                    value = CONFIGURED_SERVLET_DETAIL_TWO_PATH
+                            ),
+                            servlet = ServletThree.class
+                    )
+            },
             filters = {FilterOne.class, FilterTwo.class, FilterThree.class},
             packages = {PACKAGE_ONE, PACKAGE_TWO, PACKAGE_THREE}
     )
