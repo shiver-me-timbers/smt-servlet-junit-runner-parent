@@ -1,6 +1,7 @@
 package shiver.me.timbers.junit.runner.tomcat;
 
 import org.apache.catalina.Context;
+import org.apache.catalina.Engine;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.Wrapper;
 import org.apache.catalina.startup.Tomcat;
@@ -29,7 +30,15 @@ public class Tomcat7Container implements Container<Tomcat> {
 
     public Tomcat7Container(Tomcat tomcat) throws ServletException {
         this.tomcat = tomcat;
+        // Give the Tomcat engine instance a unique name so that it's global MBeans don't clash with other Tomcats in
+        // this JVM.
+        setUniqueEngineName(this.tomcat);
         context = this.tomcat.addWebapp(this.tomcat.getHost(), "/", "/");
+    }
+
+    private static void setUniqueEngineName(Tomcat tomcat) {
+        final Engine engine = tomcat.getEngine();
+        engine.setName(engine.getName() + System.identityHashCode(tomcat));
     }
 
     @Override
