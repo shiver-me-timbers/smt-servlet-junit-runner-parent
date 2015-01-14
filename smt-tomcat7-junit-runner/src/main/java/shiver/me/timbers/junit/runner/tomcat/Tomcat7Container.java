@@ -5,6 +5,8 @@ import org.apache.catalina.Engine;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.Wrapper;
 import org.apache.catalina.startup.Tomcat;
+import org.apache.tomcat.JarScanner;
+import org.apache.tomcat.JarScannerCallback;
 import shiver.me.timbers.junit.runner.servlet.Container;
 import shiver.me.timbers.junit.runner.servlet.FilterDetail;
 import shiver.me.timbers.junit.runner.servlet.Filters;
@@ -15,8 +17,10 @@ import shiver.me.timbers.junit.runner.servlet.configuration.port.PortConfigurati
 import shiver.me.timbers.junit.runner.tomcat.filter.FilterDetailFilterDef;
 import shiver.me.timbers.junit.runner.tomcat.filter.FilterDetailFilterMap;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import java.net.URL;
+import java.util.Set;
 
 import static java.util.Map.Entry;
 
@@ -34,6 +38,13 @@ public class Tomcat7Container implements Container<Tomcat> {
         // this JVM.
         setUniqueEngineName(this.tomcat);
         context = this.tomcat.addWebapp(this.tomcat.getHost(), "/", "/");
+        // Disable the Jar scanning so that only the classes that are configured in the test are loaded and the Tomcat
+        // startup time is drastically decreased.
+        context.setJarScanner(new JarScanner() {
+            @Override
+            public void scan(ServletContext ct, ClassLoader cl, JarScannerCallback cb, Set<String> jts) {
+            }
+        });
     }
 
     private static void setUniqueEngineName(Tomcat tomcat) {
