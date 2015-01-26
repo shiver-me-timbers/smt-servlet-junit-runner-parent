@@ -3,6 +3,7 @@ package shiver.me.timbers.junit.runner.tomcat.filter;
 import org.junit.Test;
 import shiver.me.timbers.junit.runner.servlet.FilterDetail;
 
+import javax.servlet.Filter;
 import java.lang.reflect.Field;
 
 import static java.util.Collections.singletonMap;
@@ -15,8 +16,12 @@ public class FilterDetailFilterDefTest {
     @Test
     public void A_filter_def_can_be_created_with_a_filter_detail() {
 
-        // Given
+        final Filter filter = mock(Filter.class);
+
         final FilterDetail expected = mock(FilterDetail.class);
+
+        // Given
+        when(expected.getFilterInstance()).thenReturn(filter);
         when(expected.getDescription()).thenReturn("description");
         when(expected.getDisplayName()).thenReturn("displayName");
         when(expected.getInitParams()).thenReturn(singletonMap("init", "param"));
@@ -29,7 +34,7 @@ public class FilterDetailFilterDefTest {
         final FilterDetailFilterDef actual = new FilterDetailFilterDef(expected);
 
         // Then
-        assertEquals(expected.getFilter(), actual.getFilter());
+        assertEquals(expected.getFilterInstance(), actual.getFilter());
         assertEquals(expected.getDescription(), actual.getDescription());
         assertEquals(expected.getDisplayName(), actual.getDisplayName());
         assertEquals(expected.getInitParams(), getFieldValue(actual.getClass().getSuperclass(), actual, "parameters"));
@@ -39,6 +44,7 @@ public class FilterDetailFilterDefTest {
         assertEquals(String.valueOf(expected.asyncSupported()), actual.getAsyncSupported());
     }
 
+    @SuppressWarnings("unchecked")
     private static <T> T getFieldValue(Class type, Object object, String name) {
 
         try {

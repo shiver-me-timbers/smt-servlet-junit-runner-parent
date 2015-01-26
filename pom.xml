@@ -64,18 +64,11 @@
             <artifactId>junit</artifactId>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-all</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-        </dependency>
     </dependencies>
 
     <modules>
         <module>smt-servlet-junit-runner</module>
+        <module>smt-servlet-junit-runner-test</module>
         <module>smt-tomcat7-junit-runner</module>
     </modules>
 

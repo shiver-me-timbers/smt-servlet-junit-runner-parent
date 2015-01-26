@@ -5,6 +5,7 @@ import org.apache.catalina.Engine;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.Wrapper;
 import org.apache.catalina.startup.Tomcat;
+import org.apache.commons.io.IOUtils;
 import org.apache.tomcat.JarScanner;
 import org.apache.tomcat.JarScannerCallback;
 import shiver.me.timbers.junit.runner.servlet.Container;
@@ -19,7 +20,12 @@ import shiver.me.timbers.junit.runner.tomcat.filter.FilterDetailFilterMap;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.Set;
 
 import static java.util.Map.Entry;
@@ -31,12 +37,16 @@ public class Tomcat7Container implements Container<Tomcat> {
 
     private final Tomcat tomcat;
     private final Context context;
+    private int identityHash;
 
     public Tomcat7Container(Tomcat tomcat) throws ServletException {
         this.tomcat = tomcat;
+
+        identityHash = System.identityHashCode(tomcat);
+
         // Give the Tomcat engine instance a unique name so that it's global MBeans don't clash with other Tomcats in
         // this JVM.
-        setUniqueEngineName(this.tomcat);
+        setUniqueEngineName(this.tomcat, identityHash);
         context = this.tomcat.addWebapp(this.tomcat.getHost(), "/", "/");
         // Disable the Jar scanning so that only the classes that are configured in the test are loaded and the Tomcat
         // startup time is drastically decreased.
@@ -47,9 +57,9 @@ public class Tomcat7Container implements Container<Tomcat> {
         });
     }
 
-    private static void setUniqueEngineName(Tomcat tomcat) {
+    private static void setUniqueEngineName(Tomcat tomcat, int instanchHash) {
         final Engine engine = tomcat.getEngine();
-        engine.setName(engine.getName() + System.identityHashCode(tomcat));
+        engine.setName(engine.getName() + instanchHash);
     }
 
     @Override
@@ -95,7 +105,47 @@ public class Tomcat7Container implements Container<Tomcat> {
 
     @Override
     public void load(URL webXml) {
-        context.setAltDDName(webXml.getPath());
+
+        if (isNotInJar(webXml)) {
+            context.setAltDDName(webXml.getPath());
+            return;
+        }
+
+        final String webXmlPath = toFileSystem(webXml);
+
+        context.setAltDDName(webXmlPath);
+    }
+
+    private String toFileSystem(URL webXml) {
+
+        final File tempWebXmlFile = createTempFile("web.xml");
+
+        try (
+                final InputStream inputStream = webXml.openStream();
+                final FileOutputStream outputStream = new FileOutputStream(tempWebXmlFile)
+        ) {
+
+            IOUtils.copy(inputStream, outputStream);
+
+            return tempWebXmlFile.getAbsolutePath();
+
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    private File createTempFile(String fileName) {
+        try {
+            final File tempDirectory = Files.createTempDirectory("tomcat-" + identityHash).toFile();
+
+            return new File(tempDirectory, fileName);
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    private static boolean isNotInJar(URL webXml) {
+        return !webXml.getPath().contains(".jar!");
     }
 
     @Override
