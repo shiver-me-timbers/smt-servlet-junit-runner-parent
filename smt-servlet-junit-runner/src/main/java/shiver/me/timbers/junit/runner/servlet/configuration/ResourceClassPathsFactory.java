@@ -67,7 +67,7 @@ public class ResourceClassPathsFactory implements ClassPathsFactory {
     }
 
     private static boolean isInJar(String path) {
-        return path.startsWith("file:") && path.contains(".jar!");
+        return path.contains(".jar!");
     }
 
     static List<String> filesInJarPath(String resourcePath) {
@@ -89,7 +89,7 @@ public class ResourceClassPathsFactory implements ClassPathsFactory {
 
                 final String entryName = entry.getName();
 
-                if (entryName.equals(packagePath)) {
+                if (entryName.equals(packagePath) || entryName.equals(packagePath + "/")) {
                     packageIsDirectory(jarFile.getJarEntry(entryName));
                 }
 
@@ -129,13 +129,10 @@ public class ResourceClassPathsFactory implements ClassPathsFactory {
 
             final String absolutePath = file.getAbsolutePath();
 
-            if (absolutePath.startsWith(resourcePath)) {
-
-                if (file.isDirectory()) {
-                    fileNames.addAll(filesInPath(absolutePath, absolutePath.replace(basePath, "")));
-                } else {
-                    fileNames.add(packagePath + "/" + file.getName());
-                }
+            if (file.isDirectory()) {
+                fileNames.addAll(filesInPath(absolutePath, absolutePath.replace(basePath, "")));
+            } else {
+                fileNames.add(packagePath + "/" + file.getName());
             }
         }
 

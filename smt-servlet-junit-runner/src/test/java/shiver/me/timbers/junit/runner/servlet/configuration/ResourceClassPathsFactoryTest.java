@@ -51,7 +51,7 @@ public class ResourceClassPathsFactoryTest {
     }
 
     @Test
-    public void It_is_possible_to_get_a_recursive_list_of_class_paths_from_some_a_package() throws Exception {
+    public void It_is_possible_to_get_a_recursive_list_of_class_paths_from_a_package() throws Exception {
 
         // Given
         final Packages packages = mockPackages(TEST_PACKAGE);
@@ -81,6 +81,16 @@ public class ResourceClassPathsFactoryTest {
 
         // Given
         final Packages packages = mockPackages("NOTICE");
+
+        // When
+        new ResourceClassPathsFactory().create(packages);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void It_is_not_possible_to_get_a_list_of_class_paths_from_an_invalid_package() throws Exception {
+
+        // Given
+        final Packages packages = mockPackages("invalid.package");
 
         // When
         new ResourceClassPathsFactory().create(packages);

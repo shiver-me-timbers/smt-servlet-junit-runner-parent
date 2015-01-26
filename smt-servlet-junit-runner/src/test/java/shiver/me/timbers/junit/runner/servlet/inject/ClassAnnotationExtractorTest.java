@@ -52,6 +52,17 @@ public class ClassAnnotationExtractorTest {
     }
 
     @Test
+    public void An_annotation_cannot_be_extracted_from_an_inherited_class_with_no_annotation() throws Exception {
+
+        // When
+        final TestAnnotation actual = new ClassAnnotationExtractor<>(TestAnnotation.class)
+                .create(InheritedNoAnnotationClass.class);
+
+        // Then
+        assertNull(actual);
+    }
+
+    @Test
     public void An_annotation_can_be_extracted_from_an_interface() throws Exception {
 
         // When
@@ -85,6 +96,17 @@ public class ClassAnnotationExtractorTest {
     }
 
     @Test
+    public void An_annotation_cannot_be_extracted_from_an_inhertied_interface_with_no_annotation() throws Exception {
+
+        // When
+        final TestAnnotation actual = new ClassAnnotationExtractor<>(TestAnnotation.class)
+                .create(InheritedNoAnnotationInterface.class);
+
+        // Then
+        assertNull(actual);
+    }
+
+    @Test
     public void An_annotation_can_be_extracted_from_an_implemented_interface() throws Exception {
 
         // When
@@ -93,6 +115,17 @@ public class ClassAnnotationExtractorTest {
 
         // Then
         assertEquals(IMPLEMENTED_INHERITED, annotation.actual());
+    }
+
+    @Test
+    public void An_annotation_cannot_be_extracted_from_an_implemented_interface_with_no_annotation() throws Exception {
+
+        // When
+        final TestAnnotation actual = new ClassAnnotationExtractor<>(TestAnnotation.class)
+                .create(InheritedImplementedNoAnnotationClass.class);
+
+        // Then
+        assertNull(actual);
     }
 
     @Target(TYPE)
@@ -115,6 +148,9 @@ public class ClassAnnotationExtractorTest {
     private static class NoAnnotationClass {
     }
 
+    private static class InheritedNoAnnotationClass {
+    }
+
     @TestAnnotation(actual = INTERFACE_DIRECT)
     private static interface AnnotatedInterface {
     }
@@ -129,6 +165,9 @@ public class ClassAnnotationExtractorTest {
     private static interface NoAnnotationInterface {
     }
 
+    private static interface InheritedNoAnnotationInterface {
+    }
+
     @TestAnnotation(actual = IMPLEMENTED_INHERITED)
     private static interface BranchSuperAnnotatedInterface {
     }
@@ -140,5 +179,17 @@ public class ClassAnnotationExtractorTest {
     }
 
     private static class InheritedImplementedAnnotationClass extends ImplementedAnnotationClass {
+    }
+
+    private static interface BranchSuperNoAnnotationInterface {
+    }
+
+    private static interface BranchInheritedNoAnnotatioInterface extends BranchSuperNoAnnotationInterface {
+    }
+
+    private static class ImplementedNoAnnotationClass implements BranchInheritedNoAnnotatioInterface {
+    }
+
+    private static class InheritedImplementedNoAnnotationClass extends ImplementedNoAnnotationClass {
     }
 }
