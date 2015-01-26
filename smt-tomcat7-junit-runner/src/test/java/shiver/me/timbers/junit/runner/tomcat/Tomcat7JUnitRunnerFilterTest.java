@@ -60,9 +60,10 @@ public class Tomcat7JUnitRunnerFilterTest {
 
         final Response response = GET(port, URL_PATTERN);
 
-        assertTrue(ASYNC_SUPPORTED.get());
         assertEquals(OK.getStatusCode(), response.getStatus());
         assertEquals(FILTERED, response.readEntity(String.class));
+
+        assertTrue(ASYNC_SUPPORTED.get());
     }
 
     @WebFilter(

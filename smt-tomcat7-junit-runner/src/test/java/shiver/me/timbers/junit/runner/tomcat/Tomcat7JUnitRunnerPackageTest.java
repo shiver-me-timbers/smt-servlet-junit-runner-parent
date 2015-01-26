@@ -44,9 +44,10 @@ public class Tomcat7JUnitRunnerPackageTest {
 
         final Response response = GET(port, URL_PATTERN);
 
-        assertTrue(PackageTestServlet.ASYNC_SUPPORTED.get());
-        assertTrue(PackageTestFilter.ASYNC_SUPPORTED.get());
         assertEquals(OK.getStatusCode(), response.getStatus());
         assertEquals(FILTERED + SUCCESS, response.readEntity(String.class));
+
+        assertTrue(PackageTestServlet.ASYNC_SUPPORTED.get());
+        assertTrue(PackageTestFilter.ASYNC_SUPPORTED.get());
     }
 }

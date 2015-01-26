@@ -44,9 +44,10 @@ public class Tomcat7JUnitRunnerWebXmlTest {
 
         final Response response = GET(port, URL_PATTERN);
 
-        assertTrue(WebXmlTestServlet.ASYNC_SUPPORTED.get());
-        assertTrue(WebXmlTestFilter.ASYNC_SUPPORTED.get());
         assertEquals(OK.getStatusCode(), response.getStatus());
         assertEquals(FILTERED + SUCCESS, response.readEntity(String.class));
+
+        assertTrue(WebXmlTestServlet.ASYNC_SUPPORTED.get());
+        assertTrue(WebXmlTestFilter.ASYNC_SUPPORTED.get());
     }
 }

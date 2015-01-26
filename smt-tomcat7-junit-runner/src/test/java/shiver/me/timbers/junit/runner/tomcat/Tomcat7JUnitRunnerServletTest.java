@@ -54,9 +54,10 @@ public class Tomcat7JUnitRunnerServletTest {
 
         final Response response = GET(port, URL_PATTERN);
 
-        assertTrue(ASYNC_SUPPORTED.get());
         assertEquals(OK.getStatusCode(), response.getStatus());
         assertEquals(SUCCESS, response.readEntity(String.class));
+
+        assertTrue(ASYNC_SUPPORTED.get());
     }
 
     @WebServlet(
