@@ -19,8 +19,12 @@ import static org.mockito.Mockito.when;
 public class Constants {
 
     public static URL url() {
+        return url("file:/url");
+    }
+
+    public static URL url(String url) {
         try {
-            return new URL("file:/url");
+            return new URL(url);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }

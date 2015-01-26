@@ -35,11 +35,5 @@
             <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
-        <!-- Class path scanning library used to search for servlets and filter. -->
-        <dependency>
-            <groupId>com.googlecode.openpojo</groupId>
-            <artifactId>openpojo</artifactId>
-            <version>0.6.2</version>
-        </dependency>
     </dependencies>
 </project>

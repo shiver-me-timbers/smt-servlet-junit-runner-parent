@@ -3,9 +3,12 @@ package shiver.me.timbers.junit.runner.servlet.configuration.filter;
 import shiver.me.timbers.junit.runner.servlet.Filters;
 import shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.configuration.AnnotationExtractionFactory;
+import shiver.me.timbers.junit.runner.servlet.configuration.ClassPathsToClassesConverter;
 import shiver.me.timbers.junit.runner.servlet.configuration.CompositeContainerConfigurationAnnotationFactory;
-import shiver.me.timbers.junit.runner.servlet.configuration.OpenPojoPackagesFactory;
 import shiver.me.timbers.junit.runner.servlet.configuration.PackagesAnnotationFactory;
+import shiver.me.timbers.junit.runner.servlet.configuration.ResourceClassPathsFactory;
+import shiver.me.timbers.junit.runner.servlet.configuration.ResourcePackagesFactory;
+import shiver.me.timbers.junit.runner.servlet.configuration.SubTypeFilter;
 
 import javax.servlet.Filter;
 
@@ -24,9 +27,11 @@ public class FiltersContainerConfigurationAnnotationFactory
                         new ListFiltersFactory(),
                         new FiltersAnnotationFactory(),
                         new PackagesAnnotationFactory<>(
-                                new OpenPojoPackagesFactory<>(
-                                        new FilterFiltersFactory(),
-                                        Filter.class
+                                new ResourcePackagesFactory<>(
+                                        new ResourceClassPathsFactory(),
+                                        new ClassPathsToClassesConverter(),
+                                        new SubTypeFilter<>(Filter.class),
+                                        new FilterFiltersFactory()
                                 )
                         ),
                         new ConfiguredFiltersAnnotationFactory()

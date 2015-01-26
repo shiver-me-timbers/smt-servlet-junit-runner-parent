@@ -4,6 +4,7 @@ import shiver.me.timbers.junit.runner.servlet.FilterDetail;
 import shiver.me.timbers.junit.runner.servlet.Filters;
 import shiver.me.timbers.junit.runner.servlet.WebFilterBuilder;
 import shiver.me.timbers.junit.runner.servlet.test.one.PackageFilterOne;
+import shiver.me.timbers.junit.runner.servlet.test.one.sub.SubPackageFilterOne;
 import shiver.me.timbers.junit.runner.servlet.test.three.PackageFilterTwo;
 import shiver.me.timbers.junit.runner.servlet.test.two.PackageFilterThree;
 
@@ -37,6 +38,7 @@ public class FilterConstants {
     public static final FilterDetail PACKAGE_FILTER_DETAIL_ONE = new FilterDetail(PackageFilterOne.class);
     public static final FilterDetail PACKAGE_FILTER_DETAIL_TWO = new FilterDetail(PackageFilterTwo.class);
     public static final FilterDetail PACKAGE_FILTER_DETAIL_THREE = new FilterDetail(PackageFilterThree.class);
+    public static final FilterDetail SUB_PACKAGE_FILTER_DETAIL_ONE = new FilterDetail(SubPackageFilterOne.class);
 
     public static final FilterDetail CONFIGURED_FILTER_DETAIL_ONE = new FilterDetail(
             FilterOne.class,
@@ -63,7 +65,12 @@ public class FilterConstants {
 
     public static Filters mockPackageFilters() {
 
-        return mockFilters(PACKAGE_FILTER_DETAIL_ONE, PACKAGE_FILTER_DETAIL_TWO, PACKAGE_FILTER_DETAIL_THREE);
+        return mockFilters(
+                PACKAGE_FILTER_DETAIL_ONE,
+                PACKAGE_FILTER_DETAIL_TWO,
+                PACKAGE_FILTER_DETAIL_THREE,
+                SUB_PACKAGE_FILTER_DETAIL_ONE
+        );
     }
 
     public static Filters mockConfiguredFilters() {

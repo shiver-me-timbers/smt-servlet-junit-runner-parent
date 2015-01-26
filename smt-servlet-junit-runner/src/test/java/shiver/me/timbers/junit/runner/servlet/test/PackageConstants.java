@@ -14,9 +14,7 @@ public class PackageConstants {
     public static final String PACKAGE_TWO = TEST_PACKAGE + ".two";
     public static final String PACKAGE_THREE = TEST_PACKAGE + ".three";
 
-    public static final String EMPTY_PACKAGE_ONE = PACKAGE_ONE + ".empty";
-    public static final String EMPTY_PACKAGE_TWO = PACKAGE_TWO + ".empty";
-    public static final String EMPTY_PACKAGE_THREE = PACKAGE_THREE + ".empty";
+    public static final String JUNIT_MATCHES_PACKAGE = "org.junit.matchers";
 
     public static Packages mockEmptyPackages() {
 
@@ -26,11 +24,6 @@ public class PackageConstants {
     public static Packages mockPackages() {
 
         return mockPackages(PACKAGE_ONE, PACKAGE_TWO, PACKAGE_THREE);
-    }
-
-    public static Packages mockNoClassPackages() {
-
-        return mockPackages(EMPTY_PACKAGE_ONE, EMPTY_PACKAGE_TWO, EMPTY_PACKAGE_THREE);
     }
 
     public static Packages mockPackages(String... packageStrings) {

@@ -4,6 +4,7 @@ import shiver.me.timbers.junit.runner.servlet.ServletDetail;
 import shiver.me.timbers.junit.runner.servlet.Servlets;
 import shiver.me.timbers.junit.runner.servlet.WebServletBuilder;
 import shiver.me.timbers.junit.runner.servlet.test.one.PackageServletOne;
+import shiver.me.timbers.junit.runner.servlet.test.one.sub.SubPackageServletOne;
 import shiver.me.timbers.junit.runner.servlet.test.three.PackageServletTwo;
 import shiver.me.timbers.junit.runner.servlet.test.two.PackageServletThree;
 
@@ -39,6 +40,7 @@ public class ServletConstants {
     public static final ServletDetail PACKAGE_SERVLET_DETAIL_ONE = new ServletDetail(PackageServletOne.class);
     public static final ServletDetail PACKAGE_SERVLET_DETAIL_TWO = new ServletDetail(PackageServletTwo.class);
     public static final ServletDetail PACKAGE_SERVLET_DETAIL_THREE = new ServletDetail(PackageServletThree.class);
+    public static final ServletDetail SUB_PACKAGE_SERVLET_DETAIL_ONE = new ServletDetail(SubPackageServletOne.class);
 
     public static final ServletDetail CONFIGURED_SERVLET_DETAIL_ONE = new ServletDetail(
             ServletOne.class,
@@ -65,7 +67,12 @@ public class ServletConstants {
 
     public static Servlets mockPackageServlets() {
 
-        return mockServlets(PACKAGE_SERVLET_DETAIL_ONE, PACKAGE_SERVLET_DETAIL_TWO, PACKAGE_SERVLET_DETAIL_THREE);
+        return mockServlets(
+                PACKAGE_SERVLET_DETAIL_ONE,
+                PACKAGE_SERVLET_DETAIL_TWO,
+                PACKAGE_SERVLET_DETAIL_THREE,
+                SUB_PACKAGE_SERVLET_DETAIL_ONE
+        );
     }
 
     public static Servlets mockConfiguredServlets() {
