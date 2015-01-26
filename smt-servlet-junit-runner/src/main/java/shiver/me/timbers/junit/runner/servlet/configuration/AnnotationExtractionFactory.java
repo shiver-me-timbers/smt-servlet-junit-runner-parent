@@ -1,6 +1,7 @@
 package shiver.me.timbers.junit.runner.servlet.configuration;
 
 import shiver.me.timbers.junit.runner.servlet.EmptyFactory;
+import shiver.me.timbers.junit.runner.servlet.inject.AnnotationExtractor;
 
 import java.lang.annotation.Annotation;
 
@@ -9,16 +10,16 @@ import java.lang.annotation.Annotation;
  */
 public class AnnotationExtractionFactory<A extends Annotation, T> {
 
-    private final Class<A> annotationType;
+    private final AnnotationExtractor<A> annotationExtractor;
     private final EmptyFactory<T> emptyFactory;
     private final AnnotationFactory<A, T> annotationFactory;
 
     public AnnotationExtractionFactory(
-            Class<A> annotationType,
+            AnnotationExtractor<A> annotationExtractor,
             EmptyFactory<T> emptyFactory,
             AnnotationFactory<A, T> annotationFactory
     ) {
-        this.annotationType = annotationType;
+        this.annotationExtractor = annotationExtractor;
         this.emptyFactory = emptyFactory;
         this.annotationFactory = annotationFactory;
     }
@@ -27,7 +28,7 @@ public class AnnotationExtractionFactory<A extends Annotation, T> {
 
         final Class<?> type = target.getClass();
 
-        final A annotation = type.getAnnotation(annotationType);
+        final A annotation = annotationExtractor.create(type);
 
         if (null == annotation) {
             return emptyFactory.create();

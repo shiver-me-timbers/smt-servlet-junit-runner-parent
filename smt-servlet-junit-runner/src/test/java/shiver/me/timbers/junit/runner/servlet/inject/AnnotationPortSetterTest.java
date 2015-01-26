@@ -100,7 +100,7 @@ public class AnnotationPortSetterTest {
         AnnotationPortSetter.setPort(test, field, port);
     }
 
-    class PortToBeSet {
+    private class PortToBeSet {
 
         @Port
         private int port;
@@ -110,6 +110,6 @@ public class AnnotationPortSetterTest {
         }
     }
 
-    class InheritedPortToBeSet extends PortToBeSet {
+    private class InheritedPortToBeSet extends PortToBeSet {
     }
 }

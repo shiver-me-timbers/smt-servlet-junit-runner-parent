@@ -2,42 +2,72 @@ package shiver.me.timbers.junit.runner.servlet.configuration.port;
 
 import org.junit.Test;
 import shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration;
+import shiver.me.timbers.junit.runner.servlet.inject.AnnotationExtractor;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static shiver.me.timbers.junit.runner.servlet.configuration.port.NullPortConfiguration.NULL_PORT_CONFIG;
 
 public class AnnotationStaticPortConfigurationFactoryTest {
 
-    private static final int PORT = 9999;
-
     @Test
     public void A_port_configuration_is_not_returned_if_no_config_is_set() {
 
-        class TestClass {
-        }
+        @SuppressWarnings("unchecked")
+        final AnnotationExtractor<ContainerConfiguration> annotationExtractor = mock(AnnotationExtractor.class);
 
-        assertEquals(NULL_PORT_CONFIG, new AnnotationStaticPortConfigurationFactory().create(new TestClass()));
+        // Given
+        when(annotationExtractor.create(TestClass.class)).thenReturn(null);
+
+        // When
+        final PortConfiguration actual = new AnnotationStaticPortConfigurationFactory(annotationExtractor)
+                .create(new TestClass());
+
+        // Then
+        assertEquals(NULL_PORT_CONFIG, actual);
     }
 
     @Test
     public void A_port_configuration_is_not_returned_if_no_port_is_set() {
 
-        @ContainerConfiguration
-        class TestClass {
-        }
+        @SuppressWarnings("unchecked")
+        final AnnotationExtractor<ContainerConfiguration> annotationExtractor = mock(AnnotationExtractor.class);
+        final ContainerConfiguration containerConfiguration = mock(ContainerConfiguration.class);
 
-        assertEquals(NULL_PORT_CONFIG, new AnnotationStaticPortConfigurationFactory().create(new TestClass()));
+        // Given
+        when(annotationExtractor.create(TestClass.class)).thenReturn(containerConfiguration);
+        when(containerConfiguration.port()).thenReturn(-1);
+
+        // When
+        final PortConfiguration actual = new AnnotationStaticPortConfigurationFactory(annotationExtractor)
+                .create(new TestClass());
+
+        // Then
+        assertEquals(NULL_PORT_CONFIG, actual);
     }
 
     @Test
     public void A_port_configuration_is_returned_if_a_port_is_set() {
 
-        @ContainerConfiguration(port = PORT)
-        class TestClass {
-        }
+        @SuppressWarnings("unchecked")
+        final AnnotationExtractor<ContainerConfiguration> annotationExtractor = mock(AnnotationExtractor.class);
+        final ContainerConfiguration containerConfiguration = mock(ContainerConfiguration.class);
 
-        final PortConfiguration config = new AnnotationStaticPortConfigurationFactory().create(new TestClass());
+        final int port = 9999;
 
-        assertEquals(PORT, config.getPort());
+        // Given
+        when(annotationExtractor.create(TestClass.class)).thenReturn(containerConfiguration);
+        when(containerConfiguration.port()).thenReturn(port);
+
+        // When
+        final PortConfiguration config = new AnnotationStaticPortConfigurationFactory(annotationExtractor)
+                .create(new TestClass());
+
+        // Then
+        assertEquals(port, config.getPort());
+    }
+
+    private static class TestClass {
     }
 }

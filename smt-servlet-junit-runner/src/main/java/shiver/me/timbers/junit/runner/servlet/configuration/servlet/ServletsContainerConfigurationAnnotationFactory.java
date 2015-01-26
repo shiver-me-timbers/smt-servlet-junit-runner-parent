@@ -9,6 +9,7 @@ import shiver.me.timbers.junit.runner.servlet.configuration.PackagesAnnotationFa
 import shiver.me.timbers.junit.runner.servlet.configuration.ResourceClassPathsFactory;
 import shiver.me.timbers.junit.runner.servlet.configuration.ResourcePackagesFactory;
 import shiver.me.timbers.junit.runner.servlet.configuration.SubTypeFilter;
+import shiver.me.timbers.junit.runner.servlet.inject.ClassAnnotationExtractor;
 
 import javax.servlet.Servlet;
 
@@ -20,7 +21,7 @@ public class ServletsContainerConfigurationAnnotationFactory
 
     public ServletsContainerConfigurationAnnotationFactory() {
         super(
-                ContainerConfiguration.class,
+                new ClassAnnotationExtractor<>(ContainerConfiguration.class),
                 new ServletsEmptyFactory(),
                 new CompositeContainerConfigurationAnnotationFactory<>(
                         new ListServletsFactory(),
