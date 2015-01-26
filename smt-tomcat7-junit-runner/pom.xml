@@ -24,12 +24,6 @@
     </properties>
 
     <dependencies>
-        <!-- The test runners are built with the JUnit API. -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>compile</scope>
-        </dependency>
         <dependency>
             <groupId>shiver.me.timbers</groupId>
             <artifactId>smt-servlet-junit-runner</artifactId>

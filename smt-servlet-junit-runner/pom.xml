@@ -22,12 +22,6 @@
     </description>
 
     <dependencies>
-        <!-- The test runners are built with the JUnit API. -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>compile</scope>
-        </dependency>
         <!-- Some annotations are reused from the JEE servlet API. -->
         <dependency>
             <groupId>javax.servlet</groupId>

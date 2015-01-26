@@ -58,6 +58,12 @@
     </build>
 
     <dependencies>
+        <!-- The test runners are built with the JUnit API. -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>compile</scope>
+        </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-all</artifactId>
