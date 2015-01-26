@@ -40,6 +40,19 @@ public class AnnotationPortSetterTest {
         assertEquals(port, test.getPort());
     }
 
+    @Test
+    public void The_port_number_is_set_on_an_inherited_annotated_field_of_the_right_type() {
+
+        // Given
+        final InheritedPortToBeSet test = new InheritedPortToBeSet();
+
+        // When
+        new AnnotationPortSetter().set(test, portConfiguration);
+
+        // Then
+        assertEquals(port, test.getPort());
+    }
+
     @Test(expected = IllegalStateException.class)
     public void The_port_number_fails_to_be_set_for_an_annotated_field_of_the_wrong_type() {
 
@@ -95,5 +108,8 @@ public class AnnotationPortSetterTest {
         int getPort() {
             return port;
         }
+    }
+
+    class InheritedPortToBeSet extends PortToBeSet {
     }
 }

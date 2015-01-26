@@ -17,9 +17,7 @@ public class AnnotationPortSetter implements PortSetter {
 
         final Class<?> type = target.getClass();
 
-        final Field[] fields = type.getDeclaredFields();
-
-        final Field field = findPortField(fields);
+        final Field field = findPortField(type);
 
         if (null == field) {
             return;
@@ -32,7 +30,9 @@ public class AnnotationPortSetter implements PortSetter {
         setPort(target, field, port);
     }
 
-    private static Field findPortField(Field[] fields) {
+    private static Field findPortField(Class<?> type) {
+
+        final Field[] fields = type.getDeclaredFields();
 
         for (Field field : fields) {
 
@@ -41,7 +41,11 @@ public class AnnotationPortSetter implements PortSetter {
             }
         }
 
-        return null;
+        if (Object.class.equals(type)) {
+            return null;
+        }
+
+        return findPortField(type.getSuperclass());
     }
 
     static void setPort(Object target, Field field, int port) {
