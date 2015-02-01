@@ -24,9 +24,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.util.Set;
+import java.util.concurrent.Callable;
 
 import static java.util.Map.Entry;
 
@@ -106,77 +108,85 @@ public class Tomcat7Container implements Container<Tomcat> {
     @Override
     public void load(URL webXml) {
 
-        if (isNotInJar(webXml)) {
-            context.setAltDDName(webXml.getPath());
+        if (isInJar(webXml)) {
+            context.setAltDDName(copy(webXml, tempWebXml(identityHash)));
             return;
         }
 
-        final String webXmlPath = toFileSystem(webXml);
-
-        context.setAltDDName(webXmlPath);
+        context.setAltDDName(webXml.getPath());
     }
 
-    private String toFileSystem(URL webXml) {
-
-        final File tempWebXmlFile = createTempFile("web.xml");
-
-        try (
-                final InputStream inputStream = webXml.openStream();
-                final FileOutputStream outputStream = new FileOutputStream(tempWebXmlFile)
-        ) {
-
-            IOUtils.copy(inputStream, outputStream);
-
-            return tempWebXmlFile.getAbsolutePath();
-
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
-        }
+    private static boolean isInJar(URL webXml) {
+        return webXml.getPath().contains(".jar!");
     }
 
-    private File createTempFile(String fileName) {
-        try {
-            final File tempDirectory = Files.createTempDirectory("tomcat-" + identityHash).toFile();
+    static String copy(final URL input, final File output) {
 
-            return new File(tempDirectory, fileName);
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
-        }
+        return withException(new Callable<String>() {
+            @Override
+            public String call() throws IOException {
+                final InputStream inputStream = input.openStream();
+                final FileOutputStream outputStream = new FileOutputStream(output);
+
+                copyAndClose(inputStream, outputStream);
+
+                return output.getAbsolutePath();
+            }
+        });
     }
 
-    private static boolean isNotInJar(URL webXml) {
-        return !webXml.getPath().contains(".jar!");
+    static void copyAndClose(final InputStream input, final OutputStream output) {
+
+        withException(new Callable<Void>() {
+            @Override
+            public Void call() throws IOException {
+                try {
+                    IOUtils.copy(input, output);
+                    return null;
+                } finally {
+                    input.close();
+                    output.close();
+                }
+            }
+        });
+    }
+
+    static File tempWebXml(final int identityHash) {
+        return withException(new Callable<File>() {
+            @Override
+            public File call() throws IOException {
+                return new File(Files.createTempDirectory("tomcat-" + identityHash).toFile(), "web.xml");
+            }
+        });
     }
 
     @Override
     public void start() {
-        withLifeCycle(new LifeCycle() {
+        withException(new Callable<Void>() {
             @Override
-            public void run() throws LifecycleException {
+            public Void call() throws LifecycleException {
                 tomcat.start();
+                return null;
             }
         });
     }
 
     @Override
     public void shutdown() {
-        withLifeCycle(new LifeCycle() {
+        withException(new Callable<Void>() {
             @Override
-            public void run() throws LifecycleException {
+            public Void call() throws LifecycleException {
                 tomcat.stop();
+                return null;
             }
         });
     }
 
-    private static void withLifeCycle(LifeCycle run) {
+    static <T> T withException(Callable<T> callable) {
         try {
-            run.run();
-        } catch (LifecycleException e) {
+            return callable.call();
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private static interface LifeCycle {
-        public void run() throws LifecycleException;
     }
 }
