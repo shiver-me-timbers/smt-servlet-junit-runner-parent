@@ -18,7 +18,7 @@ public class ServletsEmptyFactory implements EmptyFactory<Servlets> {
 
     @Override
     public Servlets create() {
-        log.debug("No servlets created.");
+        log.warn("No servlets created.");
         return new SettableServlets(new ArrayList<ServletDetail>());
     }
 }

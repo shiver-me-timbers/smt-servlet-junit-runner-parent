@@ -18,7 +18,7 @@ public class FiltersEmptyFactory implements EmptyFactory<Filters> {
 
     @Override
     public Filters create() {
-        log.debug("No filters created.");
+        log.warn("No filters created.");
         return new SettableFilters(new ArrayList<FilterDetail>());
     }
 }

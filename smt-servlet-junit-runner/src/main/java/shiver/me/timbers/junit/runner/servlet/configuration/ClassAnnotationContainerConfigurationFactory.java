@@ -34,7 +34,7 @@ public class ClassAnnotationContainerConfigurationFactory<C> implements Containe
                 annotationExtractor.create(type);
 
         if (notConfigured(containerConfiguration)) {
-            log.debug("No container configuration found on {}", target);
+            log.warn("No container configuration found on {}", target);
             return NULL_CONTAINER_CONFIG;
         }
 

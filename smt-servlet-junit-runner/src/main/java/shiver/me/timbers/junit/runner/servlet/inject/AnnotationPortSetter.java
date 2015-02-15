@@ -26,7 +26,7 @@ public class AnnotationPortSetter implements PortSetter {
         final int port = portConfiguration.getPort();
 
         if (null == field) {
-            log.debug("Test class {} does not have any field annotated @Port. Port {} has not been injected", target,
+            log.warn("Test class {} does not have any field annotated @Port. Port {} has not been injected", target,
                     port);
             return;
         }

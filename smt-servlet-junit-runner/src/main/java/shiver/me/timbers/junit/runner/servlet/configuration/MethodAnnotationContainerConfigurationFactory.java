@@ -31,7 +31,7 @@ public class MethodAnnotationContainerConfigurationFactory<C> implements Contain
                 return config;
             }
         }
-        log.debug("No {} annotation found on {}", ContainerConfiguration.class, target);
+        log.warn("No {} annotation found on {}", ContainerConfiguration.class, target);
         return NULL_CONTAINER_CONFIG;
     }
 

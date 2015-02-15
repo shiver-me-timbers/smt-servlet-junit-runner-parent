@@ -37,7 +37,7 @@ public class AnnotationExtractionFactory<A extends Annotation, T> {
         final A annotation = annotationExtractor.create(type);
 
         if (null == annotation) {
-            log.debug("No annotation found on {}", target);
+            log.warn("No annotation found on {}", target);
             return emptyFactory.create();
         }
         log.debug("Annotation found on {}. Creating new instance", target);

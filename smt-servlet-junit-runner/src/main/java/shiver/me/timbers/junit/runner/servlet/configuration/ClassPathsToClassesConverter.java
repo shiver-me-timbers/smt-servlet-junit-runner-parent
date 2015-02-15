@@ -30,7 +30,7 @@ public class ClassPathsToClassesConverter implements ClassPathsConverter<List<Cl
                 classes.add(type);
             }
         }
-
+        log.debug("Class paths {} converted to {}", classPaths, classes);
         return classes;
     }
 

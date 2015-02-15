@@ -24,7 +24,7 @@ public class ClassAnnotationExtractor<A extends Annotation> implements Annotatio
     public A create(Class<?> type) {
 
         if (null == type || Object.class.equals(type)) {
-            log.debug("Annotation {} not found on {}", annotation, type);
+            log.warn("Annotation {} not found on {}", annotation, type);
             return null;
         }
 

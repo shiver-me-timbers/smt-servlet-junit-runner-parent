@@ -22,7 +22,7 @@ public class ShutdownRunListener extends RunListener {
 
     @Override
     public void testRunFinished(Result result) throws Exception {
-        log.debug("Shutting down container");
+        log.info("Shutting down container");
         container.shutdown();
     }
 }

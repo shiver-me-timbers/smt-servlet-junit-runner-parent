@@ -63,42 +63,42 @@ public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
     @Override
     protected List<MethodRule> rules(Object target) {
 
-        log.debug("Getting port configuration");
+        log.info("Getting port configuration");
         final PortConfiguration portConfiguration = portConfigurationFactory.create(target);
 
-        log.debug("Getting configuration");
+        log.info("Getting configuration");
         final ContainerConfiguration<C> containerConfiguration = containerConfigurationFactory.create(target);
 
-        log.debug("Getting servlets");
+        log.info("Getting servlets");
         final Servlets servlets = servletsFactory.create(target);
 
-        log.debug("Getting filters");
+        log.info("Getting filters");
         final Filters filters = filtersFactory.create(target);
 
         final URL webXml = webXmlFactory.create(target);
 
-        log.debug("Applying port configuration");
+        log.info("Applying port configuration");
         container.configure(portConfiguration);
-        log.debug("Applying configuration");
+        log.info("Applying configuration");
         container.configure(containerConfiguration);
-        log.debug("Loading servlets");
+        log.info("Loading servlets");
         container.load(servlets);
-        log.debug("Loading filters");
+        log.info("Loading filters");
         container.load(filters);
         load(container, webXml);
-        log.debug("Starting container");
+        log.info("Starting container");
         container.start();
 
-        log.debug("Injecting test port");
+        log.info("Injecting test port");
         portSetter.set(target, portConfiguration);
 
-        log.debug("Starting normal test setup");
+        log.info("Starting normal test setup");
         return super.rules(target);
     }
 
     private void load(Container container, URL webXml) {
         if (null != webXml) {
-            log.debug("Loading web.xml");
+            log.info("Loading web.xml");
             container.load(webXml);
         }
     }

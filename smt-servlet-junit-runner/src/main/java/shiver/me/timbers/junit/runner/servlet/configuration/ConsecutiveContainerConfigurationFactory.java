@@ -37,7 +37,7 @@ public class ConsecutiveContainerConfigurationFactory<C> implements ContainerCon
                 return config;
             }
         }
-        log.debug("No configuration found on {}", target);
+        log.warn("No configuration found on {}", target);
         return NULL_CONTAINER_CONFIG;
     }
 }
