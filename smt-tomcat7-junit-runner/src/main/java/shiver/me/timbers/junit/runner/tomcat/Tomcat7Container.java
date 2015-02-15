@@ -8,6 +8,7 @@ import org.apache.catalina.startup.Tomcat;
 import org.apache.commons.io.IOUtils;
 import org.apache.tomcat.JarScanner;
 import org.apache.tomcat.JarScannerCallback;
+import org.slf4j.bridge.SLF4JBridgeHandler;
 import shiver.me.timbers.junit.runner.servlet.Container;
 import shiver.me.timbers.junit.runner.servlet.FilterDetail;
 import shiver.me.timbers.junit.runner.servlet.Filters;
@@ -40,6 +41,12 @@ public class Tomcat7Container implements Container<Tomcat> {
     private final Tomcat tomcat;
     private final Context context;
     private int identityHash;
+
+    static {
+        // Override the normal Tomcat Juli logging with slf4j.
+        SLF4JBridgeHandler.removeHandlersForRootLogger();
+        SLF4JBridgeHandler.install();
+    }
 
     public Tomcat7Container(Tomcat tomcat) throws ServletException {
         this.tomcat = tomcat;

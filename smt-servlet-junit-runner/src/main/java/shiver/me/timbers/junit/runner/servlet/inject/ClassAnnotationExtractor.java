@@ -22,33 +22,37 @@ public class ClassAnnotationExtractor<A extends Annotation> implements Annotatio
 
     @Override
     public A create(Class<?> type) {
+        return create(type, type);
+    }
+
+    public A create(Class<?> origin, Class<?> type) {
 
         if (null == type || Object.class.equals(type)) {
-            log.warn("Annotation {} not found on {}", annotation, type);
+            log.warn("Annotation {} not found on {}", annotation, origin);
             return null;
         }
 
         final A annotation = type.getAnnotation(this.annotation);
 
         if (null != annotation) {
-            log.debug("Annotation {} found on {}", annotation, type);
+            log.debug("Annotation {} found on {}. Started searching at {}", annotation, type, origin);
             return annotation;
         }
 
-        final A interfaceAnnotation = create(type.getInterfaces());
+        final A interfaceAnnotation = create(origin, type.getInterfaces());
 
         if (null != interfaceAnnotation) {
             return interfaceAnnotation;
         }
 
-        return create(type.getSuperclass());
+        return create(origin, type.getSuperclass());
     }
 
-    private A create(Class<?>[] interfaces) {
+    private A create(Class<?> origin, Class<?>[] interfaces) {
 
         for (Class<?> type : interfaces) {
 
-            final A annotation = create(type);
+            final A annotation = create(origin, type);
 
             if (null != annotation) {
                 return annotation;
