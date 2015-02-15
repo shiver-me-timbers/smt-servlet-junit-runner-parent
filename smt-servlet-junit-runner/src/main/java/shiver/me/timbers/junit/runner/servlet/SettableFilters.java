@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static java.lang.String.format;
+
 /**
  * @author Karl Bennett
  */
@@ -54,5 +56,10 @@ public class SettableFilters implements Filters {
     @Override
     public Iterator<FilterDetail> iterator() {
         return filters.iterator();
+    }
+
+    @Override
+    public String toString() {
+        return format("%s { filters = '%s' }", getClass().getSimpleName(), filters);
     }
 }

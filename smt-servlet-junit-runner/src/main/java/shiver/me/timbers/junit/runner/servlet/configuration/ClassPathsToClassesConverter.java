@@ -1,5 +1,8 @@
 package shiver.me.timbers.junit.runner.servlet.configuration;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,15 +11,23 @@ import java.util.List;
  */
 public class ClassPathsToClassesConverter implements ClassPathsConverter<List<Class>> {
 
+    private final Logger log = LoggerFactory.getLogger(ClassPathsToClassesConverter.class);
+
     @Override
     public List<Class> create(List<String> classPaths) {
 
         final List<Class> classes = new ArrayList<>();
 
+        log.debug("Converting {}, to classes", classPaths);
         for (String classPath : classPaths) {
 
             if (isClassFile(classPath)) {
-                classes.add(toClass(classPath));
+
+                log.debug("Converting {}, to class", classPath);
+                final Class type = toClass(classPath);
+
+                log.debug("Converted {}, to {}", classPath, type);
+                classes.add(type);
             }
         }
 

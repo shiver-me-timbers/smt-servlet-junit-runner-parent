@@ -1,5 +1,7 @@
 package shiver.me.timbers.junit.runner.servlet.configuration;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import shiver.me.timbers.junit.runner.servlet.Packages;
 
 import java.io.File;
@@ -14,18 +16,22 @@ import java.util.jar.JarFile;
 import static java.lang.String.format;
 
 /**
+ * This factory takes package names an returns a list of the class paths to all the files within those packages.
+ *
  * @author Karl Bennett
  */
 public class ResourceClassPathsFactory implements ClassPathsFactory {
 
+    private final Logger log = LoggerFactory.getLogger(ResourceClassPathsFactory.class);
+
     private static final ClassLoader CLASS_LOADER = Thread.currentThread().getContextClassLoader();
 
     @Override
-    public List<String> create(Packages input) {
+    public List<String> create(Packages packages) {
 
         final ArrayList<String> fileNames = new ArrayList<>();
-
-        for (String pkg : input) {
+        log.debug("Finding files in {}", packages);
+        for (String pkg : packages) {
 
             final String packagePath = toPath(pkg);
 
@@ -36,16 +42,16 @@ public class ResourceClassPathsFactory implements ClassPathsFactory {
             final String resourcePath = resource.getPath();
 
             if (isInJar(resourcePath)) {
-
+                log.debug("Finding files in JAR path {}", resourcePath);
                 fileNames.addAll(filesInJarPath(resourcePath));
 
             } else {
-
+                log.debug("Finding files in filesystem path {}", resourcePath);
                 fileNames.addAll(filesInPath(resourcePath, packagePath));
             }
 
         }
-
+        log.debug("All files in {} are {}", packages, fileNames);
         return fileNames;
     }
 

@@ -4,6 +4,8 @@ import org.junit.rules.MethodRule;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import shiver.me.timbers.junit.runner.servlet.configuration.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.configuration.ContainerConfigurationFactory;
 import shiver.me.timbers.junit.runner.servlet.configuration.WebXmlFactory;
@@ -22,6 +24,8 @@ import java.util.List;
  * @author Karl Bennett
  */
 public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
+
+    private final Logger log = LoggerFactory.getLogger(ServletJUnitRunner.class);
 
     private final PortConfigurationFactory portConfigurationFactory;
     private final FiltersFactory filtersFactory;
@@ -52,35 +56,49 @@ public class ServletJUnitRunner<C> extends BlockJUnit4ClassRunner {
         this.portSetter = portSetter;
         this.runListenerFactory = runListenerFactory;
         this.container = container;
+
+        log.debug("Constructed");
     }
 
     @Override
     protected List<MethodRule> rules(Object target) {
 
+        log.debug("Getting port configuration");
         final PortConfiguration portConfiguration = portConfigurationFactory.create(target);
 
+        log.debug("Getting configuration");
         final ContainerConfiguration<C> containerConfiguration = containerConfigurationFactory.create(target);
 
+        log.debug("Getting servlets");
         final Servlets servlets = servletsFactory.create(target);
 
+        log.debug("Getting filters");
         final Filters filters = filtersFactory.create(target);
 
         final URL webXml = webXmlFactory.create(target);
 
+        log.debug("Applying port configuration");
         container.configure(portConfiguration);
+        log.debug("Applying configuration");
         container.configure(containerConfiguration);
+        log.debug("Loading servlets");
         container.load(servlets);
+        log.debug("Loading filters");
         container.load(filters);
         load(container, webXml);
+        log.debug("Starting container");
         container.start();
 
+        log.debug("Injecting test port");
         portSetter.set(target, portConfiguration);
 
+        log.debug("Starting normal test setup");
         return super.rules(target);
     }
 
-    private static void load(Container container, URL webXml) {
+    private void load(Container container, URL webXml) {
         if (null != webXml) {
+            log.debug("Loading web.xml");
             container.load(webXml);
         }
     }

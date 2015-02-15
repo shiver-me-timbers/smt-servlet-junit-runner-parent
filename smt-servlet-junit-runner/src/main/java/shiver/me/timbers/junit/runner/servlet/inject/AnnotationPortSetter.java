@@ -1,5 +1,7 @@
 package shiver.me.timbers.junit.runner.servlet.inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import shiver.me.timbers.junit.runner.servlet.annotation.Port;
 import shiver.me.timbers.junit.runner.servlet.configuration.port.PortConfiguration;
 
@@ -12,6 +14,8 @@ import static java.lang.String.format;
  */
 public class AnnotationPortSetter implements PortSetter {
 
+    private final Logger log = LoggerFactory.getLogger(AnnotationPortSetter.class);
+
     @Override
     public void set(Object target, PortConfiguration portConfiguration) {
 
@@ -19,14 +23,17 @@ public class AnnotationPortSetter implements PortSetter {
 
         final Field field = findPortField(type);
 
+        final int port = portConfiguration.getPort();
+
         if (null == field) {
+            log.debug("Test class {} does not have any field annotated @Port. Port {} has not been injected", target,
+                    port);
             return;
         }
 
         field.setAccessible(true);
 
-        final int port = portConfiguration.getPort();
-
+        log.debug("Injecting test class {}'s field {} with port {}", target, field, port);
         setPort(target, field, port);
     }
 

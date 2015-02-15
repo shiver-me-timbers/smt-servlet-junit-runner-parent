@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import static java.lang.String.format;
+
 /**
  * @author Karl Bennett
  */
@@ -19,35 +21,40 @@ public class SettablePackages implements Packages {
         return details;
     }
 
-    private final List<String> servlets;
+    private final List<String> packages;
 
     public SettablePackages(String... packageStrings) {
         this(transform(packageStrings));
     }
 
-    public SettablePackages(List<String> servlets) {
-        this.servlets = servlets;
+    public SettablePackages(List<String> packages) {
+        this.packages = packages;
     }
 
-    public SettablePackages(Packages... servletses) {
-        this.servlets = new ArrayList<>();
+    public SettablePackages(Packages... packageses) {
+        this.packages = new ArrayList<>();
 
-        for (Packages servlets : servletses) {
-            add(servlets);
+        for (Packages packages : packageses) {
+            add(packages);
         }
     }
 
     @Override
     public List<String> asList() {
-        return servlets;
+        return packages;
     }
 
-    public void add(Packages servlets) {
-        this.servlets.addAll(servlets.asList());
+    public void add(Packages packages) {
+        this.packages.addAll(packages.asList());
     }
 
     @Override
     public Iterator<String> iterator() {
-        return servlets.iterator();
+        return packages.iterator();
+    }
+
+    @Override
+    public String toString() {
+        return format("%s { packages = '%s' }", getClass().getSimpleName(), packages);
     }
 }

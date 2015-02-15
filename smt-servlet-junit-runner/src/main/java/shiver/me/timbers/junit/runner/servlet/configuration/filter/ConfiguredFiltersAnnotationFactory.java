@@ -1,5 +1,7 @@
 package shiver.me.timbers.junit.runner.servlet.configuration.filter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import shiver.me.timbers.junit.runner.servlet.FilterDetail;
 import shiver.me.timbers.junit.runner.servlet.Filters;
 import shiver.me.timbers.junit.runner.servlet.SettableFilters;
@@ -15,16 +17,20 @@ import java.util.List;
  */
 public class ConfiguredFiltersAnnotationFactory implements AnnotationFactory<ContainerConfiguration, Filters> {
 
+    private final Logger log = LoggerFactory.getLogger(ConfiguredFiltersAnnotationFactory.class);
+
     @Override
     public Filters create(ContainerConfiguration annotation) {
 
         final FilterConfiguration[] configurations = annotation.filterConfigurations();
 
-        final List<FilterDetail> servletDetails = new ArrayList<>();
+        log.debug("Adding configured filters");
+        final List<FilterDetail> filterDetails = new ArrayList<>();
         for (FilterConfiguration configuration : configurations) {
-            servletDetails.add(new FilterDetail(configuration.servlet(), configuration.configuration()));
+            log.debug("Adding {}", configuration);
+            filterDetails.add(new FilterDetail(configuration.servlet(), configuration.configuration()));
         }
-
-        return new SettableFilters(servletDetails);
+        log.debug("Added {}", filterDetails);
+        return new SettableFilters(filterDetails);
     }
 }

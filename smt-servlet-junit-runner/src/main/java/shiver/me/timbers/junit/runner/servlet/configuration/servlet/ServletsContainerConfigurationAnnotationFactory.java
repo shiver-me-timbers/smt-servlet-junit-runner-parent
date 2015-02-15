@@ -1,5 +1,7 @@
 package shiver.me.timbers.junit.runner.servlet.configuration.servlet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import shiver.me.timbers.junit.runner.servlet.Servlets;
 import shiver.me.timbers.junit.runner.servlet.annotation.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.configuration.AnnotationExtractionFactory;
@@ -19,6 +21,8 @@ import javax.servlet.Servlet;
 public class ServletsContainerConfigurationAnnotationFactory
         extends AnnotationExtractionFactory<ContainerConfiguration, Servlets> implements ServletsFactory {
 
+    private final Logger log = LoggerFactory.getLogger(ServletsContainerConfigurationAnnotationFactory.class);
+
     public ServletsContainerConfigurationAnnotationFactory() {
         super(
                 new ClassAnnotationExtractor<>(ContainerConfiguration.class),
@@ -37,5 +41,7 @@ public class ServletsContainerConfigurationAnnotationFactory
                         new ConfiguredServletsAnnotationFactory()
                 )
         );
+
+        log.debug("Constructed");
     }
 }

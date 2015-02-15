@@ -5,7 +5,11 @@ import shiver.me.timbers.junit.runner.servlet.test.FilterOne;
 import shiver.me.timbers.junit.runner.servlet.test.FilterThree;
 import shiver.me.timbers.junit.runner.servlet.test.FilterTwo;
 
+import java.util.List;
+
+import static java.lang.String.format;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static shiver.me.timbers.junit.runner.servlet.test.EqualAllMatcher.equalAll;
 import static shiver.me.timbers.junit.runner.servlet.test.FilterConstants.mockAnnotatedFilters;
@@ -52,5 +56,21 @@ public class SettableFiltersTest {
 
         // Then
         assertThat(actual, equalAll(expected));
+    }
+
+    @Test
+    public void Filters_can_be_toStringed() {
+
+        // Given
+        final List<FilterDetail> list = asList(new FilterDetail(FilterOne.class), new FilterDetail(FilterTwo.class),
+                new FilterDetail(FilterThree.class));
+        final Filters filters = new SettableFilters(list);
+        final String expected = format("SettableFilters { filters = '%s' }", list);
+
+        // When
+        final String actual = filters.toString();
+
+        // Then
+        assertEquals(expected, actual);
     }
 }

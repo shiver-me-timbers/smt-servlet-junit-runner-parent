@@ -1,5 +1,8 @@
 package shiver.me.timbers.junit.runner.servlet.configuration;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.lang.reflect.Method;
 
 import static shiver.me.timbers.junit.runner.servlet.configuration.NullContainerConfiguration.NULL_CONTAINER_CONFIG;
@@ -9,6 +12,8 @@ import static shiver.me.timbers.junit.runner.servlet.configuration.NullContainer
  */
 public class MethodAnnotationContainerConfigurationFactory<C> implements ContainerConfigurationFactory<C> {
 
+    private final Logger log = LoggerFactory.getLogger(MethodAnnotationContainerConfigurationFactory.class);
+
     @SuppressWarnings("unchecked")
     @Override
     public ContainerConfiguration<C> create(Object target) {
@@ -16,16 +21,17 @@ public class MethodAnnotationContainerConfigurationFactory<C> implements Contain
         final Class<?> type = target.getClass();
 
         final Method[] methods = type.getMethods();
-
+        log.debug("Searching methods on {} for {} annotation", target, ContainerConfiguration.class);
         for (Method method : methods) {
 
             final ContainerConfiguration<C> config = getConfig(method, target);
 
             if (null != config) {
+                log.debug("{} annotation found on {}'s {} method", ContainerConfiguration.class, target, method);
                 return config;
             }
         }
-
+        log.debug("No {} annotation found on {}", ContainerConfiguration.class, target);
         return NULL_CONTAINER_CONFIG;
     }
 

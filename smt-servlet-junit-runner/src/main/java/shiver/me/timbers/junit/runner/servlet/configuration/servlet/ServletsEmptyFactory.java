@@ -1,5 +1,7 @@
 package shiver.me.timbers.junit.runner.servlet.configuration.servlet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import shiver.me.timbers.junit.runner.servlet.EmptyFactory;
 import shiver.me.timbers.junit.runner.servlet.ServletDetail;
 import shiver.me.timbers.junit.runner.servlet.Servlets;
@@ -12,8 +14,11 @@ import java.util.ArrayList;
  */
 public class ServletsEmptyFactory implements EmptyFactory<Servlets> {
 
+    private final Logger log = LoggerFactory.getLogger(ServletsEmptyFactory.class);
+
     @Override
     public Servlets create() {
+        log.debug("No servlets created.");
         return new SettableServlets(new ArrayList<ServletDetail>());
     }
 }

@@ -1,5 +1,8 @@
 package shiver.me.timbers.junit.runner.servlet.inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.lang.annotation.Annotation;
 
 /**
@@ -7,22 +10,28 @@ import java.lang.annotation.Annotation;
  */
 public class ClassAnnotationExtractor<A extends Annotation> implements AnnotationExtractor<A> {
 
+    private final Logger log = LoggerFactory.getLogger(ClassAnnotationExtractor.class);
+
     private final Class<A> annotation;
 
     public ClassAnnotationExtractor(Class<A> annotation) {
         this.annotation = annotation;
+
+        log.debug("Constructed");
     }
 
     @Override
     public A create(Class<?> type) {
 
         if (null == type || Object.class.equals(type)) {
+            log.debug("Annotation {} not found on {}", annotation, type);
             return null;
         }
 
         final A annotation = type.getAnnotation(this.annotation);
 
         if (null != annotation) {
+            log.debug("Annotation {} found on {}", annotation, type);
             return annotation;
         }
 

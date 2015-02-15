@@ -2,7 +2,11 @@ package shiver.me.timbers.junit.runner.servlet;
 
 import org.junit.Test;
 
+import java.util.List;
+
+import static java.lang.String.format;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static shiver.me.timbers.junit.runner.servlet.test.EqualAllMatcher.equalAll;
 import static shiver.me.timbers.junit.runner.servlet.test.PackageConstants.PACKAGE_ONE;
@@ -51,5 +55,20 @@ public class SettablePackagesTest {
 
         // Then
         assertThat(actual, equalAll(expected));
+    }
+
+    @Test
+    public void Packages_can_be_toStringed() {
+
+        // Given
+        final List<String> list = asList(PACKAGE_ONE, PACKAGE_TWO, PACKAGE_THREE);
+        final Packages packages = new SettablePackages(list);
+        final String expected = format("SettablePackages { packages = '%s' }", list);
+
+        // When
+        final String actual = packages.toString();
+
+        // Then
+        assertEquals(expected, actual);
     }
 }
