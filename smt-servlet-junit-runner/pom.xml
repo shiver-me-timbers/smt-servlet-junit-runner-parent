@@ -46,6 +46,15 @@
         A JUnit runner that can be used to start up different JEE servlet containers before a test run.
     </description>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
         <!-- Some annotations are reused from the JEE servlet API. -->
         <dependency>

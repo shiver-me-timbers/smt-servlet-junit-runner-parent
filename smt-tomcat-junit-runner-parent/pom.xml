@@ -42,15 +42,30 @@
 
     <name>${project.artifactId}</name>
 
-    <description>The parent of the Tomcat JUnit runners, it contains the all common dependencies and helps group the
+    <description>
+        The parent of the Tomcat JUnit runners, it contains the all common dependencies and helps group the
         child projects.
     </description>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencies>
         <dependency>
             <groupId>com.github.shiver-me-timbers</groupId>
             <artifactId>smt-servlet-junit-runner</artifactId>
             <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jul-to-slf4j</artifactId>
+            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.shiver-me-timbers</groupId>

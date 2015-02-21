@@ -17,14 +17,7 @@
 
 package shiver.me.timbers.junit.runner.tomcat;
 
-import org.apache.catalina.Context;
-import org.apache.catalina.Engine;
-import org.apache.catalina.LifecycleException;
-import org.apache.catalina.Wrapper;
-import org.apache.catalina.startup.Tomcat;
 import org.apache.commons.io.IOUtils;
-import org.apache.tomcat.JarScanner;
-import org.apache.tomcat.JarScannerCallback;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 import shiver.me.timbers.junit.runner.servlet.Container;
 import shiver.me.timbers.junit.runner.servlet.FilterDetail;
@@ -33,11 +26,8 @@ import shiver.me.timbers.junit.runner.servlet.ServletDetail;
 import shiver.me.timbers.junit.runner.servlet.Servlets;
 import shiver.me.timbers.junit.runner.servlet.configuration.ContainerConfiguration;
 import shiver.me.timbers.junit.runner.servlet.configuration.port.PortConfiguration;
-import shiver.me.timbers.junit.runner.tomcat.filter.FilterDetailFilterDef;
-import shiver.me.timbers.junit.runner.tomcat.filter.FilterDetailFilterMap;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
+import javax.servlet.DispatcherType;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -45,19 +35,20 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.nio.file.Files;
-import java.util.Set;
 import java.util.concurrent.Callable;
 
+import static java.lang.String.format;
 import static java.util.Map.Entry;
 
 /**
  * @author Karl Bennett
  */
-public class TomcatContainer implements Container<Tomcat> {
+public class TomcatContainer<D, FD extends FilterDefWrapper, FM extends FilterMapWrapper> implements Container<D> {
 
-    private final Tomcat tomcat;
-    private final Context context;
-    private int identityHash;
+    private final TomcatWrapper<D, FD, FM> tomcat;
+    private final ContextWrapper<FD, FM> context;
+
+    private final int identityHash;
 
     static {
         // Override the normal Tomcat Juli logging with slf4j.
@@ -65,7 +56,7 @@ public class TomcatContainer implements Container<Tomcat> {
         SLF4JBridgeHandler.install();
     }
 
-    public TomcatContainer(Tomcat tomcat) throws ServletException {
+    public TomcatContainer(TomcatWrapper<D, FD, FM> tomcat, JarScannerWrapper jarScanner) {
         this.tomcat = tomcat;
 
         identityHash = System.identityHashCode(tomcat);
@@ -73,19 +64,16 @@ public class TomcatContainer implements Container<Tomcat> {
         // Give the Tomcat engine instance a unique name so that it's global MBeans don't clash with other Tomcats in
         // this JVM.
         setUniqueEngineName(this.tomcat, identityHash);
+
         context = this.tomcat.addWebapp(this.tomcat.getHost(), "/", "/");
         // Disable the Jar scanning so that only the classes that are configured in the test are loaded and the Tomcat
         // startup time is drastically decreased.
-        context.setJarScanner(new JarScanner() {
-            @Override
-            public void scan(ServletContext ct, ClassLoader cl, JarScannerCallback cb, Set<String> jts) {
-            }
-        });
+        context.setJarScanner(jarScanner);
     }
 
-    private static void setUniqueEngineName(Tomcat tomcat, int instanchHash) {
-        final Engine engine = tomcat.getEngine();
-        engine.setName(engine.getName() + instanchHash);
+    private static void setUniqueEngineName(TomcatWrapper wrapper, int identityHash) {
+        final EngineWrapper engine = wrapper.getEngine();
+        engine.setName(format("%s%d", engine.getName(), identityHash));
     }
 
     @Override
@@ -94,8 +82,8 @@ public class TomcatContainer implements Container<Tomcat> {
     }
 
     @Override
-    public void configure(ContainerConfiguration<Tomcat> containerConfiguration) {
-        containerConfiguration.configure(tomcat);
+    public void configure(ContainerConfiguration<D> containerConfiguration) {
+        containerConfiguration.configure(tomcat.getDelegate());
     }
 
     @Override
@@ -105,13 +93,13 @@ public class TomcatContainer implements Container<Tomcat> {
 
             final String name = servletDetail.getName();
 
-            final Wrapper wrapper = Tomcat.addServlet(context, name, servletDetail.getServlet().getName());
+            final ServletWrapper wrapper = tomcat.addServlet(name, servletDetail.getServletInstance());
 
             applyDetails(wrapper, servletDetail);
         }
     }
 
-    private static void applyDetails(Wrapper wrapper, ServletDetail servletDetail) {
+    private static void applyDetails(ServletWrapper wrapper, ServletDetail servletDetail) {
 
         wrapper.setLoadOnStartup(servletDetail.loadOnStartup());
         wrapper.setAsyncSupported(servletDetail.asyncSupported());
@@ -129,9 +117,51 @@ public class TomcatContainer implements Container<Tomcat> {
     public void load(Filters filters) {
 
         for (FilterDetail filterDetail : filters) {
-            context.addFilterDef(new FilterDetailFilterDef(filterDetail));
-            context.addFilterMap(new FilterDetailFilterMap(filterDetail));
+            context.addFilterDef(populateFilterDef(filterDetail));
+            context.addFilterMap(populateFilterMap(filterDetail));
         }
+    }
+
+    private FD populateFilterDef(FilterDetail filterDetail) {
+
+        final FD filterDef = context.createFilterDef();
+
+        filterDef.setFilter(filterDetail.getFilterInstance());
+        filterDef.setDescription(filterDetail.getDescription());
+        filterDef.setDisplayName(filterDetail.getDisplayName());
+        filterDef.setFilterName(filterDetail.getFilterName());
+        filterDef.setSmallIcon(filterDetail.getSmallIcon());
+        filterDef.setLargeIcon(filterDetail.getLargeIcon());
+        filterDef.setAsyncSupported(String.valueOf(filterDetail.asyncSupported()));
+
+        for (Entry<String, String> initParam : filterDetail.getInitParams().entrySet()) {
+            filterDef.addInitParameter(initParam.getKey(), initParam.getValue());
+        }
+
+        return filterDef;
+    }
+
+    private FM populateFilterMap(FilterDetail filterDetail) {
+
+        final FM filterMap = context.createFilterMap();
+
+        filterMap.setFilterName(filterDetail.getFilterName());
+
+        for (String servletName : filterDetail.getServletNames()) {
+            filterMap.addServletName(servletName);
+        }
+
+        for (String urlPattern : filterDetail.getUrlPatterns()) {
+            filterMap.addURLPattern(urlPattern);
+        }
+
+        // Each call to FilterMap.setDispatcher(String) with a different DispatcherType actually sets a bit flag for
+        // each type.
+        for (DispatcherType dispatcherType : filterDetail.getDispatcherTypes()) {
+            filterMap.setDispatcher(dispatcherType.name());
+        }
+
+        return filterMap;
     }
 
     @Override
@@ -193,7 +223,7 @@ public class TomcatContainer implements Container<Tomcat> {
     public void start() {
         withException(new Callable<Void>() {
             @Override
-            public Void call() throws LifecycleException {
+            public Void call() throws Exception {
                 tomcat.start();
                 return null;
             }
@@ -204,7 +234,7 @@ public class TomcatContainer implements Container<Tomcat> {
     public void shutdown() {
         withException(new Callable<Void>() {
             @Override
-            public Void call() throws LifecycleException {
+            public Void call() throws Exception {
                 tomcat.stop();
                 return null;
             }

@@ -44,10 +44,6 @@
 
     <description>A JUnit runner that can be used to start up a Tomcat7 server before a test run.</description>
 
-    <properties>
-        <tomcat.version>7.0.57</tomcat.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.github.shiver-me-timbers</groupId>

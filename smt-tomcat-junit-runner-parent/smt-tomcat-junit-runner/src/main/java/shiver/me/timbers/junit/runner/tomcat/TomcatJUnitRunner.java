@@ -17,18 +17,17 @@
 
 package shiver.me.timbers.junit.runner.tomcat;
 
-import org.apache.catalina.startup.Tomcat;
 import org.junit.runners.model.InitializationError;
 import shiver.me.timbers.junit.runner.servlet.AnnotationServletJUnitRunner;
-
-import javax.servlet.ServletException;
 
 /**
  * @author Karl Bennett
  */
-public class TomcatJUnitRunner extends AnnotationServletJUnitRunner<Tomcat> {
+public class TomcatJUnitRunner<D, FD extends FilterDefWrapper, FM extends FilterMapWrapper>
+        extends AnnotationServletJUnitRunner<D> {
 
-    TomcatJUnitRunner(Class test) throws InitializationError, ServletException {
-        super(new TomcatContainer(new Tomcat()), test);
+    TomcatJUnitRunner(TomcatWrapper<D, FD, FM> tomcat, JarScannerWrapper jarScanner, Class test)
+            throws InitializationError {
+        super(new TomcatContainer<>(tomcat, jarScanner), test);
     }
 }
