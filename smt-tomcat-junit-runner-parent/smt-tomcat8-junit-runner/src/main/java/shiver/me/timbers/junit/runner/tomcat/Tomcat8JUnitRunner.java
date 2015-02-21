@@ -17,9 +17,10 @@
 
 package shiver.me.timbers.junit.runner.tomcat;
 
+import org.apache.catalina.Host;
 import org.apache.catalina.startup.Tomcat;
+import org.apache.tomcat.JarScanner;
 import org.junit.runners.model.InitializationError;
-import shiver.me.timbers.junit.runner.servlet.AnnotationServletJUnitRunner;
 
 import javax.servlet.ServletException;
 
@@ -30,9 +31,9 @@ import javax.servlet.ServletException;
  *
  * @author Karl Bennett
  */
-public class Tomcat8JUnitRunner extends AnnotationServletJUnitRunner<Tomcat> {
+public class Tomcat8JUnitRunner extends TomcatJUnitRunner<Tomcat, Host, JarScanner, WrappedFilterDef, WrappedFilterMap> {
 
     public Tomcat8JUnitRunner(Class test) throws InitializationError, ServletException {
-        super(new Tomcat8Container(new Tomcat()), test);
+        super(new WrappedTomcat8(), new NullJarScanner(), test);
     }
 }
