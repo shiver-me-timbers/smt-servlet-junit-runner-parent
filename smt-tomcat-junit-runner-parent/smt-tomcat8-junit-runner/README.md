@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-smt-tomcat7-junit-runner
+smt-tomcat8-junit-runner
 ===========
 
-A JUnit runner that can be used to start up a Tomcat7 server before a test run.
+A JUnit runner that can be used to start up a Tomcat8 server before a test run.

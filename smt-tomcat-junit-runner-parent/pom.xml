@@ -30,12 +30,11 @@
 
     <parent>
         <groupId>com.github.shiver-me-timbers</groupId>
-        <artifactId>smt-parent-pom</artifactId>
+        <artifactId>smt-servlet-junit-runner-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath/>
     </parent>
 
-    <artifactId>smt-servlet-junit-runner-parent</artifactId>
+    <artifactId>smt-tomcat-junit-runner-parent</artifactId>
 
     <version>1.0-SNAPSHOT</version>
 
@@ -43,43 +42,30 @@
 
     <name>${project.artifactId}</name>
 
-    <description>
-        This is the parent project for all of the different JUnit servlet runners.
-    </description>
-
-    <url>http://shiver-me-timbers.github.io/${project.artifactId}/</url>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+    <description>A JUnit runner that can be used to start up a Tomcat7 server before a test run.</description>
 
     <dependencies>
-        <!-- The test runners are built with the JUnit API. -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>compile</scope>
+            <groupId>com.github.shiver-me-timbers</groupId>
+            <artifactId>smt-servlet-junit-runner</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.shiver-me-timbers</groupId>
+            <artifactId>smt-servlet-junit-runner-test</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.1.2</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
     <modules>
-        <module>smt-servlet-junit-runner</module>
-        <module>smt-servlet-junit-runner-test</module>
-        <module>smt-tomcat-junit-runner-parent</module>
+        <module>smt-tomcat7-junit-runner</module>
+        <module>smt-tomcat8-junit-runner</module>
     </modules>
-
-    <scm>
-        <connection>scm:git:https://github.com/shiver-me-timbers/${project.artifactId}.git</connection>
-        <developerConnection>scm:git:git@github.com:shiver-me-timbers/${project.artifactId}.git</developerConnection>
-        <url>https://github.com/shiver-me-timbers/${project.artifactId}</url>
-    </scm>
 </project>
