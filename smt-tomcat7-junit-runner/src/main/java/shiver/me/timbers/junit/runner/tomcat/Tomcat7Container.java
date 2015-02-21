@@ -107,16 +107,21 @@ public class Tomcat7Container implements Container<Tomcat> {
 
             final Wrapper wrapper = Tomcat.addServlet(context, name, servletDetail.getServlet().getName());
 
-            wrapper.setLoadOnStartup(servletDetail.loadOnStartup());
-            wrapper.setAsyncSupported(servletDetail.asyncSupported());
+            applyDetails(wrapper, servletDetail);
+        }
+    }
 
-            for (String urlPattern : servletDetail.getUrlPatterns()) {
-                wrapper.addMapping(urlPattern);
-            }
+    private static void applyDetails(Wrapper wrapper, ServletDetail servletDetail) {
 
-            for (Entry<String, String> entry : servletDetail.getInitParams().entrySet()) {
-                wrapper.addInitParameter(entry.getKey(), entry.getValue());
-            }
+        wrapper.setLoadOnStartup(servletDetail.loadOnStartup());
+        wrapper.setAsyncSupported(servletDetail.asyncSupported());
+
+        for (String urlPattern : servletDetail.getUrlPatterns()) {
+            wrapper.addMapping(urlPattern);
+        }
+
+        for (Entry<String, String> entry : servletDetail.getInitParams().entrySet()) {
+            wrapper.addInitParameter(entry.getKey(), entry.getValue());
         }
     }
 
