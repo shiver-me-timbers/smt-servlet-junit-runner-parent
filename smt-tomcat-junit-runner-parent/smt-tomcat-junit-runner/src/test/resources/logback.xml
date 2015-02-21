@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
   ~ Copyright (C) 2015  Karl Bennett
   ~
@@ -17,19 +16,15 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<project xmlns="http://maven.apache.org/DECORATION/1.3.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/DECORATION/1.3.0 http://maven.apache.org/xsd/decoration-1.3.0.xsd">
+<configuration>
 
-    <body>
-        <menu name="Overview">
-            <item name="About" href="index.html"/>
-            <item name="Documentation" href="documentation.html"/>
-            <item name="Coverage" href="jacoco/index.html"/>
-            <item name="JavaDoc" href="apidocs/index.html"/>
-            <item name="Source" href="source-repository.html"/>
-        </menu>
-    </body>
-    <version position="right"/>
-    <publishDate position="none"/>
-</project>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="ERROR">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
