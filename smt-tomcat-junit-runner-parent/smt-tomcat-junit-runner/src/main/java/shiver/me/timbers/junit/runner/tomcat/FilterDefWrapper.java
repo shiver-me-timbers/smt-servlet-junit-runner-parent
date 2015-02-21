@@ -6,6 +6,7 @@ import javax.servlet.Filter;
  * @author Karl Bennett
  */
 public interface FilterDefWrapper {
+
     void setFilter(Filter filter);
 
     void setDescription(String description);

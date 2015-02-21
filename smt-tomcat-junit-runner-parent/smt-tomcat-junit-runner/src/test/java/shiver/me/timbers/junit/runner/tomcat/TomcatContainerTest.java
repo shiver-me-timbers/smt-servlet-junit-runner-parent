@@ -53,7 +53,6 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 import static shiver.me.timbers.junit.runner.tomcat.TomcatContainer.copy;
 import static shiver.me.timbers.junit.runner.tomcat.TomcatContainer.copyAndClose;
@@ -65,25 +64,25 @@ public class TomcatContainerTest {
     public static final String WEB_XML = "web.xml";
     public static final URL WEB_XML_JAR = Thread.currentThread().getContextClassLoader().getResource(WEB_XML);
 
-    private TomcatWrapper<Object, FilterDefWrapper, FilterMapWrapper> tomcat;
-    private JarScannerWrapper jarScanner;
+    private TomcatWrapper<Object, Object, Object, FilterDefWrapper, FilterMapWrapper> tomcat;
+    private Object jarScanner;
     private EngineWrapper engine;
-    private HostWrapper host;
-    private ContextWrapper<FilterDefWrapper, FilterMapWrapper> context;
+    private Object host;
+    private ContextWrapper<Object, FilterDefWrapper, FilterMapWrapper> context;
 
     @Before
     @SuppressWarnings("unchecked")
     public void setUp() throws Exception {
 
         tomcat = mock(TomcatWrapper.class);
-        jarScanner = mock(JarScannerWrapper.class);
+        jarScanner = new Object();
         engine = mock(EngineWrapper.class);
-        host = mock(HostWrapper.class);
+        host = new Object();
         context = mock(ContextWrapper.class);
 
-        when(tomcat.getEngine()).thenReturn(engine);
+        when(tomcat.getWrappedEngine()).thenReturn(engine);
         when(tomcat.getHost()).thenReturn(host);
-        when(tomcat.addWebapp(host, "/", "/")).thenReturn(context);
+        when(tomcat.addWebApp(host, "/", "/")).thenReturn(context);
     }
 
     @Test
@@ -98,14 +97,13 @@ public class TomcatContainerTest {
         new TomcatContainer<>(tomcat, jarScanner);
 
         // Then
-        verify(tomcat).getEngine();
+        verify(tomcat).getWrappedEngine();
         verify(tomcat).getHost();
-        verify(tomcat).addWebapp(host, "/", "/");
+        verify(tomcat).addWebApp(host, "/", "/");
         verify(engine).getName();
         verify(engine).setName(matches(name + "\\d+"));
         verify(context).setJarScanner(jarScanner);
         verifyNoMoreInteractions(tomcat, engine, context);
-        verifyZeroInteractions(jarScanner, host);
     }
 
     @Test

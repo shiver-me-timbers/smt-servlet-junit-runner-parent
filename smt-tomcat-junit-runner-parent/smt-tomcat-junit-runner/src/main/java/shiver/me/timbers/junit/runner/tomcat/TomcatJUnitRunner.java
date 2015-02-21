@@ -23,10 +23,10 @@ import shiver.me.timbers.junit.runner.servlet.AnnotationServletJUnitRunner;
 /**
  * @author Karl Bennett
  */
-public class TomcatJUnitRunner<D, FD extends FilterDefWrapper, FM extends FilterMapWrapper>
+public class TomcatJUnitRunner<D, H, JS, FD extends FilterDefWrapper, FM extends FilterMapWrapper>
         extends AnnotationServletJUnitRunner<D> {
 
-    TomcatJUnitRunner(TomcatWrapper<D, FD, FM> tomcat, JarScannerWrapper jarScanner, Class test)
+    TomcatJUnitRunner(TomcatWrapper<D, H, JS, FD, FM> tomcat, JS jarScanner, Class test)
             throws InitializationError {
         super(new TomcatContainer<>(tomcat, jarScanner), test);
     }

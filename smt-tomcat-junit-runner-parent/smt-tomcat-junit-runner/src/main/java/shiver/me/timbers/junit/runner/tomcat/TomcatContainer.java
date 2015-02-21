@@ -43,10 +43,10 @@ import static java.util.Map.Entry;
 /**
  * @author Karl Bennett
  */
-public class TomcatContainer<D, FD extends FilterDefWrapper, FM extends FilterMapWrapper> implements Container<D> {
+public class TomcatContainer<D, H, JS, FD extends FilterDefWrapper, FM extends FilterMapWrapper> implements Container<D> {
 
-    private final TomcatWrapper<D, FD, FM> tomcat;
-    private final ContextWrapper<FD, FM> context;
+    private final TomcatWrapper<D, H, JS, FD, FM> tomcat;
+    private final ContextWrapper<JS, FD, FM> context;
 
     private final int identityHash;
 
@@ -56,7 +56,7 @@ public class TomcatContainer<D, FD extends FilterDefWrapper, FM extends FilterMa
         SLF4JBridgeHandler.install();
     }
 
-    public TomcatContainer(TomcatWrapper<D, FD, FM> tomcat, JarScannerWrapper jarScanner) {
+    public TomcatContainer(TomcatWrapper<D, H, JS, FD, FM> tomcat, JS jarScanner) {
         this.tomcat = tomcat;
 
         identityHash = System.identityHashCode(tomcat);
@@ -65,14 +65,14 @@ public class TomcatContainer<D, FD extends FilterDefWrapper, FM extends FilterMa
         // this JVM.
         setUniqueEngineName(this.tomcat, identityHash);
 
-        context = this.tomcat.addWebapp(this.tomcat.getHost(), "/", "/");
+        context = this.tomcat.addWebApp(this.tomcat.getHost(), "/", "/");
         // Disable the Jar scanning so that only the classes that are configured in the test are loaded and the Tomcat
         // startup time is drastically decreased.
         context.setJarScanner(jarScanner);
     }
 
     private static void setUniqueEngineName(TomcatWrapper wrapper, int identityHash) {
-        final EngineWrapper engine = wrapper.getEngine();
+        final EngineWrapper engine = wrapper.getWrappedEngine();
         engine.setName(format("%s%d", engine.getName(), identityHash));
     }
 
