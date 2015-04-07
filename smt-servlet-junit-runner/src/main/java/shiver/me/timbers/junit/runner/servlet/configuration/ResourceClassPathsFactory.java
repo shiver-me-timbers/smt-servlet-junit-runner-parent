@@ -148,7 +148,9 @@ public class ResourceClassPathsFactory implements ClassPathsFactory {
 
         final List<String> fileNames = new ArrayList<>();
 
-        for (File file : pkg.listFiles()) {
+        final File[] files = pkg.listFiles();
+
+        for (File file : files) {
 
             final String absolutePath = file.getAbsolutePath();
 

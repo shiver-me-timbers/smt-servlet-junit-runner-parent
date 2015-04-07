@@ -93,7 +93,6 @@ public class ClassPathConstants {
             "empty/place-holder");
 
     public static final String JUNIT_MATCHERS_CLASS_PATH = convertToPath(JUnitMatchers.class);
-    public static final String PACKAGE_INFO_CLASS_PATH = convertToPath(JUnitMatchers.class, "package-info.class");
 
     public static final List<String> ONE_CLASS_PATHS = toList(
             PACKAGE_FILTER_ONE_CLASS_PATH,
@@ -144,8 +143,7 @@ public class ClassPathConstants {
     );
 
     public static final List<String> JUNIT_MATCHERS_CLASS_PATHS = toList(
-            JUNIT_MATCHERS_CLASS_PATH,
-            PACKAGE_INFO_CLASS_PATH
+            JUNIT_MATCHERS_CLASS_PATH
     );
 
     public static String convertToPath(Class type) {
